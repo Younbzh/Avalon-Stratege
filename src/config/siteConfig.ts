@@ -12,13 +12,13 @@ export const siteConfig = {
     highlight: "Installation complète",
     description: "Vous êtes artisan, commerçant ou auto-entrepreneur ? Obtenez enfin votre site web professionnel sans exploser votre budget. Installation complète à 190€ + gestion totale à 39€/mois.",
     cta: "Obtenir mon devis gratuit",
-    promise: "✓ Devis gratuit ✓ Livré en 48h ✓ Pas de surprise"
+    promise: " Devis gratuit - Livré en 48h - Pas de surprise"
   },
 
   // OFFRE PRINCIPALE
   mainOffer: {
     title: "190€ – Installation Complète",
-    subtitle: "Paiement unique • Déductible d'impôts",
+    subtitle: "Paiement unique",
     description: "Tout ce qu'il faut pour être en ligne, prêt à accueillir vos clients.",
     includes: [
       {
@@ -28,7 +28,6 @@ export const siteConfig = {
           "Installation du site personnalisé",
           "Adaptation du design (couleurs, logo)",
           "Intégration de vos textes et photos",
-          "Mise en ligne sur votre hébergeur"
         ]
       },
       {
@@ -37,7 +36,7 @@ export const siteConfig = {
         items: [
           "Certificat SSL (HTTPS) activé",
           "Optimisation vitesse de chargement",
-          "Configuration du nom de domaine",
+          "Configuration du nom de domaine (optionnel)",
           "Adresse mail professionnelle (optionnel)"
         ]
       },
@@ -53,7 +52,7 @@ export const siteConfig = {
       }
     ],
     taxDeductible: true,
-    taxNote: "Les 190€ sont une charge professionnelle déductible d'impôts"
+    taxNote: "Vous ne faites rien, on s'occupe de tout !"
   },
 
   // PACK SÉRÉNITÉ
@@ -254,11 +253,11 @@ export const siteConfig = {
     },
     {
       question: "Je n'ai pas de logo, pas de photos. Vous pouvez m'aider ?",
-      answer: "Oui. Je peux vous orienter vers des solutions gratuites ou peu chères pour le logo. Pour les photos, on peut utiliser des images libres de droits en attendant que vous ayez les vôtres."
+      answer: "Oui, je propose un service optionnel de création de logo. Pour les photos, on peut utiliser des images libres de droits en attendant que vous ayez les vôtres."
     },
     {
       question: "Est-ce que les 190€ sont vraiment déductibles ?",
-      answer: "Oui, si vous êtes professionnel (auto-entrepreneur, entreprise...). C'est une charge professionnelle comme vos autres dépenses. Parlez-en à votre comptable pour confirmation."
+      answer: "Oui, si vous êtes professionnel (sauf auto-entrepreneur). C'est une charge professionnelle comme vos autres dépenses. Parlez-en à votre comptable pour confirmation."
     }
   ],
 
