@@ -1,121 +1,122 @@
 export const siteConfig = {
   // IDENTITÉ
   companyName: "Avalon Stratège",
-  tagline: "Votre présence en ligne, enfin accessible",
-  slogan: "Des sites web professionnels à prix honnête pour TPE et auto-entrepreneurs",
-  
+  tagline: "Votre business plan professionnel, enfin accessible",
+  slogan: "Des business plans professionnels à prix honnête pour TPE et auto-entrepreneurs",
+
   // HERO
   hero: {
-    title: "Votre Site Web Professionnel",
-    subtitle: "Livré en 48h, sans vous ruiner",
-    price: "190€",
-    highlight: "Installation complète",
-    description: "Vous êtes artisan, commerçant ou auto-entrepreneur ? Obtenez enfin votre site web professionnel sans exploser votre budget. Installation complète à 190€ + gestion totale à 39€/mois.",
+    title: "Votre Business Plan Professionnel",
+    subtitle: "Livré en 5 jours, sans vous ruiner",
+    price: "890€",
+    highlight: "Business plan complet",
+    description: "Vous êtes porteur de projet, artisan ou auto-entrepreneur ? Obtenez enfin votre business plan professionnel, prêt pour les banques et les investisseurs, sans exploser votre budget. Dossier complet à 890€ (contre 1 500€ à 4 000€ en cabinet).",
     cta: "Obtenir mon devis gratuit",
-    promise: " Devis gratuit - Livré en 48h - Pas de surprise"
+    promise: "✓ Devis gratuit ✓ Livré en 5 jours ✓ Pas de surprise"
   },
 
   // OFFRE PRINCIPALE
   mainOffer: {
-    title: "190€ – Installation Complète",
-    subtitle: "Paiement unique",
-    description: "Tout ce qu'il faut pour être en ligne, prêt à accueillir vos clients.",
+    title: "890€ – Business Plan Complet",
+    subtitle: "Paiement unique • Déductible d'impôts",
+    description: "Tout ce qu'il faut pour convaincre les banques, investisseurs et partenaires.",
     includes: [
       {
-        icon: "⚙️",
-        title: "Installation & Configuration",
+        icon: "📋",
+        title: "Analyse & Stratégie",
         items: [
-          "Installation du site personnalisé",
-          "Adaptation du design (couleurs, logo)",
-          "Intégration de vos textes et photos",
+          "Étude de marché et analyse concurrentielle",
+          "Définition du modèle économique (Business Model)",
+          "Positionnement et cible client",
+          "Plan marketing et stratégie commerciale"
         ]
       },
       {
-        icon: "🔒",
-        title: "Sécurité & Performance",
+        icon: "💰",
+        title: "Prévisionnel Financier",
         items: [
-          "Certificat SSL (HTTPS) activé",
-          "Optimisation vitesse de chargement",
-          "Configuration du nom de domaine (optionnel)",
-          "Adresse mail professionnelle (optionnel)"
+          "Compte de résultat prévisionnel (3 ans)",
+          "Plan de trésorerie mensuel",
+          "Bilan prévisionnel",
+          "Calcul du seuil de rentabilité"
         ]
       },
       {
-        icon: "📱",
-        title: "Livraison Clé-en-main",
+        icon: "📄",
+        title: "Document Professionnel",
         items: [
-          "Site responsive (mobile + tablette + PC)",
-          "Page d'accueil + pages essentielles",
-          "Prêt à être indexé sur Google",
-          "Livré en 24 à 48h"
+          "Executive summary percutant",
+          "Mise en forme soignée (Word + PDF)",
+          "Prêt pour les banques et Bpifrance",
+          "Livré en 5 jours ouvrables"
         ]
       }
     ],
     taxDeductible: true,
-    taxNote: "Vous ne faites rien, on s'occupe de tout !"
+    taxNote: "Les 890€ sont une charge professionnelle déductible d'impôts"
   },
 
-  // PACK SÉRÉNITÉ
+  // PACK ACCOMPAGNEMENT
   serenityPack: {
-    title: "39€/mois – Pack Sérénité",
+    title: "149€/mois – Accompagnement Stratégique",
     subtitle: "Sans engagement • Résiliable à tout moment",
-    description: "Votre site 100% géré. Vous n'avez rien à faire, on s'occupe de tout.",
+    description: "Un expert à vos côtés chaque mois pour piloter votre activité et ajuster votre stratégie.",
     includes: [
       {
-        icon: "🚀",
-        title: "Hébergement Premium",
+        icon: "📊",
+        title: "Suivi des Performances",
         items: [
-          "Serveurs rapides et sécurisés",
-          "Renouvellement annuel du domaine",
-          "Sauvegardes automatiques quotidiennes",
-          "Surveillance 24/7"
+          "Analyse mensuelle de vos indicateurs clés",
+          "Comparaison avec le prévisionnel",
+          "Tableau de bord personnalisé",
+          "Alertes et recommandations"
         ]
       },
       {
-        icon: "🛠️",
-        title: "Maintenance & Support",
+        icon: "🎯",
+        title: "Conseil Stratégique",
         items: [
-          "Mises à jour régulières du site",
-          "1 modification par mois incluse",
-          "Support par email ou message",
-          "Réponse rapide garantie"
+          "1 séance de travail mensuelle (1h)",
+          "Ajustement du business plan si nécessaire",
+          "Recommandations personnalisées",
+          "Support par email entre les séances"
         ]
       },
       {
-        icon: "🔧",
-        title: "Tranquillité d'esprit",
+        icon: "📝",
+        title: "Mise à Jour du Dossier",
         items: [
-          "Maintenance technique continue",
-          "Correction des bugs éventuels",
-          "Monitoring des performances",
-          "Vous n'avez rien à gérer"
+          "Actualisation des chiffres financiers",
+          "Adaptation aux évolutions du marché",
+          "Dossier toujours à jour pour vos démarches",
+          "Vous n'avez rien à gérer seul"
         ]
       }
     ],
     noCommitment: true,
     commitment: "Résiliable à tout moment, sans frais",
-    benefit: "Votre site reste en ligne et performant, sans effort de votre part"
+    benefit: "Votre dossier reste pertinent et votre stratégie affûtée, sans effort de votre part"
   },
 
   // POURQUOI NOUS
   whyUs: {
     title: "Pourquoi Avalon Stratège ?",
-    subtitle: "Une solution pensée pour les petits budgets",
+    subtitle: "Une solution pensée pour les petits budgets et les grands projets",
     reasons: [
       {
         icon: "💰",
         title: "Prix honnête",
-        description: "190€ pour démarrer, c'est tout. Pas de frais cachés, pas de mauvaise surprise."
+        description: "890€ pour un business plan complet, c'est tout. Pas de frais cachés, pas de mauvaise surprise."
       },
       {
         icon: "⚡",
         title: "Rapide",
-        description: "Votre site en ligne en 24 à 48h. Vous êtes pressé ? Nous aussi."
+        description: "Votre business plan livré en 5 jours ouvrables. Vous avez une échéance ? On s'adapte."
       },
       {
         icon: "🎯",
         title: "Simple",
-        description: "Pas de jargon technique. On s'occupe de tout, vous gérez votre activité."
+        description: "Pas de jargon comptable. Vous fournissez vos infos, on structure tout le reste."
       },
       {
         icon: "🤝",
@@ -125,7 +126,7 @@ export const siteConfig = {
       {
         icon: "📈",
         title: "Professionnel",
-        description: "Un site qui inspire confiance à vos clients et valorise votre activité."
+        description: "Un document qui inspire confiance aux banques, à Bpifrance et aux investisseurs."
       },
       {
         icon: "✅",
@@ -140,34 +141,34 @@ export const siteConfig = {
     title: "Cette offre est faite pour vous si...",
     profiles: [
       {
-        icon: "🔨",
-        title: "Artisan",
-        description: "Plombier, électricien, menuisier... Vous avez besoin d'être trouvé localement."
+        icon: "🚀",
+        title: "Porteur de projet",
+        description: "Vous avez une idée et souhaitez la structurer pour convaincre vos financeurs."
       },
       {
         icon: "🏪",
-        title: "Commerçant",
-        description: "Boutique, restaurant, salon... Vos clients doivent pouvoir vous trouver en ligne."
+        title: "Créateur d'entreprise",
+        description: "SARL, SAS, auto-entreprise... Vous avez besoin d'un dossier solide pour démarrer."
       },
       {
         icon: "💼",
         title: "Auto-entrepreneur",
-        description: "Coach, consultant, freelance... Vous voulez crédibiliser votre activité."
+        description: "Vous souhaitez passer à la vitesse supérieure et cherchez un financement ou un associé."
       },
       {
         icon: "🏡",
         title: "TPE / PME",
-        description: "Petite entreprise qui veut une présence web sans se ruiner."
+        description: "Vous avez besoin d'un business plan pour un nouveau produit, marché ou levée de fonds."
       },
       {
-        icon: "🚀",
-        title: "Lancement",
-        description: "Vous démarrez et avez besoin d'un site vite, bien et pas cher."
+        icon: "🏛️",
+        title: "Association",
+        description: "Vous montez un dossier de subvention et avez besoin d'une présentation financière claire."
       },
       {
         icon: "🔄",
-        title: "Refonte",
-        description: "Votre site actuel est obsolète, trop cher ou ne vous convient plus."
+        title: "Reprise d'activité",
+        description: "Vous rachetez une entreprise et devez présenter un plan de reprise convaincant."
       }
     ]
   },
@@ -175,7 +176,7 @@ export const siteConfig = {
   // PROCESSUS
   process: {
     title: "Comment ça marche ?",
-    subtitle: "4 étapes simples pour être en ligne",
+    subtitle: "4 étapes simples pour obtenir votre business plan",
     steps: [
       {
         number: "01",
@@ -189,37 +190,37 @@ export const siteConfig = {
       },
       {
         number: "03",
-        title: "Je crée votre site",
-        description: "Vous me donnez vos infos (textes, photos, logo). Je m'occupe du reste."
+        title: "On travaille ensemble",
+        description: "Vous me donnez vos informations et chiffres. Je structure et rédige tout le dossier."
       },
       {
         number: "04",
-        title: "Votre site est en ligne",
-        description: "En 24-48h, vous avez un site professionnel et vous pouvez accueillir vos clients !"
+        title: "Vous recevez votre BP",
+        description: "En 5 jours, vous avez un business plan professionnel prêt pour vos démarches !"
       }
     ]
   },
 
-  // CE QU'ILS DISENT (exemples fictifs mais réalistes)
+  // CE QU'ILS DISENT
   testimonials: {
     title: "Ce qu'ils en disent",
     reviews: [
       {
         name: "Sophie M.",
-        business: "Salon de coiffure",
-        text: "J'avais besoin d'un site rapidement et sans me ruiner. Avalon Stratège m'a livré un site nickel en 48h. Mes clients me trouvent enfin sur Google !",
+        business: "Créatrice d'une boutique de cosmétiques",
+        text: "J'avais besoin d'un business plan solide pour convaincre ma banque. Avalon Stratège m'a livré un dossier impeccable en 4 jours. Mon prêt a été accordé !",
         rating: 5
       },
       {
         name: "Thomas L.",
-        business: "Plombier auto-entrepreneur",
-        text: "Le pack à 39€/mois est parfait. Je ne m'occupe de rien, mon site est toujours à jour et si j'ai une question, j'ai une réponse rapide.",
+        business: "Artisan plombier en création",
+        text: "Je ne savais pas du tout comment faire un prévisionnel financier. Tout a été expliqué simplement et le rendu était vraiment professionnel. Je recommande.",
         rating: 5
       },
       {
         name: "Marie D.",
-        business: "Coach bien-être",
-        text: "Enfin un tarif honnête ! J'ai eu peur de me faire arnaquer avec d'autres agences qui demandaient 10 fois plus. Merci pour ce service accessible.",
+        business: "Coach bien-être auto-entrepreneur",
+        text: "Enfin un tarif honnête ! J'ai eu peur de me faire arnaquer avec d'autres cabinets qui demandaient 10 fois plus. Le business plan était parfait pour ma demande de subvention.",
         rating: 5
       }
     ]
@@ -229,35 +230,35 @@ export const siteConfig = {
   faq: [
     {
       question: "Pourquoi si peu cher ?",
-      answer: "Je travaille avec des templates professionnels que je personnalise à vos couleurs. Pas de développement sur-mesure coûteux, mais un résultat pro et efficace. Et je ne facture pas 5000€ pour faire croire que c'est du luxe."
+      answer: "Je travaille de façon efficace et structurée, avec des modèles éprouvés que j'adapte à votre projet. Pas de cabinet avec 10 intermédiaires, juste un expert qui fait le travail. Et je ne facture pas 3000€ pour faire croire que c'est du luxe."
     },
     {
       question: "Y a-t-il des frais cachés ?",
-      answer: "Non. 190€ pour l'installation, puis 39€/mois si vous voulez le pack sérénité. C'est tout. Pas de surprise, pas de frais annexes."
+      answer: "Non. 890€ pour le business plan complet, puis 149€/mois si vous voulez l'accompagnement. C'est tout. Pas de surprise, pas de frais annexes."
     },
     {
-      question: "Le pack à 39€/mois est-il obligatoire ?",
-      answer: "Non, mais fortement recommandé. Sans lui, vous devrez gérer vous-même l'hébergement, les mises à jour, la maintenance... Le pack vous libère de tout ça."
+      question: "Combien de temps ça prend ?",
+      answer: "5 jours ouvrables à partir du moment où vous m'avez fourni toutes les informations nécessaires. Si vous avez une échéance urgente, contactez-moi et on verra ce qu'on peut faire."
     },
     {
-      question: "Puis-je résilier le pack mensuel quand je veux ?",
-      answer: "Oui, sans engagement. Vous arrêtez quand vous voulez, sans frais de résiliation."
+      question: "Mon business plan sera-t-il accepté par les banques ?",
+      answer: "Le dossier est structuré selon les standards attendus par les banques et Bpifrance : executive summary, étude de marché, prévisionnel sur 3 ans, plan de trésorerie. Il maximise vos chances d'obtenir un financement."
     },
     {
-      question: "Qu'est-ce qu'une 'petite modification' incluse par mois ?",
-      answer: "Changer un texte, mettre à jour des horaires, ajouter une photo, modifier un tarif... Des petites choses qui prennent 10-15 minutes. Si c'est plus gros, on en discute."
+      question: "Que dois-je vous fournir pour démarrer ?",
+      answer: "Les informations sur votre projet (activité, cible, concurrents), vos prévisions de chiffre d'affaires si vous en avez, et vos charges estimées. Je vous envoie un questionnaire détaillé pour ne rien oublier."
     },
     {
-      question: "Est-ce que mon site sera bien référencé sur Google ?",
-      answer: "Votre site sera optimisé techniquement pour le référencement (structure, vitesse, mobile). Mais être en 1ère page demande du temps et du contenu. Je peux vous conseiller gratuitement."
+      question: "Peut-on modifier le business plan après livraison ?",
+      answer: "Une ronde de corrections est incluse dans le prix. Si des chiffres ont changé ou si vous souhaitez ajuster certains éléments, on le fait ensemble. Pour des modifications majeures ultérieures, c'est couvert par le pack mensuel."
     },
     {
-      question: "Je n'ai pas de logo, pas de photos. Vous pouvez m'aider ?",
-      answer: "Oui, je propose un service optionnel de création de logo. Pour les photos, on peut utiliser des images libres de droits en attendant que vous ayez les vôtres."
+      question: "Le pack à 149€/mois est-il obligatoire ?",
+      answer: "Non, mais il est utile si votre situation évolue rapidement ou si vous cherchez des financements sur la durée. Sans lui, votre business plan reste valable mais ne sera pas mis à jour."
     },
     {
-      question: "Est-ce que les 190€ sont vraiment déductibles ?",
-      answer: "Oui, si vous êtes professionnel (sauf auto-entrepreneur). C'est une charge professionnelle comme vos autres dépenses. Parlez-en à votre comptable pour confirmation."
+      question: "Est-ce que les 890€ sont vraiment déductibles ?",
+      answer: "Oui, si vous êtes professionnel (auto-entrepreneur, entreprise...). C'est une charge professionnelle comme vos autres dépenses. Parlez-en à votre comptable pour confirmation."
     }
   ],
 
@@ -266,9 +267,9 @@ export const siteConfig = {
     title: "Mes engagements",
     items: [
       "✓ Devis gratuit et transparent",
-      "✓ Livraison en 24 à 48h",
-      "✓ Site responsive (mobile/tablette/PC)",
-      "✓ Support réactif",
+      "✓ Livraison en 5 jours ouvrables",
+      "✓ Format Word + PDF inclus",
+      "✓ Une ronde de corrections incluse",
       "✓ Pas de frais cachés",
       "✓ Résiliation libre du pack mensuel"
     ]
@@ -276,7 +277,7 @@ export const siteConfig = {
 
   // CONTACT
   contact: {
-    title: "Prêt à lancer votre site ?",
+    title: "Prêt à lancer votre projet ?",
     subtitle: "Contactez-moi pour un devis gratuit",
     email: "avalonstratege@gmail.com",
     phone: "06 58 96 89 59",
@@ -294,16 +295,16 @@ export const siteConfig = {
 
   // SEO
   seo: {
-    title: "Avalon Stratège - Sites Web Pros pour TPE à 190€",
-    description: "Création de sites web professionnels pour artisans, commerçants et auto-entrepreneurs. Installation complète 190€ + gestion 39€/mois sans engagement. Livraison en 48h.",
-    keywords: "création site web, site pas cher, site TPE, site artisan, site auto-entrepreneur, site internet professionnel, 190 euros, hébergement web, maintenance site"
+    title: "Avalon Stratège - Business Plan Pro pour TPE à 890€",
+    description: "Création de business plans professionnels pour porteurs de projet, artisans et auto-entrepreneurs. Dossier complet 890€ + accompagnement 149€/mois sans engagement. Livraison en 5 jours.",
+    keywords: "business plan, business plan pas cher, business plan TPE, business plan auto-entrepreneur, prévisionnel financier, étude de marché, dossier banque, création entreprise"
   },
 
   // THÈME
   theme: {
-    primary: "blue", // Bleu confiance
-    secondary: "indigo", // Indigo professionnel
-    accent: "green", // Vert validation/succès
-    mode: "light" // Mode clair pour inspirer confiance
+    primary: "blue",
+    secondary: "indigo",
+    accent: "green",
+    mode: "light"
   }
 };

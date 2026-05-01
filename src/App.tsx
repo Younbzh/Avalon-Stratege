@@ -374,8 +374,8 @@ export default function App() {
             <div>
               <h3 className="text-xl font-bold mb-4 text-blue-400">Offre</h3>
               <div className="space-y-2 text-gray-400">
-                <p>Installation : 190€</p>
-                <p>Pack Sérénité : 39€/mois</p>
+                <p>Business plan complet : 890€</p>
+                <p>Accompagnement : 149€/mois</p>
                 <p className="text-green-400 font-semibold">Sans engagement</p>
               </div>
             </div>
