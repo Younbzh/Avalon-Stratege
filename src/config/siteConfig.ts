@@ -1,310 +1,240 @@
+/**
+ * Contenu du site Avalon.
+ *
+ * Règle de rédaction : le lecteur est un artisan qui vient de créer sa boîte.
+ * Il ne sait pas ce qu'est un CMS, un hébergement ou une balise title, et il n'a
+ * aucune raison de l'apprendre. Chaque phrase doit être comprise par quelqu'un
+ * qui n'a jamais eu de site, sans sonner naïf pour autant, puisque c'est aussi
+ * ce texte qui doit inspirer l'expertise.
+ */
+
 export const siteConfig = {
-  // IDENTITÉ
-  companyName: "Avalon Stratège",
-  tagline: "Votre business plan professionnel, enfin accessible",
-  slogan: "Des business plans professionnels à prix honnête pour TPE et auto-entrepreneurs",
+  marque: 'Avalon Stratège',
+  signature: 'Sites internet pour artisans et indépendants, partout en France',
+  url: 'https://www.avalonstratege.fr',
 
-  // HERO
+  coordonnees: {
+    telephone: '06 58 96 89 59',
+    email: 'avalonstratege@gmail.com',
+    zone: 'Partout en France · tout se fait à distance',
+    delai: '24h',
+  },
+
   hero: {
-    title: "Votre Business Plan Professionnel",
-    subtitle: "Livré en 5 jours, sans vous ruiner",
-    price: "890€",
-    highlight: "Business plan complet",
-    description: "Vous êtes porteur de projet, artisan ou auto-entrepreneur ? Obtenez enfin votre business plan professionnel, prêt pour les banques et les investisseurs, sans exploser votre budget. Dossier complet à 890€ (contre 1 500€ à 4 000€ en cabinet).",
-    cta: "Obtenir mon devis gratuit",
-    promise: "✓ Devis gratuit ✓ Livré en 5 jours ✓ Pas de surprise"
-  },
-
-  // OFFRE PRINCIPALE
-  mainOffer: {
-    title: "890€ – Business Plan Complet",
-    subtitle: "Paiement unique • Déductible d'impôts",
-    description: "Tout ce qu'il faut pour convaincre les banques, investisseurs et partenaires.",
-    includes: [
-      {
-        icon: "📋",
-        title: "Analyse & Stratégie",
-        items: [
-          "Étude de marché et analyse concurrentielle",
-          "Définition du modèle économique (Business Model)",
-          "Positionnement et cible client",
-          "Plan marketing et stratégie commerciale"
-        ]
-      },
-      {
-        icon: "💰",
-        title: "Prévisionnel Financier",
-        items: [
-          "Compte de résultat prévisionnel (3 ans)",
-          "Plan de trésorerie mensuel",
-          "Bilan prévisionnel",
-          "Calcul du seuil de rentabilité"
-        ]
-      },
-      {
-        icon: "📄",
-        title: "Document Professionnel",
-        items: [
-          "Executive summary percutant",
-          "Mise en forme soignée (Word + PDF)",
-          "Prêt pour les banques et Bpifrance",
-          "Livré en 5 jours ouvrables"
-        ]
-      }
+    accroche: 'Artisans & indépendants · partout en France',
+    titre: 'Le site qui vous fait',
+    titreAccent: 'trouver',
+    titreFin: 'Pas juste exister.',
+    chapo:
+      'Quand quelqu’un cherche votre métier dans votre commune, il tombe sur un concurrent ou sur vous. C’est le seul enjeu, et c’est le seul que je traite.',
+    ctaPrincipal: 'Voir des sites en ligne',
+    ctaSecondaire: 'Parler de mon projet',
+    preuves: [
+      { valeur: '48h', label: 'pour voir votre site' },
+      { valeur: '490 €', label: 'à partir de' },
+      { valeur: '0 €', label: 'avant d’avoir vu le résultat' },
     ],
-    taxDeductible: true,
-    taxNote: "Les 890€ sont une charge professionnelle déductible d'impôts"
   },
 
-  // PACK ACCOMPAGNEMENT
-  serenityPack: {
-    title: "149€/mois – Accompagnement Stratégique",
-    subtitle: "Sans engagement • Résiliable à tout moment",
-    description: "Un expert à vos côtés chaque mois pour piloter votre activité et ajuster votre stratégie.",
-    includes: [
+  constat: {
+    surtitre: 'Le vrai sujet',
+    titre: 'Vos clients vous cherchent déjà. La question, c’est ce qu’ils trouvent.',
+    points: [
       {
-        icon: "📊",
-        title: "Suivi des Performances",
-        items: [
-          "Analyse mensuelle de vos indicateurs clés",
-          "Comparaison avec le prévisionnel",
-          "Tableau de bord personnalisé",
-          "Alertes et recommandations"
-        ]
+        titre: 'On vous cherche sur Google',
+        texte:
+          'Quelqu’un qui a besoin d’un artisan tape son métier et sa commune sur son téléphone. Si vous n’apparaissez pas dans les premiers résultats, vous n’existez pas pour lui, même si vous êtes le meilleur du secteur.',
       },
       {
-        icon: "🎯",
-        title: "Conseil Stratégique",
-        items: [
-          "1 séance de travail mensuelle (1h)",
-          "Ajustement du business plan si nécessaire",
-          "Recommandations personnalisées",
-          "Support par email entre les séances"
-        ]
+        titre: 'Une page Facebook ne suffit pas',
+        texte:
+          'Elle sert à ceux qui vous connaissent déjà. Elle ne remonte presque jamais dans une recherche Google, elle ne dit ni vos tarifs ni votre zone, et elle appartient à Facebook, pas à vous.',
       },
       {
-        icon: "📝",
-        title: "Mise à Jour du Dossier",
-        items: [
-          "Actualisation des chiffres financiers",
-          "Adaptation aux évolutions du marché",
-          "Dossier toujours à jour pour vos démarches",
-          "Vous n'avez rien à gérer seul"
-        ]
-      }
+        titre: 'Un beau site qu’on ne trouve pas ne sert à rien',
+        texte:
+          'C’est là que la plupart des sites d’artisans échouent. Le vôtre sera écrit pour être trouvé sur « votre métier + votre commune », et pour donner envie d’appeler une fois trouvé.',
+      },
     ],
-    noCommitment: true,
-    commitment: "Résiliable à tout moment, sans frais",
-    benefit: "Votre dossier reste pertinent et votre stratégie affûtée, sans effort de votre part"
   },
 
-  // POURQUOI NOUS
-  whyUs: {
-    title: "Pourquoi Avalon Stratège ?",
-    subtitle: "Une solution pensée pour les petits budgets et les grands projets",
-    reasons: [
+  offres: {
+    surtitre: 'Ce que ça coûte',
+    titre: 'Un prix annoncé, aucune surprise.',
+    chapo:
+      'Vous payez une fois pour le site. L’entretien mensuel est facultatif, sans engagement, et vous pouvez l’arrêter quand vous voulez.',
+    liste: [
       {
-        icon: "💰",
-        title: "Prix honnête",
-        description: "890€ pour un business plan complet, c'est tout. Pas de frais cachés, pas de mauvaise surprise."
+        nom: 'Essentiel',
+        prix: '490',
+        unite: '€',
+        mention: 'paiement unique',
+        pour: 'Pour exister proprement en ligne.',
+        inclus: [
+          'Un site complet, sur une page fluide',
+          'Vos prestations, votre zone, vos coordonnées',
+          'Rapide et lisible sur téléphone',
+          'Vos photos intégrées',
+          'En ligne sous 5 jours',
+        ],
+        recommande: false,
       },
       {
-        icon: "⚡",
-        title: "Rapide",
-        description: "Votre business plan livré en 5 jours ouvrables. Vous avez une échéance ? On s'adapte."
+        nom: 'Pro',
+        prix: '690',
+        unite: '€',
+        mention: 'paiement unique',
+        pour: 'Pour être trouvé et recevoir des demandes.',
+        inclus: [
+          'Tout l’Essentiel, plus :',
+          'Référencement local sur « votre métier + vos communes »',
+          'Votre fiche Google créée et reliée au site',
+          'Galerie de vos chantiers ou réalisations',
+          'Formulaire de demande de devis',
+          'Les questions de vos clients traitées sur la page',
+        ],
+        recommande: true,
       },
-      {
-        icon: "🎯",
-        title: "Simple",
-        description: "Pas de jargon comptable. Vous fournissez vos infos, on structure tout le reste."
-      },
-      {
-        icon: "🤝",
-        title: "À l'écoute",
-        description: "Support réactif par email ou téléphone. Une vraie personne vous répond."
-      },
-      {
-        icon: "📈",
-        title: "Professionnel",
-        description: "Un document qui inspire confiance aux banques, à Bpifrance et aux investisseurs."
-      },
-      {
-        icon: "✅",
-        title: "Sans risque",
-        description: "Pack mensuel sans engagement. Vous arrêtez quand vous voulez."
-      }
-    ]
+    ],
+    /*
+      Le déroulé du paiement est affiché sous les prix, et pas seulement dans la
+      FAQ : « c'est gratuit » et « la moitié à la commande » se contredisent tant
+      que l'ordre des étapes n'est pas dit. Sur une page qui parle d'argent, cette
+      ambiguïté-là coûte la confiance.
+    */
+    paiement: {
+      titre: 'Quand payez-vous ?',
+      etapes: [
+        { quand: 'À la maquette', combien: '0 €', detail: 'Vous voyez votre site avant de vous engager.' },
+        { quand: 'À la commande', combien: '50 %', detail: 'Le jour où vous décidez de lancer.' },
+        { quand: 'À la mise en ligne', combien: '50 %', detail: 'Une fois le site en service.' },
+      ],
+    },
+
+    entretien: {
+      nom: 'Entretien',
+      prix: '49',
+      unite: '€ / mois',
+      mention: 'sans engagement · résiliable à tout moment',
+      pour: 'Pour ne plus jamais y penser.',
+      inclus: [
+        'Hébergement et nom de domaine compris',
+        'Vos modifications faites par moi sous 48h : textes, photos, tarifs, horaires',
+        'Votre fiche Google tenue à jour',
+        'Sauvegardes et mises à jour techniques',
+        'Chaque mois, un point clair : combien de visites, combien d’appels',
+      ],
+      note:
+        'Facultatif. Sans entretien le site reste le vôtre : c’est vous qui gérez l’hébergement et les modifications.',
+    },
   },
 
-  // POUR QUI
-  target: {
-    title: "Cette offre est faite pour vous si...",
-    profiles: [
+  methode: {
+    surtitre: 'Comment ça se passe',
+    titre: 'Vous n’avez rien à préparer.',
+    chapo:
+      'Vous n’écrivez pas les textes, vous ne choisissez pas les couleurs, vous ne créez aucun compte. Vous parlez de votre métier, je m’occupe du reste.',
+    etapes: [
       {
-        icon: "🚀",
-        title: "Porteur de projet",
-        description: "Vous avez une idée et souhaitez la structurer pour convaincre vos financeurs."
+        titre: 'On discute vingt minutes',
+        texte:
+          'Un simple appel. Ce que vous faites, où vous intervenez, quel genre de clients vous cherchez. Ça suffit pour démarrer, et il n’y a pas de rendez-vous à caler.',
       },
       {
-        icon: "🏪",
-        title: "Créateur d'entreprise",
-        description: "SARL, SAS, auto-entreprise... Vous avez besoin d'un dossier solide pour démarrer."
+        titre: 'Je vous montre le site',
+        texte:
+          'Sous 48h vous recevez un lien. Votre nom, votre métier, votre commune : c’est déjà votre site, pas une maquette vide. Gratuit, et sans aucun engagement de votre part.',
       },
       {
-        icon: "💼",
-        title: "Auto-entrepreneur",
-        description: "Vous souhaitez passer à la vitesse supérieure et cherchez un financement ou un associé."
+        titre: 'Vous décidez, on ajuste',
+        texte:
+          'Si ça vous plaît, on lance : la moitié à la commande, la moitié le jour de la mise en ligne. Vous m’envoyez vos photos et vos corrections, et on reprend autant de fois qu’il faut.',
       },
       {
-        icon: "🏡",
-        title: "TPE / PME",
-        description: "Vous avez besoin d'un business plan pour un nouveau produit, marché ou levée de fonds."
+        titre: 'Mise en ligne',
+        texte:
+          'Je m’occupe du nom de domaine, de la mise en ligne et de votre fiche Google. Aucune démarche technique de votre côté, et rien à installer.',
       },
-      {
-        icon: "🏛️",
-        title: "Association",
-        description: "Vous montez un dossier de subvention et avez besoin d'une présentation financière claire."
-      },
-      {
-        icon: "🔄",
-        title: "Reprise d'activité",
-        description: "Vous rachetez une entreprise et devez présenter un plan de reprise convaincant."
-      }
-    ]
+    ],
   },
 
-  // PROCESSUS
-  process: {
-    title: "Comment ça marche ?",
-    subtitle: "4 étapes simples pour obtenir votre business plan",
-    steps: [
+  exemples: {
+    surtitre: 'Des sites en service',
+    titre: 'Regardez le travail, pas les promesses.',
+    chapo: 'Quatre sites réalisés et en ligne aujourd’hui. Ouvrez-les depuis votre téléphone.',
+    liste: [
       {
-        number: "01",
-        title: "Vous me contactez",
-        description: "Email ou téléphone, comme vous préférez. On discute de votre projet gratuitement."
+        nom: 'Ô Gourmandiz d’Aurore',
+        metier: 'Pâtisserie artisanale sur commande',
+        lieu: 'La Motte (22)',
+        url: 'https://ogourmandizdaurore.com',
       },
       {
-        number: "02",
-        title: "Je vous envoie un devis",
-        description: "Clair, détaillé, sans surprise. Vous validez si ça vous convient."
+        nom: 'Yann Berthelot',
+        metier: 'Conseiller en neuro-nutrition',
+        lieu: 'Bretagne',
+        url: 'https://yann-berthelot-nutrition.com',
       },
       {
-        number: "03",
-        title: "On travaille ensemble",
-        description: "Vous me donnez vos informations et chiffres. Je structure et rédige tout le dossier."
+        nom: 'Bourdon Nettoyage',
+        metier: 'Nettoyage professionnel',
+        lieu: 'Crédin (56)',
+        url: 'https://bourdon-nettoyage.vercel.app',
       },
       {
-        number: "04",
-        title: "Vous recevez votre BP",
-        description: "En 5 jours, vous avez un business plan professionnel prêt pour vos démarches !"
-      }
-    ]
+        nom: 'Nail.art.rox by Dina',
+        metier: 'Prothésiste ongulaire',
+        lieu: 'Moréac (56)',
+        url: 'https://nail-art-rox.com',
+      },
+    ],
   },
 
-  // CE QU'ILS DISENT
-  testimonials: {
-    title: "Ce qu'ils en disent",
-    reviews: [
+  faq: {
+    surtitre: 'Ce qu’on me demande',
+    titre: 'Les questions que vous vous posez sûrement.',
+    questions: [
       {
-        name: "Sophie M.",
-        business: "Créatrice d'une boutique de cosmétiques",
-        text: "J'avais besoin d'un business plan solide pour convaincre ma banque. Avalon Stratège m'a livré un dossier impeccable en 4 jours. Mon prêt a été accordé !",
-        rating: 5
+        q: 'Je n’y connais rien en informatique. C’est un problème ?',
+        r: 'Non, c’est la situation normale de mes clients. Aucun compte à créer, aucun logiciel à installer, aucun mot de passe à retenir. Vous me parlez de votre métier, je m’occupe de tout le reste.',
       },
       {
-        name: "Thomas L.",
-        business: "Artisan plombier en création",
-        text: "Je ne savais pas du tout comment faire un prévisionnel financier. Tout a été expliqué simplement et le rendu était vraiment professionnel. Je recommande.",
-        rating: 5
+        q: 'Le site m’appartient vraiment ?',
+        r: 'Oui. Le nom de domaine est déposé à votre nom et le site est le vôtre. Si un jour vous arrêtez l’entretien ou changez de prestataire, vous repartez avec.',
       },
       {
-        name: "Marie D.",
-        business: "Coach bien-être auto-entrepreneur",
-        text: "Enfin un tarif honnête ! J'ai eu peur de me faire arnaquer avec d'autres cabinets qui demandaient 10 fois plus. Le business plan était parfait pour ma demande de subvention.",
-        rating: 5
-      }
-    ]
+        q: 'Pourquoi 490 € quand d’autres demandent 3 000 € ?',
+        r: 'Parce que je ne repars pas de zéro à chaque fois. J’ai construit une base solide que j’adapte à votre métier et à votre commune. Vous payez le travail utile (les textes, le référencement, la mise en ligne) et pas des heures de développement que personne ne verra.',
+      },
+      {
+        q: 'Et si le résultat ne me plaît pas ?',
+        r: 'Vous ne payez rien. Le premier site que je vous montre est gratuit et sans engagement : si ça ne vous convient pas, on s’arrête là, sans discussion et sans frais. Le paiement ne commence que le jour où vous décidez de lancer.',
+      },
+      {
+        q: 'L’entretien à 49 €/mois est-il obligatoire ?',
+        r: 'Jamais. Il est utile si vous ne voulez gérer ni l’hébergement ni les modifications, et si vous voulez que votre fiche Google reste vivante. Vous pouvez le prendre plus tard, ou l’arrêter quand vous voulez : il n’y a aucun engagement.',
+      },
+      {
+        q: 'Combien de temps avant d’être visible sur Google ?',
+        r: 'Le site est en ligne en quelques jours. Pour la recherche locale, comptez quelques semaines : c’est le temps que Google mette vos pages en avant. Votre fiche Google Business, elle, peut apparaître en quelques jours.',
+      },
+      {
+        q: 'Vous travaillez partout en France ?',
+        r: 'Oui, et tout se passe à distance : un appel pour comprendre votre métier, un lien pour voir votre site, des photos que vous m’envoyez par mail ou par message. Vous n’avez pas de rendez-vous à caler ni de déplacement à prévoir : c’est plus rapide pour vous comme pour moi.',
+      },
+      {
+        q: 'Comment se passe le paiement ?',
+        r: 'En deux fois, toujours : la moitié à la commande, c’est-à-dire une fois que le site vous a été montré et qu’il vous convient, puis la moitié le jour de la mise en ligne. Rien n’est demandé avant. La facture est une charge déductible pour votre entreprise.',
+      },
+    ],
   },
 
-  // FAQ
-  faq: [
-    {
-      question: "Pourquoi si peu cher ?",
-      answer: "Je travaille de façon efficace et structurée, avec des modèles éprouvés que j'adapte à votre projet. Pas de cabinet avec 10 intermédiaires, juste un expert qui fait le travail. Et je ne facture pas 3000€ pour faire croire que c'est du luxe."
-    },
-    {
-      question: "Y a-t-il des frais cachés ?",
-      answer: "Non. 890€ pour le business plan complet, puis 149€/mois si vous voulez l'accompagnement. C'est tout. Pas de surprise, pas de frais annexes."
-    },
-    {
-      question: "Combien de temps ça prend ?",
-      answer: "5 jours ouvrables à partir du moment où vous m'avez fourni toutes les informations nécessaires. Si vous avez une échéance urgente, contactez-moi et on verra ce qu'on peut faire."
-    },
-    {
-      question: "Mon business plan sera-t-il accepté par les banques ?",
-      answer: "Le dossier est structuré selon les standards attendus par les banques et Bpifrance : executive summary, étude de marché, prévisionnel sur 3 ans, plan de trésorerie. Il maximise vos chances d'obtenir un financement."
-    },
-    {
-      question: "Que dois-je vous fournir pour démarrer ?",
-      answer: "Les informations sur votre projet (activité, cible, concurrents), vos prévisions de chiffre d'affaires si vous en avez, et vos charges estimées. Je vous envoie un questionnaire détaillé pour ne rien oublier."
-    },
-    {
-      question: "Peut-on modifier le business plan après livraison ?",
-      answer: "Une ronde de corrections est incluse dans le prix. Si des chiffres ont changé ou si vous souhaitez ajuster certains éléments, on le fait ensemble. Pour des modifications majeures ultérieures, c'est couvert par le pack mensuel."
-    },
-    {
-      question: "Le pack à 149€/mois est-il obligatoire ?",
-      answer: "Non, mais il est utile si votre situation évolue rapidement ou si vous cherchez des financements sur la durée. Sans lui, votre business plan reste valable mais ne sera pas mis à jour."
-    },
-    {
-      question: "Est-ce que les 890€ sont vraiment déductibles ?",
-      answer: "Oui, si vous êtes professionnel (auto-entrepreneur, entreprise...). C'est une charge professionnelle comme vos autres dépenses. Parlez-en à votre comptable pour confirmation."
-    }
-  ],
-
-  // GARANTIES
-  guarantees: {
-    title: "Mes engagements",
-    items: [
-      "✓ Devis gratuit et transparent",
-      "✓ Livraison en 5 jours ouvrables",
-      "✓ Format Word + PDF inclus",
-      "✓ Une ronde de corrections incluse",
-      "✓ Pas de frais cachés",
-      "✓ Résiliation libre du pack mensuel"
-    ]
-  },
-
-  // CONTACT
   contact: {
-    title: "Prêt à lancer votre projet ?",
-    subtitle: "Contactez-moi pour un devis gratuit",
-    email: "avalonstratege@gmail.com",
-    phone: "06 58 96 89 59",
-    cta: "Demander un devis gratuit",
-    availability: "Réponse sous 24h maximum"
+    surtitre: 'On en parle',
+    titre: 'Vingt minutes suffisent pour savoir si ça vaut le coup.',
+    chapo:
+      'Appelez, ou écrivez-moi. Je réponds sous 24h et je vous dis franchement si un site vous sera utile, ou pas.',
   },
-
-  // INFOS PRATIQUES
-  legalInfo: {
-    companyName: "Avalon Stratège",
-    email: "avalonstratege@gmail.com",
-    phone: "06 58 96 89 59",
-    siret: "À compléter si nécessaire"
-  },
-
-  // SEO
-  seo: {
-    title: "Avalon Stratège - Business Plan Pro pour TPE à 890€",
-    description: "Création de business plans professionnels pour porteurs de projet, artisans et auto-entrepreneurs. Dossier complet 890€ + accompagnement 149€/mois sans engagement. Livraison en 5 jours.",
-    keywords: "business plan, business plan pas cher, business plan TPE, business plan auto-entrepreneur, prévisionnel financier, étude de marché, dossier banque, création entreprise"
-  },
-
-  // THÈME
-  theme: {
-    primary: "blue",
-    secondary: "indigo",
-    accent: "green",
-    mode: "light"
-  }
 };
+
+export type SiteConfig = typeof siteConfig;

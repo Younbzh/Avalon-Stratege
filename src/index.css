@@ -1,56 +1,172 @@
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/inter-tight';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Système visuel d'Avalon.
+
+  Intention : encre profonde, ivoire, un seul or. Le raffinement vient de la
+  retenue — une couleur d'accent, beaucoup d'air, des filets d'un pixel — et non
+  d'effets accumulés. Fraunces en titrage pour la chaleur d'une antique, Inter
+  Tight en texte courant pour la netteté.
+
+  Les polices sont auto-hébergées : aucune requête vers Google, rien à déclarer.
+*/
+:root {
+  --encre: #08090C;
+  --encre-2: #0D0F14;
+  --encre-3: #12151C;
+  --ivoire: #F2EFE8;
+  --ivoire-doux: #A5A69F;
+  --or: #D9B778;
+  --or-sombre: #A8873F;
+  --filet: rgba(242, 239, 232, 0.10);
+  --filet-fort: rgba(242, 239, 232, 0.22);
+  --serif: 'Fraunces Variable', Georgia, serif;
+  --sans: 'Inter Tight Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 @layer base {
+  html { scroll-behavior: smooth; }
+
   body {
     @apply antialiased;
-    background:
-      radial-gradient(900px at 20% 0%, rgba(214,179,94,0.12), transparent 55%),
-      radial-gradient(900px at 80% 10%, rgba(233,176,202,0.12), transparent 60%),
-      linear-gradient(to bottom, #07060B, #0C0B11 40%, #07060B);
-    color: #F5F3EF;
+    background: var(--encre);
+    color: var(--ivoire);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 380;
+    font-synthesis-weight: none;
+    overflow-x: hidden;
   }
+
+  /* Voile de grain : casse le côté « aplat numérique » des fonds très sombres. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--grain);
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 1.06;
+    letter-spacing: -0.022em;
+  }
+
+  h1 { font-size: clamp(2.7rem, 7vw, 5.4rem); }
+  h2 { font-size: clamp(2rem, 4.4vw, 3.3rem); }
+  h3 { font-family: var(--sans); font-weight: 600; letter-spacing: -0.015em; line-height: 1.3; }
+
+  p { text-wrap: pretty; }
+  ::selection { background: var(--or); color: var(--encre); }
 }
 
 @layer components {
-  .glass {
-    @apply rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-xl;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+  .conteneur {
+    @apply relative mx-auto w-full px-6 sm:px-8;
+    max-width: 1200px;
+    z-index: 1;
   }
 
-  .gold-halo {
-    background: radial-gradient(circle at top, rgba(214,179,94,0.18), transparent 65%);
+  .section { @apply relative py-24 md:py-36; }
+
+  .surtitre {
+    @apply mb-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase;
+    letter-spacing: 0.22em;
+    color: var(--or);
+  }
+  .surtitre::before {
+    content: '';
+    @apply block h-px w-8;
+    background: var(--or);
+    opacity: 0.6;
   }
 
-  .rose-halo {
-    background: radial-gradient(circle at top, rgba(233,176,202,0.18), transparent 65%);
+  .chapo {
+    @apply mt-6 text-lg leading-relaxed;
+    color: var(--ivoire-doux);
+    max-width: 62ch;
   }
 
-  .eyebrow {
-    @apply text-[10px] uppercase tracking-[0.25em] text-[#E6D39A];
+  .filet { border-top: 1px solid var(--filet); }
+
+  /* Carte de verre : lumière en haut, fondu vers le fond. */
+  .carte {
+    @apply relative overflow-hidden rounded-2xl p-8;
+    background: linear-gradient(160deg, rgba(242, 239, 232, 0.045), rgba(242, 239, 232, 0.012));
+    border: 1px solid var(--filet);
+    transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .carte:hover {
+    border-color: var(--filet-fort);
+    transform: translateY(-3px);
   }
 
-  .btn-primary {
-    @apply rounded-full px-6 py-3 text-sm font-semibold text-black transition;
-    background: linear-gradient(90deg, #E6C36A, #C89E4A);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+  .carte-or {
+    border-color: rgba(217, 183, 120, 0.35);
+    background: linear-gradient(160deg, rgba(217, 183, 120, 0.09), rgba(242, 239, 232, 0.015));
   }
 
-  .btn-primary:hover { filter: brightness(1.08); }
+  .bouton {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-[15px] font-medium;
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1), background 0.3s ease, color 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .bouton:hover { transform: translateY(-2px); }
+
+  .bouton-or {
+    background: var(--or);
+    color: var(--encre);
+    font-weight: 600;
+  }
+  .bouton-or:hover { background: #E6C68C; }
+
+  .bouton-ligne {
+    border: 1px solid var(--filet-fort);
+    color: var(--ivoire);
+  }
+  .bouton-ligne:hover { border-color: var(--or); color: var(--or); }
+
+  .lien-souligne {
+    @apply relative inline-flex items-center gap-2;
+    color: var(--or);
+  }
+  .lien-souligne::after {
+    content: '';
+    @apply absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0;
+    background: currentColor;
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .lien-souligne:hover::after { @apply origin-left scale-x-100; }
+
+  /* Halo diffus, posé derrière une section pour créer de la profondeur. */
+  .halo {
+    @apply pointer-events-none absolute rounded-full;
+    filter: blur(120px);
+    opacity: 0.5;
+  }
 }
 
-/* LIGHT MODE OVERRIDES */
-body[data-theme="light"] {
-  background: linear-gradient(to bottom, #f8f8f8, #ffffff);
-  color: #111;
+/* Apparition au défilement : le contenu est dans le HTML, on n'anime que l'arrivée. */
+.rv { opacity: 0; transform: translateY(24px); }
+.rv.on {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
-body[data-theme="light"] .glass {
-  background: rgba(255,255,255,0.8);
-  border-color: rgba(0,0,0,0.08);
-}
-
-body[data-theme="light"] p {
-  color: #333;
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; }
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

@@ -1,393 +1,560 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Mail, Phone, MapPin, ChevronRight, Check, CheckCircle, Clock, Award, Star, Calendar, ExternalLink, Zap, Shield, DollarSign, Users, Sparkles } from 'lucide-react';
-import { siteConfig } from './config/siteConfig';
+import { useEffect, useState } from 'react';
+import { ArrowUpRight, Check, Mail, MapPin, Menu, Phone, Plus, X } from 'lucide-react';
+import { siteConfig as s } from './config/siteConfig';
 
-export default function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+/* ------------------------------------------------------------------ outils */
+
+const telLien = (t: string) => '+33' + t.replace(/[^\d]/g, '').slice(1);
+
+/** Apparition au défilement. Le contenu est déjà dans le HTML : on n'anime que l'arrivée. */
+function useReveal() {
+  useEffect(() => {
+    const cibles = document.querySelectorAll('.rv');
+    if (!('IntersectionObserver' in window)) {
+      cibles.forEach((n) => n.classList.add('on'));
+      return;
+    }
+    const obs = new IntersectionObserver(
+      (entrees) =>
+        entrees.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('on');
+            obs.unobserve(e.target);
+          }
+        }),
+      { rootMargin: '0px 0px -10% 0px' },
+    );
+    cibles.forEach((n, i) => {
+      (n as HTMLElement).style.transitionDelay = `${(i % 4) * 90}ms`;
+      obs.observe(n);
+    });
+    return () => obs.disconnect();
+  }, []);
+}
+
+/* -------------------------------------------------------------- navigation */
+
+const LIENS = [
+  { id: 'constat', label: 'Pourquoi' },
+  { id: 'offres', label: 'Tarifs' },
+  { id: 'methode', label: 'Méthode' },
+  { id: 'exemples', label: 'Réalisations' },
+  { id: 'questions', label: 'Questions' },
+];
+
+function Navigation() {
+  const [ouvert, setOuvert] = useState(false);
+  const [glisse, setGlisse] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setGlisse(window.scrollY > 30);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    setIsMenuOpen(false);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
-                <Sparkles className="text-white" size={28} />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-blue-900">{siteConfig.companyName}</h1>
-                <p className="text-sm text-gray-600">{siteConfig.tagline}</p>
-              </div>
-            </div>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${glisse ? 'backdrop-blur-xl' : ''}`}
+      style={{
+        background: glisse ? 'rgba(8,9,12,0.88)' : 'transparent',
+        borderBottom: `1px solid ${glisse ? 'var(--filet)' : 'transparent'}`,
+      }}
+    >
+      <div className="conteneur">
+        <div className={`flex items-center justify-between transition-all duration-500 ${glisse ? 'h-16' : 'h-24'}`}>
+          <a href="#" className="flex items-baseline gap-2.5">
+            <span style={{ fontFamily: 'var(--serif)' }} className="text-[26px] leading-none tracking-tight">
+              {s.marque}
+            </span>
+            <span
+              className="hidden text-[10px] uppercase sm:block"
+              style={{ letterSpacing: '0.24em', color: 'var(--ivoire-doux)' }}
+            >
+              France
+            </span>
+          </a>
 
-            <div className="hidden md:flex items-center gap-6">
-              <button onClick={() => scrollToSection('accueil')} className="text-gray-700 hover:text-blue-600 transition-colors">Accueil</button>
-              <button onClick={() => scrollToSection('offre')} className="text-gray-700 hover:text-blue-600 transition-colors">Offre</button>
-              <button onClick={() => scrollToSection('processus')} className="text-gray-700 hover:text-blue-600 transition-colors">Comment ça marche</button>
-              <button onClick={() => scrollToSection('contact')} className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg">
-                Devis gratuit
-              </button>
-            </div>
+          <nav className="hidden items-center gap-9 lg:flex">
+            {LIENS.map((l) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                className="text-[14px] transition-colors duration-300 hover:text-[var(--or)]"
+                style={{ color: 'var(--ivoire-doux)' }}
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
 
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-900">
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          <div className="flex items-center gap-3">
+            <a href="#contact" className="bouton bouton-or hidden sm:inline-flex">
+              Me contacter
+            </a>
+            <button onClick={() => setOuvert(!ouvert)} className="p-2 lg:hidden" aria-label="Menu">
+              {ouvert ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
+        </div>
 
-          {isMenuOpen && (
-            <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-xl py-4">
-              {['accueil', 'offre', 'processus', 'contact'].map(section => (
-                <button key={section} onClick={() => scrollToSection(section)} className="block w-full text-left px-4 py-3 text-gray-700 hover:bg-blue-50 capitalize">
-                  {section}
-                </button>
+        {ouvert && (
+          <nav
+            className="flex flex-col gap-1 pb-6 pt-4 lg:hidden"
+            style={{ borderTop: '1px solid var(--filet)' }}
+          >
+            {LIENS.map((l) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                onClick={() => setOuvert(false)}
+                className="py-2.5 text-[15px]"
+                style={{ color: 'var(--ivoire-doux)' }}
+              >
+                {l.label}
+              </a>
+            ))}
+            <a href="#contact" onClick={() => setOuvert(false)} className="bouton bouton-or mt-3 self-start">
+              Me contacter
+            </a>
+          </nav>
+        )}
+      </div>
+    </header>
+  );
+}
+
+/* -------------------------------------------------------------------- héros */
+
+function Hero() {
+  return (
+    <section className="relative overflow-hidden pb-24 pt-40 md:pb-32 md:pt-52">
+      <div
+        className="halo"
+        style={{ top: '-14rem', right: '-8rem', width: '38rem', height: '38rem', background: 'rgba(217,183,120,0.16)' }}
+      />
+      <div
+        className="halo"
+        style={{ bottom: '-16rem', left: '-12rem', width: '34rem', height: '34rem', background: 'rgba(120,140,217,0.10)' }}
+      />
+
+      <div className="conteneur">
+        <span className="surtitre rv">{s.hero.accroche}</span>
+
+        <h1 className="rv max-w-[16ch]">
+          {s.hero.titre}{' '}
+          <em className="not-italic" style={{ color: 'var(--or)' }}>
+            {s.hero.titreAccent}
+          </em>
+          .
+          <span className="block" style={{ color: 'var(--ivoire-doux)' }}>
+            {s.hero.titreFin}
+          </span>
+        </h1>
+
+        <p className="chapo rv mt-9 text-xl">{s.hero.chapo}</p>
+
+        <div className="rv mt-12 flex flex-wrap gap-4">
+          <a href="#exemples" className="bouton bouton-or">
+            {s.hero.ctaPrincipal}
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+          <a href="#contact" className="bouton bouton-ligne">
+            {s.hero.ctaSecondaire}
+          </a>
+        </div>
+
+        <dl className="rv filet mt-20 grid gap-10 pt-10 sm:grid-cols-3">
+          {s.hero.preuves.map((p) => (
+            <div key={p.label}>
+              <dt style={{ fontFamily: 'var(--serif)' }} className="text-4xl leading-none">
+                {p.valeur}
+              </dt>
+              <dd className="mt-2 text-[14px]" style={{ color: 'var(--ivoire-doux)' }}>
+                {p.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ constat */
+
+function Constat() {
+  return (
+    <section id="constat" className="section">
+      <div className="conteneur">
+        <span className="surtitre rv">{s.constat.surtitre}</span>
+        <h2 className="rv max-w-[20ch]">{s.constat.titre}</h2>
+
+        <div className="mt-16 grid gap-px" style={{ background: 'var(--filet)' }}>
+          {s.constat.points.map((p, i) => (
+            <article
+              key={p.titre}
+              className="rv grid gap-6 py-10 md:grid-cols-[6rem_1fr_2fr] md:items-baseline md:gap-10"
+              style={{ background: 'var(--encre)' }}
+            >
+              <span style={{ fontFamily: 'var(--serif)', color: 'var(--or-sombre)' }} className="text-2xl">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="text-xl">{p.titre}</h3>
+              <p style={{ color: 'var(--ivoire-doux)' }}>{p.texte}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------- offres */
+
+function Offres() {
+  const { liste, entretien, paiement } = s.offres;
+
+  return (
+    <section id="offres" className="section relative overflow-hidden">
+      <div
+        className="halo"
+        style={{
+          top: '10%',
+          left: '50%',
+          width: '40rem',
+          height: '30rem',
+          background: 'rgba(217,183,120,0.08)',
+          transform: 'translateX(-50%)',
+        }}
+      />
+      <div className="conteneur">
+        <span className="surtitre rv">{s.offres.surtitre}</span>
+        <h2 className="rv max-w-[18ch]">{s.offres.titre}</h2>
+        <p className="chapo rv">{s.offres.chapo}</p>
+
+        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+          {liste.map((o) => (
+            <article key={o.nom} className={`carte rv flex flex-col ${o.recommande ? 'carte-or' : ''}`}>
+              {o.recommande && (
+                <span
+                  className="absolute right-6 top-6 rounded-full px-3 py-1 text-[10px] font-semibold uppercase"
+                  style={{ letterSpacing: '0.16em', background: 'var(--or)', color: 'var(--encre)' }}
+                >
+                  Conseillée
+                </span>
+              )}
+
+              <h3 style={{ fontFamily: 'var(--serif)', fontWeight: 400 }} className="text-2xl">
+                {o.nom}
+              </h3>
+              <p className="mt-1 text-[15px]" style={{ color: 'var(--ivoire-doux)' }}>
+                {o.pour}
+              </p>
+
+              <p className="mt-8 flex items-baseline gap-2">
+                <span style={{ fontFamily: 'var(--serif)' }} className="text-6xl leading-none">
+                  {o.prix}
+                </span>
+                <span className="text-2xl" style={{ color: 'var(--or)' }}>
+                  {o.unite}
+                </span>
+              </p>
+              <p className="mt-2 text-[13px] uppercase" style={{ letterSpacing: '0.14em', color: 'var(--ivoire-doux)' }}>
+                {o.mention}
+              </p>
+
+              <ul className="mt-9 grid gap-3.5">
+                {o.inclus.map((ligne) => (
+                  <li key={ligne} className="flex gap-3 text-[15px]">
+                    <Check className="mt-1 h-4 w-4 flex-none" style={{ color: 'var(--or)' }} />
+                    <span style={{ color: 'var(--ivoire-doux)' }}>{ligne}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a href="#contact" className={`bouton mt-10 self-start ${o.recommande ? 'bouton-or' : 'bouton-ligne'}`}>
+                Demander cette formule
+              </a>
+            </article>
+          ))}
+        </div>
+
+        {/* Le déroulé du paiement, affiché sous les prix : c'est là qu'on se pose la question. */}
+        <div className="rv mt-14">
+          <h3 className="text-center text-[13px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--or)' }}>
+            {paiement.titre}
+          </h3>
+          <ol className="mt-8 grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--filet)' }}>
+            {paiement.etapes.map((e) => (
+              <li key={e.quand} className="px-7 py-8 text-center" style={{ background: 'var(--encre)' }}>
+                <span style={{ fontFamily: 'var(--serif)' }} className="block text-4xl leading-none">
+                  {e.combien}
+                </span>
+                <span className="mt-3 block text-[15px] font-medium">{e.quand}</span>
+                <span className="mt-1.5 block text-[14px]" style={{ color: 'var(--ivoire-doux)' }}>
+                  {e.detail}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {/* L'entretien est présenté à part : c'est un service, pas une troisième formule de site. */}
+        <article className="carte rv mt-6 grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-center">
+          <div>
+            <h3 style={{ fontFamily: 'var(--serif)', fontWeight: 400 }} className="text-2xl">
+              {entretien.nom}
+            </h3>
+            <p className="mt-1 text-[15px]" style={{ color: 'var(--ivoire-doux)' }}>
+              {entretien.pour}
+            </p>
+            <p className="mt-7 flex items-baseline gap-2">
+              <span style={{ fontFamily: 'var(--serif)' }} className="text-6xl leading-none">
+                {entretien.prix}
+              </span>
+              <span className="text-xl" style={{ color: 'var(--or)' }}>
+                {entretien.unite}
+              </span>
+            </p>
+            <p className="mt-2 text-[13px] uppercase" style={{ letterSpacing: '0.14em', color: 'var(--ivoire-doux)' }}>
+              {entretien.mention}
+            </p>
+          </div>
+
+          <div>
+            <ul className="grid gap-3.5">
+              {entretien.inclus.map((ligne) => (
+                <li key={ligne} className="flex gap-3 text-[15px]">
+                  <Check className="mt-1 h-4 w-4 flex-none" style={{ color: 'var(--or)' }} />
+                  <span style={{ color: 'var(--ivoire-doux)' }}>{ligne}</span>
+                </li>
               ))}
-            </div>
-          )}
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section id="accueil" className="pt-32 pb-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 bg-green-100 px-6 py-2 rounded-full mb-6 border border-green-200">
-              <Check className="text-green-600" size={20} />
-              <span className="text-sm font-semibold text-green-700">{siteConfig.hero.promise}</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gray-900">
-              {siteConfig.hero.title}
-            </h1>
-            
-            <p className="text-2xl md:text-3xl text-blue-600 mb-4 font-semibold">
-              {siteConfig.hero.subtitle}
+            </ul>
+            <p className="mt-7 text-[14px] italic" style={{ color: 'var(--or-sombre)' }}>
+              {entretien.note}
             </p>
-            
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-lg font-bold text-3xl shadow-lg">
-                {siteConfig.hero.price}
-              </div>
-              <div className="text-left">
-                <div className="text-sm text-gray-600">Installation complète</div>
-                <div className="text-xs text-green-600 font-semibold">Déductible d'impôts</div>
-              </div>
-            </div>
-            
-            <p className="text-lg text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
-              {siteConfig.hero.description}
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <button onClick={() => scrollToSection('contact')} className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-10 py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-xl flex items-center gap-2">
-                {siteConfig.hero.cta}
-                <ChevronRight size={20} />
-              </button>
-              <button onClick={() => scrollToSection('offre')} className="bg-white text-blue-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 transition-all shadow-lg border-2 border-blue-200">
-                Voir l'offre détaillée
-              </button>
-            </div>
           </div>
-        </div>
-      </section>
+        </article>
+      </div>
+    </section>
+  );
+}
 
-      {/* Pourquoi nous */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{siteConfig.whyUs.title}</h2>
-            <p className="text-xl text-gray-600">{siteConfig.whyUs.subtitle}</p>
-          </div>
+/* ------------------------------------------------------------------ méthode */
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {siteConfig.whyUs.reasons.map((reason, index) => (
-              <div key={index} className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 shadow-lg hover:shadow-xl transition-all border border-blue-100">
-                <div className="text-5xl mb-4">{reason.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{reason.title}</h3>
-                <p className="text-gray-700 leading-relaxed">{reason.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+function Methode() {
+  return (
+    <section id="methode" className="section" style={{ background: 'var(--encre-2)' }}>
+      <div className="conteneur">
+        <span className="surtitre rv">{s.methode.surtitre}</span>
+        <h2 className="rv max-w-[16ch]">{s.methode.titre}</h2>
+        <p className="chapo rv">{s.methode.chapo}</p>
 
-      {/* Offre principale */}
-      <section id="offre" className="py-20 px-4 bg-gradient-to-br from-blue-600 to-indigo-700">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full mb-4">
-              <span className="text-white font-bold">{siteConfig.mainOffer.subtitle}</span>
-            </div>
-            <h2 className="text-5xl font-bold text-white mb-4">{siteConfig.mainOffer.title}</h2>
-            <p className="text-xl text-blue-100">{siteConfig.mainOffer.description}</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {siteConfig.mainOffer.includes.map((category, index) => (
-              <div key={index} className="bg-white rounded-xl p-8 shadow-2xl">
-                <div className="text-5xl mb-4">{category.icon}</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">{category.title}</h3>
-                <ul className="space-y-3">
-                  {category.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-gray-700">
-                      <CheckCircle className="text-green-500 flex-shrink-0 mt-0.5" size={20} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {siteConfig.mainOffer.taxDeductible && (
-            <div className="bg-green-500 rounded-xl p-6 text-center shadow-xl">
-              <p className="text-white font-bold text-lg">
-                💡 {siteConfig.mainOffer.taxNote}
+        <ol className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {s.methode.etapes.map((e, i) => (
+            <li key={e.titre} className="carte rv">
+              <span
+                style={{ fontFamily: 'var(--serif)', color: 'var(--or)' }}
+                className="text-5xl leading-none opacity-40"
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="mt-6 text-lg">{e.titre}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed" style={{ color: 'var(--ivoire-doux)' }}>
+                {e.texte}
               </p>
-            </div>
-          )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+/* ----------------------------------------------------------------- exemples */
+
+function Exemples() {
+  return (
+    <section id="exemples" className="section">
+      <div className="conteneur">
+        <span className="surtitre rv">{s.exemples.surtitre}</span>
+        <h2 className="rv max-w-[18ch]">{s.exemples.titre}</h2>
+        <p className="chapo rv">{s.exemples.chapo}</p>
+
+        <div className="mt-16 grid gap-px" style={{ background: 'var(--filet)' }}>
+          {s.exemples.liste.map((e) => (
+            <a
+              key={e.url}
+              href={e.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rv group grid gap-3 py-8 md:grid-cols-[1.1fr_1.4fr_auto] md:items-center md:gap-10"
+              style={{ background: 'var(--encre)' }}
+            >
+              <h3 className="text-xl transition-colors duration-300 group-hover:text-[var(--or)]">{e.nom}</h3>
+              <p style={{ color: 'var(--ivoire-doux)' }}>
+                {e.metier} · {e.lieu}
+              </p>
+              <span
+                className="inline-flex items-center gap-2 text-[14px] transition-all duration-300 group-hover:gap-3"
+                style={{ color: 'var(--or)' }}
+              >
+                Voir le site
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </a>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* Pack Sérénité */}
-      <section className="py-20 px-4 bg-gradient-to-br from-indigo-50 via-blue-50 to-white">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <div className="inline-block bg-indigo-100 px-6 py-2 rounded-full mb-4 border border-indigo-200">
-              <span className="text-indigo-700 font-bold">{siteConfig.serenityPack.subtitle}</span>
-            </div>
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">{siteConfig.serenityPack.title}</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">{siteConfig.serenityPack.description}</p>
-          </div>
+/* --------------------------------------------------------------- questions */
 
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            {siteConfig.serenityPack.includes.map((category, index) => (
-              <div key={index} className="bg-white rounded-xl p-8 shadow-lg border-2 border-indigo-200 hover:border-indigo-400 transition-all">
-                <div className="text-5xl mb-4">{category.icon}</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">{category.title}</h3>
-                <ul className="space-y-3">
-                  {category.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-gray-700">
-                      <CheckCircle className="text-indigo-500 flex-shrink-0 mt-0.5" size={20} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+function Questions() {
+  const [ouvert, setOuvert] = useState<number | null>(0);
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white text-center shadow-lg">
-              <p className="font-bold text-lg">✓ {siteConfig.serenityPack.commitment}</p>
-            </div>
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-6 text-white text-center shadow-lg">
-              <p className="font-bold text-lg">🎯 {siteConfig.serenityPack.benefit}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+  return (
+    <section id="questions" className="section" style={{ background: 'var(--encre-2)' }}>
+      <div className="conteneur">
+        <span className="surtitre rv">{s.faq.surtitre}</span>
+        <h2 className="rv max-w-[18ch]">{s.faq.titre}</h2>
 
-      {/* Pour qui */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{siteConfig.target.title}</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {siteConfig.target.profiles.map((profile, index) => (
-              <div key={index} className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all border border-blue-100">
-                <div className="text-4xl mb-3">{profile.icon}</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{profile.title}</h3>
-                <p className="text-gray-600 text-sm">{profile.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Processus */}
-      <section id="processus" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{siteConfig.process.title}</h2>
-            <p className="text-xl text-gray-600">{siteConfig.process.subtitle}</p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {siteConfig.process.steps.map((step, index) => (
-              <div key={index} className="relative">
-                <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-blue-200 hover:border-blue-400 transition-all">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-2xl shadow-lg">
-                    {step.number}
+        <div className="mt-14 grid gap-px" style={{ background: 'var(--filet)' }}>
+          {s.faq.questions.map((q, i) => {
+            const actif = ouvert === i;
+            return (
+              <div key={q.q} style={{ background: 'var(--encre-2)' }}>
+                <button
+                  onClick={() => setOuvert(actif ? null : i)}
+                  className="flex w-full items-start justify-between gap-8 py-7 text-left"
+                  aria-expanded={actif}
+                >
+                  <span className="text-[17px] font-medium">{q.q}</span>
+                  <Plus
+                    className="mt-1 h-5 w-5 flex-none transition-transform duration-500"
+                    style={{ color: 'var(--or)', transform: actif ? 'rotate(45deg)' : 'none' }}
+                  />
+                </button>
+                {/* Repli par grid-template-rows : l'ouverture s'anime sans hauteur figée. */}
+                <div className="grid transition-all duration-500" style={{ gridTemplateRows: actif ? '1fr' : '0fr' }}>
+                  <div className="overflow-hidden">
+                    <p className="max-w-[70ch] pb-8 leading-relaxed" style={{ color: 'var(--ivoire-doux)' }}>
+                      {q.r}
+                    </p>
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-center">{step.title}</h3>
-                  <p className="text-sm text-gray-600 text-center leading-relaxed">{step.description}</p>
-                </div>
-                {index < siteConfig.process.steps.length - 1 && (
-                  <ChevronRight className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-blue-400" size={24} />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Témoignages */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{siteConfig.testimonials.title}</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {siteConfig.testimonials.reviews.map((review, index) => (
-              <div key={index} className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 shadow-lg border border-blue-100">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="text-yellow-400 fill-yellow-400" size={20} />
-                  ))}
-                </div>
-                <p className="text-gray-700 leading-relaxed mb-4 italic">"{review.text}"</p>
-                <div>
-                  <p className="font-bold text-gray-900">{review.name}</p>
-                  <p className="text-sm text-gray-600">{review.business}</p>
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* Garanties */}
-      <section className="py-20 px-4 bg-gradient-to-r from-green-500 to-green-600">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <Shield className="w-16 h-16 text-white mx-auto mb-4" />
-            <h2 className="text-4xl font-bold text-white mb-4">{siteConfig.guarantees.title}</h2>
+/* ------------------------------------------------------------------ contact */
+
+function Contact() {
+  const tel = telLien(s.coordonnees.telephone);
+
+  return (
+    <section id="contact" className="section relative overflow-hidden">
+      <div
+        className="halo"
+        style={{ top: '-6rem', left: '30%', width: '36rem', height: '26rem', background: 'rgba(217,183,120,0.14)' }}
+      />
+      <div className="conteneur">
+        <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div>
+            <span className="surtitre rv">{s.contact.surtitre}</span>
+            <h2 className="rv max-w-[16ch]">{s.contact.titre}</h2>
+            <p className="chapo rv">{s.contact.chapo}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            {siteConfig.guarantees.items.map((item, index) => (
-              <div key={index} className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-white font-semibold text-lg">
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          <div className="rv grid gap-4">
+            <a href={`tel:${tel}`} className="carte flex items-center gap-5 !py-7">
+              <Phone className="h-5 w-5 flex-none" style={{ color: 'var(--or)' }} />
+              <span>
+                <span className="block text-[11px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
+                  Téléphone
+                </span>
+                <span style={{ fontFamily: 'var(--serif)' }} className="mt-1 block text-2xl">
+                  {s.coordonnees.telephone}
+                </span>
+              </span>
+            </a>
 
-      {/* FAQ */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Questions fréquentes</h2>
-          </div>
+            <a href={`mailto:${s.coordonnees.email}`} className="carte flex items-center gap-5 !py-7">
+              <Mail className="h-5 w-5 flex-none" style={{ color: 'var(--or)' }} />
+              <span className="min-w-0">
+                <span className="block text-[11px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
+                  Email
+                </span>
+                <span className="mt-1 block truncate text-lg">{s.coordonnees.email}</span>
+              </span>
+            </a>
 
-          <div className="space-y-6">
-            {siteConfig.faq.map((item, index) => (
-              <div key={index} className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 shadow-md border border-blue-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-start gap-3">
-                  <span className="text-blue-600 flex-shrink-0">Q:</span>
-                  {item.question}
-                </h3>
-                <p className="text-gray-700 leading-relaxed pl-8">
-                  <span className="text-green-600 font-bold">R:</span> {item.answer}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact / CTA */}
-      <section id="contact" className="py-20 px-4 bg-gradient-to-br from-blue-600 to-indigo-700">
-        <div className="container mx-auto max-w-4xl">
-          <div className="bg-white rounded-2xl p-12 shadow-2xl text-center">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{siteConfig.contact.title}</h2>
-            <p className="text-xl text-gray-600 mb-8">{siteConfig.contact.subtitle}</p>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <a href={`mailto:${siteConfig.contact.email}`} className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 rounded-xl shadow-lg hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-3">
-                <Mail size={24} />
-                <div className="text-left">
-                  <div className="text-sm opacity-80">Email</div>
-                  <div className="font-bold">{siteConfig.contact.email}</div>
-                </div>
-              </a>
-
-              <a href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`} className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg hover:from-green-600 hover:to-green-700 transition-all flex items-center justify-center gap-3">
-                <Phone size={24} />
-                <div className="text-left">
-                  <div className="text-sm opacity-80">Téléphone</div>
-                  <div className="font-bold">{siteConfig.contact.phone}</div>
-                </div>
-              </a>
-            </div>
-
-            <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-              <p className="text-blue-700 font-semibold">
-                <Clock className="inline mr-2" size={20} />
-                {siteConfig.contact.availability}
-              </p>
+            <div className="carte flex items-center gap-5 !py-7">
+              <MapPin className="h-5 w-5 flex-none" style={{ color: 'var(--or)' }} />
+              <span>
+                <span className="block text-[11px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
+                  Zone
+                </span>
+                <span className="mt-1 block text-[15px]">{s.coordonnees.zone}</span>
+              </span>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4 text-blue-400">{siteConfig.companyName}</h3>
-              <p className="text-gray-400 mb-4">{siteConfig.slogan}</p>
-            </div>
+/* -------------------------------------------------------------------- pied */
 
-            <div>
-              <h3 className="text-xl font-bold mb-4 text-blue-400">Contact</h3>
-              <div className="space-y-2 text-gray-400">
-                <p className="flex items-center gap-2">
-                  <Mail size={16} />
-                  {siteConfig.legalInfo.email}
-                </p>
-                <p className="flex items-center gap-2">
-                  <Phone size={16} />
-                  {siteConfig.legalInfo.phone}
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-bold mb-4 text-blue-400">Offre</h3>
-              <div className="space-y-2 text-gray-400">
-                <p>Business plan complet : 890€</p>
-                <p>Accompagnement : 149€/mois</p>
-                <p className="text-green-400 font-semibold">Sans engagement</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-gray-500 text-sm">
-              © 2026 {siteConfig.companyName} - Tous droits réservés
-            </p>
-          </div>
+function Pied() {
+  return (
+    <footer className="filet py-12" style={{ background: 'var(--encre)' }}>
+      <div className="conteneur flex flex-wrap items-center justify-between gap-6">
+        <div>
+          <span style={{ fontFamily: 'var(--serif)' }} className="text-xl">
+            {s.marque}
+          </span>
+          <p className="mt-1 text-[13px]" style={{ color: 'var(--ivoire-doux)' }}>
+            {s.signature}
+          </p>
         </div>
-      </footer>
-    </div>
+        <p className="text-[13px]" style={{ color: 'var(--ivoire-doux)' }}>
+          © {new Date().getFullYear()} {s.marque} ·{' '}
+          <a href="#" className="lien-souligne">
+            Mentions légales
+          </a>
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+/* -------------------------------------------------------------------- page */
+
+export default function App() {
+  useReveal();
+
+  return (
+    <>
+      <Navigation />
+      <main>
+        <Hero />
+        <Constat />
+        <Offres />
+        <Methode />
+        <Exemples />
+        <Questions />
+        <Contact />
+      </main>
+      <Pied />
+    </>
   );
 }
