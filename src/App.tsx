@@ -381,27 +381,53 @@ function Exemples() {
         <h2 className="rv max-w-[18ch]">{s.exemples.titre}</h2>
         <p className="chapo rv">{s.exemples.chapo}</p>
 
-        <div className="mt-16 grid gap-px" style={{ background: 'var(--filet)' }}>
-          {s.exemples.liste.map((e) => (
+        {/*
+          Une capture vaut mieux qu'un nom : un visiteur qui n'ouvrira jamais
+          quatre onglets juge le travail d'un coup d'œil. Les dimensions sont
+          déclarées pour que la page ne saute pas pendant le chargement, et les
+          trois dernières images sont différées.
+        */}
+        <div className="mt-16 grid gap-8 sm:grid-cols-2 sm:gap-10">
+          {s.exemples.liste.map((e, i) => (
             <a
               key={e.url}
               href={e.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="rv group grid gap-3 py-8 md:grid-cols-[1.1fr_1.4fr_auto] md:items-center md:gap-10"
-              style={{ background: 'var(--encre)' }}
+              className="rv group block"
             >
-              <h3 className="text-xl transition-colors duration-300 group-hover:text-[var(--or)]">{e.nom}</h3>
-              <p style={{ color: 'var(--ivoire-doux)' }}>
-                {e.metier} · {e.lieu}
-              </p>
-              <span
-                className="inline-flex items-center gap-2 text-[14px] transition-all duration-300 group-hover:gap-3"
-                style={{ color: 'var(--or)' }}
+              <div
+                className="overflow-hidden rounded-[3px]"
+                style={{ border: '1px solid var(--filet)' }}
               >
-                Voir le site
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
+                <img
+                  src={e.image}
+                  alt={`Page d’accueil du site de ${e.nom}, ${e.metier}`}
+                  width={1280}
+                  height={800}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  className="block aspect-[16/10] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              </div>
+
+              <div className="mt-5 flex items-baseline justify-between gap-4">
+                <div>
+                  <h3 className="text-xl transition-colors duration-300 group-hover:text-[var(--or)]">
+                    {e.nom}
+                  </h3>
+                  <p className="mt-1 text-[15px]" style={{ color: 'var(--ivoire-doux)' }}>
+                    {e.metier} · {e.lieu}
+                  </p>
+                </div>
+                <span
+                  className="inline-flex shrink-0 items-center gap-2 text-[14px] transition-all duration-300 group-hover:gap-3"
+                  style={{ color: 'var(--or)' }}
+                >
+                  Voir le site
+                  <ArrowUpRight className="h-4 w-4" />
+                </span>
+              </div>
             </a>
           ))}
         </div>
