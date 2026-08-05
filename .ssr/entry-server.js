@@ -305,12 +305,23 @@ function Navigation() {
       },
       children: /* @__PURE__ */ jsxs("div", { className: "conteneur", children: [
         /* @__PURE__ */ jsxs("div", { className: `flex items-center justify-between transition-all duration-500 ${glisse ? "h-16" : "h-24"}`, children: [
-          /* @__PURE__ */ jsxs("a", { href: "#", className: "flex items-baseline gap-2.5", children: [
+          /* @__PURE__ */ jsxs("a", { href: "#", className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsx(
+              "img",
+              {
+                src: "/embleme.webp",
+                alt: "",
+                "aria-hidden": "true",
+                width: 120,
+                height: 120,
+                className: "h-[34px] w-auto sm:h-[38px]"
+              }
+            ),
             /* @__PURE__ */ jsx("span", { style: { fontFamily: "var(--serif)" }, className: "text-[26px] leading-none tracking-tight", children: siteConfig.marque }),
             /* @__PURE__ */ jsx(
               "span",
               {
-                className: "hidden text-[12px] uppercase sm:block",
+                className: "hidden self-end pb-1 text-[12px] uppercase sm:block",
                 style: { letterSpacing: "0.24em", color: "var(--ivoire-doux)" },
                 children: "France"
               }

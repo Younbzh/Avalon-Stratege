@@ -62,12 +62,22 @@ function Navigation() {
     >
       <div className="conteneur">
         <div className={`flex items-center justify-between transition-all duration-500 ${glisse ? 'h-16' : 'h-24'}`}>
-          <a href="#" className="flex items-baseline gap-2.5">
+          <a href="#" className="flex items-center gap-3">
+            {/* 38 px : en dessous les arcs concentriques se brouillent, au-dessus
+                l'emblème prend le pas sur le nom. */}
+            <img
+              src="/embleme.webp"
+              alt=""
+              aria-hidden="true"
+              width={120}
+              height={120}
+              className="h-[34px] w-auto sm:h-[38px]"
+            />
             <span style={{ fontFamily: 'var(--serif)' }} className="text-[26px] leading-none tracking-tight">
               {s.marque}
             </span>
             <span
-              className="hidden text-[12px] uppercase sm:block"
+              className="hidden self-end pb-1 text-[12px] uppercase sm:block"
               style={{ letterSpacing: '0.24em', color: 'var(--ivoire-doux)' }}
             >
               France
