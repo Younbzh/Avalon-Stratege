@@ -240,7 +240,7 @@ function Offres() {
                   className="absolute right-6 top-6 rounded-full px-3 py-1 text-[12px] font-semibold uppercase"
                   style={{ letterSpacing: '0.16em', background: 'var(--or)', color: 'var(--encre)' }}
                 >
-                  Conseillée
+                  Le plus choisi
                 </span>
               )}
 

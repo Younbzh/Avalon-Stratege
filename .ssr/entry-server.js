@@ -442,7 +442,7 @@ function Offres() {
           {
             className: "absolute right-6 top-6 rounded-full px-3 py-1 text-[12px] font-semibold uppercase",
             style: { letterSpacing: "0.16em", background: "var(--or)", color: "var(--encre)" },
-            children: "Conseillée"
+            children: "Le plus choisi"
           }
         ),
         /* @__PURE__ */ jsx("h3", { style: { fontFamily: "var(--serif)", fontWeight: 400 }, className: "text-2xl", children: o.nom }),
