@@ -232,7 +232,7 @@ function Offres() {
         <h2 className="rv max-w-[18ch]">{s.offres.titre}</h2>
         <p className="chapo rv">{s.offres.chapo}</p>
 
-        <div className="mt-12 md:mt-16 grid gap-6 lg:grid-cols-2">
+        <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
           {liste.map((o) => (
             <article key={o.nom} className={`carte rv flex flex-col ${o.recommande ? 'carte-or' : ''}`}>
               {o.recommande && (
@@ -252,7 +252,7 @@ function Offres() {
               </p>
 
               <p className="mt-8 flex items-baseline gap-2">
-                <span style={{ fontFamily: 'var(--serif)' }} className="text-6xl leading-none">
+                <span style={{ fontFamily: 'var(--serif)' }} className="text-5xl leading-none lg:text-[3.25rem]">
                   {o.prix}
                 </span>
                 <span className="text-2xl" style={{ color: 'var(--or)' }}>
@@ -272,7 +272,20 @@ function Offres() {
                 ))}
               </ul>
 
-              <a href="#contact" className={`bouton mt-10 self-start ${o.recommande ? 'bouton-or' : 'bouton-ligne'}`}>
+              {'limite' in o && (
+                <p
+                  className="mt-6 border-t pt-5 text-[14px]"
+                  style={{ borderColor: 'var(--filet)', color: 'var(--ivoire-doux)' }}
+                >
+                  {(o as { limite: string }).limite}
+                </p>
+              )}
+
+              <a
+                href="#contact"
+                className={`bouton mt-auto self-start ${o.recommande ? 'bouton-or' : 'bouton-ligne'}`}
+                style={{ marginTop: '2.5rem' }}
+              >
                 Demander cette formule
               </a>
             </article>

@@ -52,7 +52,7 @@ const siteConfig = {
         prix: "490",
         unite: "€",
         mention: "paiement unique",
-        pour: "Pour exister proprement en ligne.",
+        pour: "Pour exister proprement en ligne, sans être trouvé.",
         inclus: [
           "Un site complet, sur une page fluide",
           "Vos prestations, votre zone, vos coordonnées",
@@ -60,6 +60,10 @@ const siteConfig = {
           "Vos photos intégrées",
           "En ligne sous 5 jours"
         ],
+        /* Dire ce que l'offre ne fait pas vaut mieux que le laisser découvrir :
+           le site entier explique qu'exister ne suffit pas, la grille doit le
+           confirmer plutôt que de proposer discrètement le contraire. */
+        limite: "Sans référencement local : vous n’apparaîtrez pas sur « votre métier + votre commune ».",
         recommande: false
       },
       {
@@ -77,6 +81,22 @@ const siteConfig = {
           "Les questions de vos clients traitées sur la page"
         ],
         recommande: true
+      },
+      {
+        nom: "Signature",
+        prix: "990",
+        unite: "€",
+        mention: "paiement unique",
+        pour: "Pour occuper le terrain, commune par commune.",
+        inclus: [
+          "Tout le Pro, plus :",
+          "15 communes travaillées au lieu de 7",
+          "Une page par prestation, écrite pour être trouvée",
+          "Votre fiche Google créée, remplie et photographiée",
+          "La campagne de vos premiers avis clients",
+          "Les textes rédigés à partir de votre métier, pas d’un modèle"
+        ],
+        recommande: false
       }
     ],
     /*
@@ -416,7 +436,7 @@ function Offres() {
       /* @__PURE__ */ jsx("span", { className: "surtitre rv", children: siteConfig.offres.surtitre }),
       /* @__PURE__ */ jsx("h2", { className: "rv max-w-[18ch]", children: siteConfig.offres.titre }),
       /* @__PURE__ */ jsx("p", { className: "chapo rv", children: siteConfig.offres.chapo }),
-      /* @__PURE__ */ jsx("div", { className: "mt-12 md:mt-16 grid gap-6 lg:grid-cols-2", children: liste.map((o) => /* @__PURE__ */ jsxs("article", { className: `carte rv flex flex-col ${o.recommande ? "carte-or" : ""}`, children: [
+      /* @__PURE__ */ jsx("div", { className: "mt-12 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3", children: liste.map((o) => /* @__PURE__ */ jsxs("article", { className: `carte rv flex flex-col ${o.recommande ? "carte-or" : ""}`, children: [
         o.recommande && /* @__PURE__ */ jsx(
           "span",
           {
@@ -428,7 +448,7 @@ function Offres() {
         /* @__PURE__ */ jsx("h3", { style: { fontFamily: "var(--serif)", fontWeight: 400 }, className: "text-2xl", children: o.nom }),
         /* @__PURE__ */ jsx("p", { className: "mt-1 text-[15px]", style: { color: "var(--ivoire-doux)" }, children: o.pour }),
         /* @__PURE__ */ jsxs("p", { className: "mt-8 flex items-baseline gap-2", children: [
-          /* @__PURE__ */ jsx("span", { style: { fontFamily: "var(--serif)" }, className: "text-6xl leading-none", children: o.prix }),
+          /* @__PURE__ */ jsx("span", { style: { fontFamily: "var(--serif)" }, className: "text-5xl leading-none lg:text-[3.25rem]", children: o.prix }),
           /* @__PURE__ */ jsx("span", { className: "text-2xl", style: { color: "var(--or)" }, children: o.unite })
         ] }),
         /* @__PURE__ */ jsx("p", { className: "mt-2 text-[13px] uppercase", style: { letterSpacing: "0.14em", color: "var(--ivoire-doux)" }, children: o.mention }),
@@ -436,7 +456,23 @@ function Offres() {
           /* @__PURE__ */ jsx(Check, { className: "mt-1 h-4 w-4 flex-none", style: { color: "var(--or)" } }),
           /* @__PURE__ */ jsx("span", { style: { color: "var(--ivoire-doux)" }, children: ligne })
         ] }, ligne)) }),
-        /* @__PURE__ */ jsx("a", { href: "#contact", className: `bouton mt-10 self-start ${o.recommande ? "bouton-or" : "bouton-ligne"}`, children: "Demander cette formule" })
+        "limite" in o && /* @__PURE__ */ jsx(
+          "p",
+          {
+            className: "mt-6 border-t pt-5 text-[14px]",
+            style: { borderColor: "var(--filet)", color: "var(--ivoire-doux)" },
+            children: o.limite
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "a",
+          {
+            href: "#contact",
+            className: `bouton mt-auto self-start ${o.recommande ? "bouton-or" : "bouton-ligne"}`,
+            style: { marginTop: "2.5rem" },
+            children: "Demander cette formule"
+          }
+        )
       ] }, o.nom)) }),
       /* @__PURE__ */ jsxs("div", { className: "rv mt-14", children: [
         /* @__PURE__ */ jsx("h3", { className: "text-center text-[13px] uppercase", style: { letterSpacing: "0.2em", color: "var(--or)" }, children: paiement.titre }),

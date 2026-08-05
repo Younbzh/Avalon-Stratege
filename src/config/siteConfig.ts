@@ -69,7 +69,7 @@ export const siteConfig = {
         prix: '490',
         unite: '€',
         mention: 'paiement unique',
-        pour: 'Pour exister proprement en ligne.',
+        pour: 'Pour exister proprement en ligne, sans être trouvé.',
         inclus: [
           'Un site complet, sur une page fluide',
           'Vos prestations, votre zone, vos coordonnées',
@@ -77,6 +77,10 @@ export const siteConfig = {
           'Vos photos intégrées',
           'En ligne sous 5 jours',
         ],
+        /* Dire ce que l'offre ne fait pas vaut mieux que le laisser découvrir :
+           le site entier explique qu'exister ne suffit pas, la grille doit le
+           confirmer plutôt que de proposer discrètement le contraire. */
+        limite: 'Sans référencement local : vous n’apparaîtrez pas sur « votre métier + votre commune ».',
         recommande: false,
       },
       {
@@ -95,7 +99,24 @@ export const siteConfig = {
         ],
         recommande: true,
       },
+      {
+        nom: 'Signature',
+        prix: '990',
+        unite: '€',
+        mention: 'paiement unique',
+        pour: 'Pour occuper le terrain, commune par commune.',
+        inclus: [
+          'Tout le Pro, plus :',
+          '15 communes travaillées au lieu de 7',
+          'Une page par prestation, écrite pour être trouvée',
+          'Votre fiche Google créée, remplie et photographiée',
+          'La campagne de vos premiers avis clients',
+          'Les textes rédigés à partir de votre métier, pas d’un modèle',
+        ],
+        recommande: false,
+      },
     ],
+
     /*
       Le déroulé du paiement est affiché sous les prix, et pas seulement dans la
       FAQ : « c'est gratuit » et « la moitié à la commande » se contredisent tant
