@@ -402,6 +402,11 @@ function Exemples() {
               >
                 <img
                   src={e.image}
+                  /* Le mobile n'affiche la vignette qu'à 340 pixels : lui envoyer
+                     les 1280 de l'écran large gaspillait les trois quarts du
+                     poids. Chaque largeur reçoit désormais la sienne. */
+                  srcSet={`${e.image.replace('.webp', '-640.webp')} 640w, ${e.image} 1280w`}
+                  sizes="(min-width: 640px) 46vw, 92vw"
                   alt={`Page d’accueil du site de ${e.nom}, ${e.metier}`}
                   width={1280}
                   height={800}
