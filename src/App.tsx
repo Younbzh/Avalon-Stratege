@@ -189,7 +189,7 @@ function Constat() {
         <span className="surtitre rv">{s.constat.surtitre}</span>
         <h2 className="rv max-w-[20ch]">{s.constat.titre}</h2>
 
-        <div className="mt-16 grid gap-px" style={{ background: 'var(--filet)' }}>
+        <div className="mt-12 md:mt-16 grid gap-px" style={{ background: 'var(--filet)' }}>
           {s.constat.points.map((p, i) => (
             <article
               key={p.titre}
@@ -232,7 +232,7 @@ function Offres() {
         <h2 className="rv max-w-[18ch]">{s.offres.titre}</h2>
         <p className="chapo rv">{s.offres.chapo}</p>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+        <div className="mt-12 md:mt-16 grid gap-6 lg:grid-cols-2">
           {liste.map((o) => (
             <article key={o.nom} className={`carte rv flex flex-col ${o.recommande ? 'carte-or' : ''}`}>
               {o.recommande && (
@@ -350,7 +350,7 @@ function Methode() {
         <h2 className="rv max-w-[16ch]">{s.methode.titre}</h2>
         <p className="chapo rv">{s.methode.chapo}</p>
 
-        <ol className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-12 md:mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {s.methode.etapes.map((e, i) => (
             <li key={e.titre} className="carte rv">
               <span
@@ -387,7 +387,7 @@ function Exemples() {
           déclarées pour que la page ne saute pas pendant le chargement, et les
           trois dernières images sont différées.
         */}
-        <div className="mt-16 grid gap-8 sm:grid-cols-2 sm:gap-10">
+        <div className="mt-12 md:mt-16 grid gap-8 sm:grid-cols-2 sm:gap-10">
           {s.exemples.liste.map((e, i) => (
             <a
               key={e.url}
@@ -436,6 +436,59 @@ function Exemples() {
   );
 }
 
+/* ----------------------------------------------------------------- à propos */
+
+/*
+  Le dernier argument avant le formulaire, et sur ce marché c'est le plus fort :
+  un visage. Face à des agences anonymes, être une personne identifiable est un
+  avantage, pas une faiblesse. Le portrait est servi en WebP à 50 Ko et ses
+  dimensions sont déclarées, pour ne pas faire sauter la page au chargement.
+*/
+function APropos() {
+  const a = s.apropos;
+
+  return (
+    <section id="apropos" className="section" style={{ background: 'var(--encre-2)' }}>
+      <div className="conteneur">
+        <div className="grid items-center gap-10 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-16">
+          <div className="rv">
+            <img
+              src={a.portrait}
+              alt="Youenn, fondateur d’Avalon Stratège"
+              width={900}
+              height={900}
+              loading="lazy"
+              decoding="async"
+              className="w-full max-w-[18rem] rounded-[3px] object-cover md:max-w-none"
+              style={{ border: '1px solid var(--filet)' }}
+            />
+          </div>
+
+          <div>
+            <span className="surtitre rv">{a.surtitre}</span>
+            <h2 className="rv max-w-[16ch]">{a.titre}</h2>
+
+            <div className="mt-8 space-y-4">
+              {a.paragraphes.map((p) => (
+                <p key={p} className="rv text-lg leading-relaxed" style={{ color: 'var(--ivoire-doux)' }}>
+                  {p}
+                </p>
+              ))}
+            </div>
+
+            <p
+              className="rv filet mt-8 pt-8 text-lg"
+              style={{ fontFamily: 'var(--serif)', color: 'var(--or)' }}
+            >
+              {a.repere}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* --------------------------------------------------------------- questions */
 
 function Questions() {
@@ -447,7 +500,7 @@ function Questions() {
         <span className="surtitre rv">{s.faq.surtitre}</span>
         <h2 className="rv max-w-[18ch]">{s.faq.titre}</h2>
 
-        <div className="mt-14 grid gap-px" style={{ background: 'var(--filet)' }}>
+        <div className="mt-10 md:mt-14 grid gap-px" style={{ background: 'var(--filet)' }}>
           {s.faq.questions.map((q, i) => {
             const actif = ouvert === i;
             return (
@@ -577,6 +630,7 @@ export default function App() {
         <Offres />
         <Methode />
         <Exemples />
+        <APropos />
         <Questions />
         <Contact />
       </main>

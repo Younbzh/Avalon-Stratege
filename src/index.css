@@ -79,7 +79,10 @@
     z-index: 1;
   }
 
-  .section { @apply relative py-24 md:py-36; }
+  /* 96 px de marge haute et basse sur mobile faisaient 192 px entre deux
+     sections, ce qui casse la lecture sur un téléphone : on descend à 56, et
+     de 144 à 112 sur grand écran, où l'espace se justifie davantage. */
+  .section { @apply relative py-14 md:py-28; }
 
   .surtitre {
     @apply mb-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase;

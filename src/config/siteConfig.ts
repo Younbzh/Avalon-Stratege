@@ -11,7 +11,7 @@
 export const siteConfig = {
   marque: 'Avalon Stratège',
   signature: 'Sites internet pour artisans et indépendants, partout en France',
-  url: 'https://www.avalonstratege.fr',
+  url: 'https://www.avalon-stratege.com',
 
   coordonnees: {
     telephone: '06 58 96 89 59',
@@ -206,6 +206,18 @@ export const siteConfig = {
         image: '/realisations/nail-art-rox.webp',
       },
     ],
+  },
+
+  apropos: {
+    surtitre: 'Qui vous répond',
+    titre: 'Youenn, et personne d’autre.',
+    portrait: '/youenn.webp',
+    paragraphes: [
+      'Avalon Stratège, c’est moi, seul, depuis la Bretagne. Pas de commercial, pas de chef de projet, pas de sous-traitance à l’autre bout du monde.',
+      'Quand vous appelez, c’est moi qui décroche, et c’est moi qui ai fait votre site. Quand vous demandez une modification, c’est encore moi, et elle est faite sous 48 heures.',
+      'Je travaille avec des artisans et des indépendants partout en France, entièrement à distance. Aucun déplacement, aucune réunion : le téléphone et quelques messages suffisent, et vous ne perdez pas une demi-journée de chantier.',
+    ],
+    repere: 'Je fais ce métier parce que je trouve anormal qu’un artisan paie trois mille euros pour une vitrine qu’il ne comprend pas et qu’il ne peut pas modifier.',
   },
 
   faq: {
