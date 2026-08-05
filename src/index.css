@@ -85,7 +85,7 @@
   .section { @apply relative py-14 md:py-28; }
 
   .surtitre {
-    @apply mb-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase;
+    @apply mb-6 inline-flex items-center gap-3 text-[12px] font-semibold uppercase;
     letter-spacing: 0.22em;
     color: var(--or);
   }
@@ -162,6 +162,20 @@
 }
 
 /* Apparition au défilement : le contenu est dans le HTML, on n'anime que l'arrivée. */
+.lien-evitement {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--or);
+  color: var(--encre);
+  font-size: 14px;
+  transition: top 0.2s ease;
+}
+.lien-evitement:focus { top: 1rem; }
+
 .rv { opacity: 0; transform: translateY(24px); }
 .rv.on {
   opacity: 1;

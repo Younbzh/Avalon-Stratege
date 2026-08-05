@@ -67,7 +67,7 @@ function Navigation() {
               {s.marque}
             </span>
             <span
-              className="hidden text-[10px] uppercase sm:block"
+              className="hidden text-[12px] uppercase sm:block"
               style={{ letterSpacing: '0.24em', color: 'var(--ivoire-doux)' }}
             >
               France
@@ -237,7 +237,7 @@ function Offres() {
             <article key={o.nom} className={`carte rv flex flex-col ${o.recommande ? 'carte-or' : ''}`}>
               {o.recommande && (
                 <span
-                  className="absolute right-6 top-6 rounded-full px-3 py-1 text-[10px] font-semibold uppercase"
+                  className="absolute right-6 top-6 rounded-full px-3 py-1 text-[12px] font-semibold uppercase"
                   style={{ letterSpacing: '0.16em', background: 'var(--or)', color: 'var(--encre)' }}
                 >
                   Conseillée
@@ -556,7 +556,7 @@ function Contact() {
             <a href={`tel:${tel}`} className="carte flex items-center gap-5 !py-7">
               <Phone className="h-5 w-5 flex-none" style={{ color: 'var(--or)' }} />
               <span>
-                <span className="block text-[11px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
+                <span className="block text-[12px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
                   Téléphone
                 </span>
                 <span style={{ fontFamily: 'var(--serif)' }} className="mt-1 block text-2xl">
@@ -568,7 +568,7 @@ function Contact() {
             <a href={`mailto:${s.coordonnees.email}`} className="carte flex items-center gap-5 !py-7">
               <Mail className="h-5 w-5 flex-none" style={{ color: 'var(--or)' }} />
               <span className="min-w-0">
-                <span className="block text-[11px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
+                <span className="block text-[12px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
                   Email
                 </span>
                 <span className="mt-1 block truncate text-lg">{s.coordonnees.email}</span>
@@ -578,7 +578,7 @@ function Contact() {
             <div className="carte flex items-center gap-5 !py-7">
               <MapPin className="h-5 w-5 flex-none" style={{ color: 'var(--or)' }} />
               <span>
-                <span className="block text-[11px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
+                <span className="block text-[12px] uppercase" style={{ letterSpacing: '0.2em', color: 'var(--ivoire-doux)' }}>
                   Zone
                 </span>
                 <span className="mt-1 block text-[15px]">{s.coordonnees.zone}</span>
@@ -607,8 +607,12 @@ function Pied() {
         </div>
         <p className="text-[13px]" style={{ color: 'var(--ivoire-doux)' }}>
           © {new Date().getFullYear()} {s.marque} ·{' '}
-          <a href="#" className="lien-souligne">
+          <a href="/mentions-legales.html" className="lien-souligne">
             Mentions légales
+          </a>{' '}
+          ·{' '}
+          <a href="/confidentialite.html" className="lien-souligne">
+            Confidentialité
           </a>
         </p>
       </div>
@@ -623,8 +627,13 @@ export default function App() {
 
   return (
     <>
+      {/* Premier élément focalisable : permet de sauter la navigation à la
+          tabulation. Invisible à la souris, visible dès qu'il reçoit le focus. */}
+      <a href="#contenu" className="lien-evitement">
+        Aller au contenu
+      </a>
       <Navigation />
-      <main>
+      <main id="contenu">
         <Hero />
         <Constat />
         <Offres />
