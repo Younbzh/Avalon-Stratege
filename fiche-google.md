@@ -13,7 +13,7 @@ Création : **https://business.google.com/create**
 | **Catégorie principale** | `Concepteur de sites Web` |
 | **Catégories secondaires** | `Agence de marketing Internet` · `Service de référencement` |
 | **Téléphone** | `06 58 96 89 59` |
-| **Site web** | `https://www.avalonstratege.fr` |
+| **Site web** | `https://www.avalon-stratege.com` |
 
 ⚠️ **N'ajoute jamais de mots-clés dans le nom.** « Avalon Stratège création site web Bretagne » est un motif
 de suspension, et c'est la première erreur que font les indépendants. Le nom doit être celui de l'entreprise, point.
@@ -117,7 +117,7 @@ une vitrine : il vérifie trois choses, dans cet ordre.
 
 ### Avant de filmer
 
-- Ouvre sur ton écran, dans des onglets séparés : **avalonstratege.fr**, un **site client**
+- Ouvre sur ton écran, dans des onglets séparés : **avalon-stratege.com**, un **site client**
   (ogourmandizdaurore.com), et ta **boîte mail** avec un échange client visible.
 - Sors ton **avis de situation SIRENE** (téléchargeable sur `avis-situation-sirene.insee.fr`)
   ou ton **Kbis**, en papier ou à l'écran.
