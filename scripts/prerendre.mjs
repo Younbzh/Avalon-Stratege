@@ -88,11 +88,15 @@ fs.writeFileSync(
 Interlocuteur unique : Youenn. Pas d'agence, pas de sous-traitance.
 
 ## Offres
-- Site Essentiel : 490 € en paiement unique.
-- Site Pro : 690 € en paiement unique, avec référencement local sur le métier et
-  les communes, fiche Google Business, galerie et formulaire de devis.
+- Site Visible : 890 € en paiement unique, avec référencement local sur le
+  métier et les communes, fiche Google Business, galerie et formulaire de devis.
+- Site Territoire : 1 290 € en paiement unique. 15 communes, une page par
+  prestation, kit pour récolter les premiers avis clients.
+- Site Signature : 1 890 € en paiement unique. 25 communes, une page par
+  commune principale, 6 mois d'entretien offerts, bilan écrit à 3 mois.
+- Site vitrine simple, sans référencement local : à partir de 590 €.
 - Entretien : 49 € par mois, sans engagement. Hébergement, modifications sous
-  48 heures, rapport mensuel.
+  48 heures (jusqu'à 30 minutes par mois), statistiques mensuelles par e-mail.
 
 ## Particularité
 Le site est construit et montré avant tout paiement. Le client voit le résultat

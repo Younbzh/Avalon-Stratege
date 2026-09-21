@@ -222,7 +222,7 @@ function Constat() {
 /* ------------------------------------------------------------------- offres */
 
 function Offres() {
-  const { liste, entretien, paiement } = s.offres;
+  const { liste, entretien, paiement, rentabilite, vitrine } = s.offres;
 
   return (
     <section id="offres" className="section relative overflow-hidden">
@@ -250,7 +250,7 @@ function Offres() {
                   className="absolute right-6 top-6 rounded-full px-3 py-1 text-[12px] font-semibold uppercase"
                   style={{ letterSpacing: '0.16em', background: 'var(--or)', color: 'var(--encre)' }}
                 >
-                  Le plus choisi
+                  Conseillée
                 </span>
               )}
 
@@ -282,15 +282,6 @@ function Offres() {
                 ))}
               </ul>
 
-              {'limite' in o && (
-                <p
-                  className="mt-6 border-t pt-5 text-[14px]"
-                  style={{ borderColor: 'var(--filet)', color: 'var(--ivoire-doux)' }}
-                >
-                  {(o as { limite: string }).limite}
-                </p>
-              )}
-
               <a
                 href="#contact"
                 className={`bouton mt-auto self-start ${o.recommande ? 'bouton-or' : 'bouton-ligne'}`}
@@ -300,6 +291,18 @@ function Offres() {
               </a>
             </article>
           ))}
+        </div>
+
+        <div className="rv mx-auto mt-12 max-w-2xl text-center">
+          <p style={{ fontFamily: 'var(--serif)' }} className="text-2xl">
+            {rentabilite}
+          </p>
+          <p className="mt-4 text-[15px]" style={{ color: 'var(--ivoire-doux)' }}>
+            {vitrine}{' '}
+            <a href="#contact" style={{ color: 'var(--or)' }} className="underline underline-offset-4">
+              Parlons-en
+            </a>
+          </p>
         </div>
 
         {/* Le déroulé du paiement, affiché sous les prix : c'est là qu'on se pose la question. */}

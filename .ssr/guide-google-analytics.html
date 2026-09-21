@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Guide pas à pas pour créer vos comptes Google Analytics et Search Console et suivre les statistiques de votre site. Fourni par Avalon Stratège.">
+<meta property="og:title" content="Vos statistiques Google — Avalon Stratège">
+<meta property="og:description" content="Créer Google Analytics et Search Console, et les brancher sur votre site. Guide client Avalon Stratège.">
+<meta property="og:type" content="article">
+<meta charset="utf-8">
+<title>Vos statistiques Google</title>
+<style>
+  /* ---------- tokens : palette claire par défaut ---------- */
+  :root{
+    --paper:      #FCFCFD;
+    --surface:    #F3F4F8;
+    --surface-2:  #E8EAF2;
+    --line:       #D8DAE6;
+    --line-soft:  #E6E8F0;
+    --ink:        #1B1E2E;
+    --ink-soft:   #4C5168;
+    --ink-faint:  #767C94;
+    --accent:     #3A4CA8;
+    --accent-ink: #2B3A85;
+    --accent-bg:  #EAEDF9;
+    --signal:     #8A6A1F;   /* attention */
+    --signal-bg:  #F8F1DF;
+    --send:       #1F6B5C;   /* à transmettre */
+    --send-bg:    #E4F1ED;
+    --code-bg:    #EEF0F7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:      #14161F;
+      --surface:    #1B1E2A;
+      --surface-2:  #232739;
+      --line:       #333850;
+      --line-soft:  #272B3C;
+      --ink:        #E7E9F2;
+      --ink-soft:   #B3B8CC;
+      --ink-faint:  #868CA5;
+      --accent:     #93A2EE;
+      --accent-ink: #B3BEF5;
+      --accent-bg:  #1E2340;
+      --signal:     #D8B45F;
+      --signal-bg:  #2C2617;
+      --send:       #6FC3AE;
+      --send-bg:    #16302B;
+      --code-bg:    #202433;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:      #14161F;
+    --surface:    #1B1E2A;
+    --surface-2:  #232739;
+    --line:       #333850;
+    --line-soft:  #272B3C;
+    --ink:        #E7E9F2;
+    --ink-soft:   #B3B8CC;
+    --ink-faint:  #868CA5;
+    --accent:     #93A2EE;
+    --accent-ink: #B3BEF5;
+    --accent-bg:  #1E2340;
+    --signal:     #D8B45F;
+    --signal-bg:  #2C2617;
+    --send:       #6FC3AE;
+    --send-bg:    #16302B;
+    --code-bg:    #202433;
+  }
+
+  /* ---------- base ---------- */
+  *{ box-sizing: border-box; }
+  html{ -webkit-text-size-adjust: 100%; }
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    padding: 0 20px 96px;
+  }
+  .wrap{ max-width: 780px; margin: 0 auto; }
+
+  h1,h2,h3{
+    font-family: "Iowan Old Style", "Charter", "Palatino Linotype", Palatino, Georgia, serif;
+    text-wrap: balance;
+    font-weight: 600;
+    margin: 0;
+  }
+  p{ margin: 0; }
+  a{ color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible{
+    outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px;
+  }
+  code{
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .87em;
+    background: var(--code-bg);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: .1em .38em;
+    white-space: nowrap;
+  }
+  strong{ font-weight: 650; color: var(--ink); }
+  .eyebrow{
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 600;
+  }
+
+  /* ---------- bandeau émetteur ---------- */
+  .brandbar{
+    max-width: 780px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 18px 0 0;
+  }
+  .wordmark{
+    display: flex; align-items: baseline; gap: 9px;
+    font-family: "Iowan Old Style", "Charter", Georgia, serif;
+    font-size: 17px; letter-spacing: .01em; color: var(--ink);
+  }
+  .wordmark .mark{
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: .06em;
+    color: var(--accent-ink); background: var(--accent-bg);
+    border-radius: 5px; padding: 3px 7px;
+    transform: translateY(-1px);
+  }
+  .brandbar .ref{
+    font-size: 12px; color: var(--ink-faint);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    text-align: right; line-height: 1.6;
+  }
+  .brandbar .ref a{ color: var(--accent-ink); text-decoration: none; }
+  .brandbar .ref a:hover{ text-decoration: underline; }
+
+  /* bloc contact */
+  .contact{
+    display: flex; flex-wrap: wrap; gap: 8px 22px;
+    background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: 10px; padding: 14px 18px;
+    font-size: 15px;
+  }
+  .contact span{ display: flex; gap: 8px; align-items: baseline; }
+  .contact .k{
+    font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase;
+    font-weight: 700; color: var(--ink-faint);
+  }
+  .contact a, .contact b{ color: var(--ink); font-weight: 600; text-decoration: none; }
+  .contact a:hover{ text-decoration: underline; }
+
+  /* ---------- en-tête ---------- */
+  header.doc{
+    border-bottom: 1px solid var(--line);
+    padding: 44px 0 30px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  header.doc h1{ font-size: clamp(34px, 6vw, 50px); line-height: 1.1; letter-spacing: -.015em; }
+  header.doc .lede{ color: var(--ink-soft); font-size: 19px; max-width: 60ch; }
+  .facts{ display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 4px; }
+  .fact{
+    font-size: 13px; color: var(--ink-soft);
+    background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: 100px; padding: 4px 12px;
+  }
+
+  /* ---------- rythme des sections ---------- */
+  main{ display: flex; flex-direction: column; gap: 56px; padding-top: 44px; }
+  section{ display: flex; flex-direction: column; gap: 20px; }
+  .part-head{ display: flex; flex-direction: column; gap: 8px; }
+  .part-head h2{ font-size: 28px; letter-spacing: -.01em; }
+  .part-head p{ color: var(--ink-soft); max-width: 62ch; }
+
+  /* ---------- deux outils ---------- */
+  .duo{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 620px){ .duo{ grid-template-columns: 1fr; } }
+  .tool{
+    background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: 10px; padding: 20px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .tool h3{ font-size: 19px; }
+  .tool p{ color: var(--ink-soft); font-size: 15.5px; }
+  .tool .q{ color: var(--ink); font-size: 15.5px; font-style: italic; }
+
+  /* ---------- étapes ---------- */
+  ol.steps{
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 26px;
+  }
+  ol.steps > li{
+    display: grid; grid-template-columns: 44px 1fr; gap: 0 18px; align-items: start;
+  }
+  .num{
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 14px; font-weight: 600;
+    color: var(--accent-ink); background: var(--accent-bg);
+    border-radius: 8px;
+    height: 34px; display: grid; place-items: center;
+    margin-top: 1px;
+  }
+  .step-body{ display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .step-body h3{ font-size: 18.5px; line-height: 1.35; margin-top: 3px; }
+  .step-body p{ color: var(--ink-soft); }
+  .step-body p.tight{ margin-top: -2px; }
+  ul.plain{
+    margin: 0; padding-left: 20px; color: var(--ink-soft);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+
+  /* chemin de menu */
+  .path{
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    background: var(--surface); border: 1px solid var(--line-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 14.5px;
+  }
+  .path b{ font-weight: 600; color: var(--ink); }
+  .path .sep{ color: var(--ink-faint); }
+
+  /* encadrés */
+  .box{
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 8px;
+    background: var(--surface);
+    font-size: 15.5px;
+  }
+  .box .label{
+    font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+  }
+  .box p{ color: var(--ink-soft); }
+  .box.warn{ background: var(--signal-bg); border-color: color-mix(in srgb, var(--signal) 32%, transparent); }
+  .box.warn .label{ color: var(--signal); }
+  .box.send{ background: var(--send-bg); border-color: color-mix(in srgb, var(--send) 32%, transparent); }
+  .box.send .label{ color: var(--send); }
+  .box.info .label{ color: var(--accent-ink); }
+
+  /* option A / option B */
+  .options{ display: flex; flex-direction: column; gap: 14px; }
+  .option{
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    background: var(--paper);
+  }
+  .option > .head{
+    background: var(--surface); padding: 12px 18px;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+  }
+  .option .head h3{ font-size: 17.5px; }
+  .tag{
+    font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700;
+    color: var(--accent-ink); background: var(--accent-bg);
+    border-radius: 100px; padding: 3px 9px;
+  }
+  .option > .body{ padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15.5px; color: var(--ink-soft); }
+
+  /* checklist */
+  .check{
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  }
+  .check li{
+    display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--paper);
+    font-size: 15.5px;
+  }
+  .check li:last-child{ border-bottom: 0; }
+  .check .sq{
+    width: 17px; height: 17px; margin-top: 4px;
+    border: 1.5px solid var(--ink-faint); border-radius: 4px;
+  }
+  .check b{ display: block; color: var(--ink); font-weight: 600; }
+  .check span{ color: var(--ink-soft); }
+
+  /* FAQ */
+  details{ border-bottom: 1px solid var(--line-soft); padding: 14px 0; }
+  details summary{
+    cursor: pointer; font-weight: 600; list-style: none;
+    display: flex; gap: 10px; align-items: baseline;
+  }
+  details summary::-webkit-details-marker{ display: none; }
+  details summary::before{
+    content: "+"; color: var(--accent); font-family: ui-monospace, monospace; font-weight: 700;
+  }
+  details[open] summary::before{ content: "–"; }
+  details p{ color: var(--ink-soft); font-size: 15.5px; padding-left: 22px; margin-top: 8px; }
+
+  /* pied */
+  footer.doc{
+    margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  footer.doc .sig{
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;
+  }
+  footer.doc .sig .name{
+    font-family: "Iowan Old Style", "Charter", Georgia, serif;
+    font-size: 17px; color: var(--ink);
+  }
+  footer.doc .sigmeta{
+    font-size: 13px; color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  footer.doc .sigmeta a{ color: var(--accent-ink); }
+  footer.doc p{ color: var(--ink-faint); font-size: 13.5px; max-width: 68ch; }
+  footer.doc .legal{ font-size: 12.5px; }
+
+  hr.rule{ border: 0; border-top: 1px solid var(--line-soft); margin: 0; }
+
+  @media print{
+    body{ background: #fff; color: #000; font-size: 11pt; padding: 0; }
+    header.doc{ padding-top: 20px; }
+    .brandbar{ padding-top: 0; }
+    ol.steps > li, .box, .option, .check li{ break-inside: avoid; }
+    details{ break-inside: avoid; }
+    details p{ display: block; }
+  }
+</style>
+</head>
+<body>
+<div class="brandbar">
+  <span class="wordmark"><span class="mark">AV</span> Avalon Stratège</span>
+  <span class="ref"><a href="https://www.avalon-stratege.com" target="_blank" rel="noopener">avalon-stratege.com</a><br>Guide client · réf. GA-GSC · éd. 08/2026</span>
+</div>
+
+<div class="wrap">
+
+  <header class="doc">
+    <p class="eyebrow">Document remis à nos clients · à conserver</p>
+    <h1>Vos statistiques Google</h1>
+    <p class="lede">Comment créer vos comptes Google&nbsp;Analytics et Search&nbsp;Console, et les brancher sur votre site. Aucune compétence technique n'est nécessaire&nbsp;: vous cliquez, vous copiez deux ou trois informations, et vous nous les transmettez.</p>
+    <div class="facts">
+      <span class="fact">Environ 30&nbsp;minutes</span>
+      <span class="fact">Gratuit</span>
+      <span class="fact">Un compte Google suffit</span>
+      <span class="fact">Interfaces vérifiées en août 2026</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ POURQUOI ============ -->
+    <section>
+      <div class="part-head">
+        <p class="eyebrow">Ce que vous allez installer</p>
+        <h2>Deux outils, deux questions différentes</h2>
+        <p>Ils sont gratuits, complémentaires, et appartiennent à Google. L'un observe ce qui se passe <em>sur</em> votre site, l'autre ce qui se passe <em>avant</em>, dans le moteur de recherche.</p>
+      </div>
+
+      <div class="duo">
+        <div class="tool">
+          <h3>Google Analytics</h3>
+          <p class="q">« Qui vient sur mon site&nbsp;? »</p>
+          <p>Le nombre de visiteurs, les pages les plus consultées, le temps passé, le téléphone ou l'ordinateur, la ville, et par quel chemin ils sont arrivés (Google, Instagram, un lien, une carte de visite…).</p>
+        </div>
+        <div class="tool">
+          <h3>Search Console</h3>
+          <p class="q">« Comment me trouve-t-on sur Google&nbsp;? »</p>
+          <p>Les mots tapés dans Google qui font apparaître votre site, votre position dans les résultats, le nombre de clics, et les éventuels problèmes qui empêchent Google de lire certaines pages.</p>
+        </div>
+      </div>
+
+      <div class="box info">
+        <span class="label">Bon à savoir</span>
+        <p>Ces deux outils ne mesurent que ce qui se passe <strong>à partir du jour de leur installation</strong>. Ils ne peuvent pas remonter dans le passé&nbsp;: plus tôt ils sont en place, plus tôt vous aurez de l'historique à comparer.</p>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- ============ AVANT ============ -->
+    <section>
+      <div class="part-head">
+        <p class="eyebrow">Préparation</p>
+        <h2>Avant de commencer</h2>
+      </div>
+      <ul class="plain">
+        <li><strong>Une adresse Google</strong> (Gmail ou toute adresse liée à un compte Google&nbsp;; la création est gratuite sur <a href="https://accounts.google.com/signup" target="_blank" rel="noopener">accounts.google.com</a>). Utilisez de préférence l'adresse <em>professionnelle</em> de l'entreprise, pas une adresse personnelle&nbsp;: c'est elle qui sera propriétaire des données pour les années à venir.</li>
+        <li><strong>L'adresse exacte de votre site</strong>, avec le <code>https://</code> et le <code>www</code> s'il y en a un.</li>
+        <li><strong>Pour l'étape Search Console&nbsp;:</strong> soit vos identifiants chez le prestataire où le nom de domaine a été acheté (OVH, Gandi, IONOS, Hostinger, Squarespace…), soit notre aide. Les deux options sont expliquées plus bas, vous choisirez la plus confortable.</li>
+      </ul>
+      <div class="box">
+        <span class="label">Une remarque sur les libellés</span>
+        <p>Google fait évoluer ses interfaces régulièrement. Si un bouton ne porte pas exactement le nom indiqué ici, cherchez le mot-clé (par exemple «&nbsp;flux de données&nbsp;») dans la barre de recherche en haut de la page&nbsp;: elle retrouve tous les réglages.</p>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- ============ PARTIE 1 : ANALYTICS ============ -->
+    <section>
+      <div class="part-head">
+        <p class="eyebrow">Partie 1 &middot; environ 10 minutes</p>
+        <h2>Créer votre compte Google Analytics</h2>
+        <p>Objectif de cette partie&nbsp;: obtenir un petit code appelé <strong>identifiant de mesure</strong>, qui ressemble à <code>G-A1B2C3D4E5</code>. C'est la seule chose que vous aurez à nous transmettre.</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <span class="num">1</span>
+          <div class="step-body">
+            <h3>Ouvrez Analytics et connectez-vous</h3>
+            <p>Rendez-vous sur <a href="https://analytics.google.com" target="_blank" rel="noopener">analytics.google.com</a> et connectez-vous avec l'adresse Google de l'entreprise. Cliquez sur <strong>Commencer à mesurer</strong>.</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="num">2</span>
+          <div class="step-body">
+            <h3>Nommez le compte</h3>
+            <p>Un «&nbsp;compte&nbsp;» correspond à votre entreprise. Saisissez simplement le nom de l'entreprise, puis <strong>Suivant</strong>.</p>
+            <p class="tight">L'écran propose ensuite des cases sur le partage des données avec Google (améliorer les produits, assistance technique…). Elles sont facultatives&nbsp;: vous pouvez tout laisser tel quel.</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="num">3</span>
+          <div class="step-body">
+            <h3>Créez la propriété</h3>
+            <p>Une «&nbsp;propriété&nbsp;» correspond à votre site. Indiquez&nbsp;:</p>
+            <ul class="plain">
+              <li><strong>Nom de la propriété&nbsp;:</strong> le nom de votre site (par exemple «&nbsp;Site vitrine&nbsp;»).</li>
+              <li><strong>Fuseau horaire&nbsp;:</strong> France — (GMT+01:00) heure de Paris. Important, sinon vos journées seront décalées.</li>
+              <li><strong>Devise&nbsp;:</strong> Euro (€).</li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <span class="num">4</span>
+          <div class="step-body">
+            <h3>Répondez aux questions sur l'activité</h3>
+            <p>Google demande votre secteur d'activité, la taille de l'entreprise, puis vos objectifs (générer des contacts, faire connaître la marque, vendre en ligne…). Ces réponses <strong>n'ont aucune conséquence technique</strong>&nbsp;: elles ne servent qu'à choisir quels rapports seront mis en avant. Choisissez au plus proche et continuez.</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="num">5</span>
+          <div class="step-body">
+            <h3>Choisissez «&nbsp;Web&nbsp;» et déclarez votre site</h3>
+            <p>À la question de la plateforme, sélectionnez <strong>Web</strong>. Saisissez ensuite l'adresse de votre site et un nom de flux (le nom de votre site suffit). Laissez l'option <strong>Mesure améliorée</strong> activée&nbsp;: elle enregistre automatiquement les clics sortants, les défilements et les téléchargements, sans travail supplémentaire.</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="num">6</span>
+          <div class="step-body">
+            <h3>Récupérez l'identifiant de mesure</h3>
+            <p>Un panneau <strong>Détails du flux Web</strong> s'affiche. En haut à droite figure l'<strong>ID de mesure</strong>, de la forme <code>G-A1B2C3D4E5</code>. Cliquez dessus pour le copier.</p>
+            <p class="tight">Si Google propose ensuite d'installer la balise («&nbsp;Voir les instructions sur le tag&nbsp;», «&nbsp;Installer manuellement&nbsp;»), vous pouvez fermer cette fenêtre&nbsp;: l'installation du code dans le site, c'est notre part du travail.</p>
+            <div class="path">
+              <span class="eyebrow">Pour le retrouver plus tard</span>
+              <span class="sep">·</span> <b>Admin</b>
+              <span class="sep">›</span> <b>Collecte et modification des données</b>
+              <span class="sep">›</span> <b>Flux de données</b>
+              <span class="sep">›</span> <b>votre site</b>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="box send">
+        <span class="label">À nous transmettre</span>
+        <p>L'<strong>identifiant de mesure</strong> <code>G-XXXXXXXXXX</code>. Nous l'installons dans le site&nbsp;; la mesure démarre dans la demi-heure qui suit la mise en ligne du code.</p>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- ============ PARTIE 2 : SEARCH CONSOLE ============ -->
+    <section>
+      <div class="part-head">
+        <p class="eyebrow">Partie 2 &middot; environ 15 minutes</p>
+        <h2>Créer votre Search Console</h2>
+        <p>Ici, Google doit d'abord vérifier que le site vous appartient. C'est l'étape la plus technique du guide&nbsp;: deux chemins sont possibles, et le second ne demande presque rien de votre part.</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <span class="num">7</span>
+          <div class="step-body">
+            <h3>Ouvrez Search Console</h3>
+            <p>Rendez-vous sur <a href="https://search.google.com/search-console" target="_blank" rel="noopener">search.google.com/search-console</a>, connecté avec <strong>la même adresse Google</strong> qu'à la partie 1. Si un site est déjà enregistré, ouvrez le menu déroulant en haut à gauche puis <strong>+ Ajouter une propriété</strong>.</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="num">8</span>
+          <div class="step-body">
+            <h3>Choisissez le type de propriété</h3>
+            <p>Google demande d'abord s'il s'agit d'une <strong>propriété de site Web</strong> ou d'une <strong>propriété de plate-forme</strong> (Instagram, TikTok, X, YouTube). Choisissez <strong>site Web</strong>. Deux types apparaissent alors&nbsp;: ils mènent au même résultat et se distinguent uniquement par la façon de prouver que le site est le vôtre.</p>
+
+            <div class="options">
+              <div class="option">
+                <div class="head">
+                  <span class="tag">Option A</span>
+                  <h3>Propriété de domaine</h3>
+                </div>
+                <div class="body">
+                  <p>Vous saisissez <code>monsite.fr</code>, sans <code>https://</code> ni <code>www</code>. C'est la version la plus complète&nbsp;: elle couvre toutes les variantes de l'adresse d'un coup.</p>
+                  <p>Google affiche alors un <strong>enregistrement TXT</strong>, une longue ligne commençant par <code>google-site-verification=</code>. Il faut la coller dans la zone DNS, chez le prestataire où le nom de domaine a été acheté&nbsp;— généralement dans une rubrique «&nbsp;Zone DNS&nbsp;» ou «&nbsp;Gérer les enregistrements&nbsp;». Certains hébergeurs proposent même de le faire automatiquement pour vous. Revenez ensuite cliquer sur <strong>Valider</strong>.</p>
+                  <p><strong>À retenir&nbsp;:</strong> c'est la seule méthode acceptée pour ce type de propriété. Si vous ne savez pas où se gèrent vos DNS, envoyez-nous la ligne, ou prenez l'option B.</p>
+                </div>
+              </div>
+
+              <div class="option">
+                <div class="head">
+                  <span class="tag">Option B</span>
+                  <h3>Propriété de préfixe d'URL</h3>
+                </div>
+                <div class="body">
+                  <p>Vous saisissez l'adresse complète, par exemple <code>https://www.monsite.fr/</code>. Google propose ensuite plusieurs méthodes de validation, dont deux qui vous concernent&nbsp;:</p>
+                  <ul class="plain">
+                    <li><strong>Google Analytics</strong> — la plus simple. Une fois que nous vous avons confirmé l'installation du code de la partie 1, un clic suffit&nbsp;: Google reconnaît la balise et valide immédiatement. Deux conditions&nbsp;: le même compte Google des deux côtés, et des droits de modification sur la propriété Analytics — ce qui est votre cas si vous l'avez créée vous-même.</li>
+                    <li><strong>Balise HTML</strong> — Google affiche une ligne de code à insérer dans le site. Copiez-la, envoyez-la-nous, puis revenez cliquer sur <strong>Valider</strong> une fois que nous vous confirmons la mise en ligne.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="box warn">
+              <span class="label">Attention</span>
+              <p>Après avoir ajouté un enregistrement DNS (option A), la validation peut échouer pendant quelques heures, le temps que la modification se propage sur Internet. Ce n'est pas une erreur de votre part&nbsp;: attendez, puis recliquez sur <strong>Valider</strong>. Et ne supprimez jamais la ligne ajoutée par la suite&nbsp;: Google revérifie régulièrement, et vous perdriez l'accès.</p>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <span class="num">9</span>
+          <div class="step-body">
+            <h3>Déclarez le plan du site</h3>
+            <p>Une fois la propriété validée, indiquez à Google où trouver la liste de vos pages. Dans le menu de gauche&nbsp;:</p>
+            <div class="path">
+              <b>Indexation</b> <span class="sep">›</span> <b>Sitemaps</b>
+              <span class="sep">›</span> champ <b>Ajouter un sitemap</b> <span class="sep">›</span> <b>Envoyer</b>
+            </div>
+            <p>Dans une propriété de <em>préfixe d'URL</em>, le début de l'adresse est déjà pré-rempli&nbsp;: tapez simplement <code>sitemap.xml</code> à la suite. Dans une propriété de <em>domaine</em>, saisissez l'adresse entière, par exemple <code>https://www.monsite.fr/sitemap.xml</code>. Si un message d'erreur apparaît, demandez-nous l'adresse exacte&nbsp;: elle varie selon la façon dont le site est construit.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <hr class="rule">
+
+    <!-- ============ PARTIE 3 : RELIER ============ -->
+    <section>
+      <div class="part-head">
+        <p class="eyebrow">Partie 3 &middot; environ 5 minutes</p>
+        <h2>Relier les deux outils, et nous donner l'accès</h2>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <span class="num">10</span>
+          <div class="step-body">
+            <h3>Associez Search Console à Analytics</h3>
+            <p>Cette liaison fait apparaître, dans Analytics, les mots-clés qui amènent vos visiteurs. Depuis Analytics&nbsp;:</p>
+            <div class="path">
+              <b>Admin</b> <span class="sep">›</span> <b>Associations de produits</b>
+              <span class="sep">›</span> <b>Associations à Search Console</b>
+              <span class="sep">›</span> <b>Associer</b>
+            </div>
+            <p>Cliquez sur <strong>Sélectionner des comptes</strong>, choisissez la propriété créée à la partie 2, confirmez, puis sélectionnez le flux Web de votre site et validez.</p>
+          </div>
+        </li>
+
+        <li>
+          <span class="num">11</span>
+          <div class="step-body">
+            <h3>Ajoutez-nous aux deux outils</h3>
+            <p>Vous restez propriétaire des comptes&nbsp;: vous accordez un accès, et vous pouvez le retirer à tout moment, sans rien perdre.</p>
+            <p><strong>Dans Analytics</strong> — <b>Admin</b> › <b>Gestion des accès à la propriété</b> › bouton <b>+</b> › <b>Ajouter des utilisateurs</b>. Saisissez notre adresse e-mail et choisissez le rôle <strong>Éditeur</strong>, qui nous permet d'intervenir sur les réglages. Le rôle <strong>Lecteur</strong> donne une simple consultation, sans possibilité de corriger quoi que ce soit.</p>
+            <p><strong>Dans Search Console</strong> — <b>Paramètres</b> › <b>Utilisateurs et autorisations</b> › <b>Ajouter un utilisateur</b>. Saisissez la même adresse, autorisation <strong>Complet</strong> (l'autorisation <strong>Limité</strong> ne donne qu'un accès en lecture).</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="box send">
+        <span class="label">Récapitulatif de ce que vous devez nous envoyer</span>
+        <p>Un seul message suffit, avec les éléments ci-dessous.</p>
+      </div>
+
+      <div class="contact">
+        <span><span class="k">Écrire à</span> <a href="mailto:avalonstratege@gmail.com">avalonstratege@gmail.com</a></span>
+        <span><span class="k">Téléphone</span> <a href="tel:+33658968959">06 58 96 89 59</a></span>
+      </div>
+
+      <ul class="check">
+        <li>
+          <span class="sq" aria-hidden="true"></span>
+          <span><b>L'identifiant de mesure Analytics</b>Le code <code>G-XXXXXXXXXX</code> de l'étape 6.</span>
+        </li>
+        <li>
+          <span class="sq" aria-hidden="true"></span>
+          <span><b>Le code de validation Search Console, le cas échéant</b>La ligne <code>google-site-verification…</code> ou la balise HTML, si vous souhaitez que nous l'installions.</span>
+        </li>
+        <li>
+          <span class="sq" aria-hidden="true"></span>
+          <span><b>La confirmation des accès</b>Un mot indiquant que notre adresse e-mail a bien été ajoutée aux deux outils.</span>
+        </li>
+      </ul>
+    </section>
+
+    <hr class="rule">
+
+    <!-- ============ ENSUITE ============ -->
+    <section>
+      <div class="part-head">
+        <p class="eyebrow">Et ensuite</p>
+        <h2>Quand les chiffres arrivent, et où les lire</h2>
+      </div>
+
+      <ul class="plain">
+        <li><strong>Analytics, tout de suite&nbsp;:</strong> le rapport <em>Temps réel</em> affiche les visiteurs présents à la minute près. C'est le moyen de vérifier que tout fonctionne&nbsp;: ouvrez votre site depuis votre téléphone, vous devez vous y voir apparaître.</li>
+        <li><strong>Analytics, les rapports habituels&nbsp;:</strong> comptez <strong>24 à 48&nbsp;heures</strong> avant que les chiffres d'une journée soient complets et stabilisés. Un rapport consulté trop tôt affiche des chiffres partiels&nbsp;; ce n'est pas un bug.</li>
+        <li><strong>Search Console&nbsp;:</strong> comptez <strong>2 à 3 jours</strong> avant les premières données, et souvent deux à trois semaines avant des chiffres vraiment lisibles. L'outil attend d'avoir observé de vraies recherches.</li>
+      </ul>
+
+      <div class="path">
+        <span class="eyebrow">Vos visiteurs</span>
+        <span class="sep">·</span> Analytics <span class="sep">›</span> <b>Rapports</b>
+        <span class="sep">›</span> <b>Acquisition</b> <span class="sep">›</span> <b>Acquisition de trafic</b>
+      </div>
+      <div class="path">
+        <span class="eyebrow">Vos mots-clés</span>
+        <span class="sep">·</span> Search Console <span class="sep">›</span> <b>Performances</b>
+        <span class="sep">›</span> <b>Résultats de recherche</b>
+      </div>
+      <p style="color:var(--ink-soft);font-size:15px;">Le nom des rubriques d'Analytics peut varier légèrement selon les objectifs indiqués à l'étape 4. Le bon rythme de consultation&nbsp;: une fois par mois. Les variations d'un jour à l'autre ne veulent rien dire sur un site vitrine&nbsp;; ce sont les tendances sur plusieurs semaines qui comptent.</p>
+
+      <div class="box warn">
+        <span class="label">Point réglementaire</span>
+        <p>Google Analytics dépose des cookies de mesure. En France, la CNIL impose alors un <strong>bandeau de consentement</strong> sur le site&nbsp;: Google Analytics n'entre pas dans les cas d'exemption, y compris en mode «&nbsp;anonymisé&nbsp;». Search Console, elle, ne pose aucun cookie et n'est concernée par rien de tout cela. Si vous préférez éviter le bandeau, il existe des outils de mesure exemptés (Matomo, Plausible…) que nous pouvons installer à la place&nbsp;: parlons-en avant la mise en ligne.</p>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- ============ FAQ ============ -->
+    <section>
+      <div class="part-head">
+        <p class="eyebrow">En cas de blocage</p>
+        <h2>Les questions qui reviennent</h2>
+      </div>
+
+      <div>
+        <details>
+          <summary>Je ne trouve pas le bouton «&nbsp;Admin&nbsp;» dans Analytics.</summary>
+          <p>Il se trouve tout en bas de la colonne de gauche, sous la forme d'une roue crantée, et reste au même endroit quelle que soit la page affichée. Sur petit écran, il faut d'abord déplier le menu latéral. Attention aux tutoriels trouvés en ligne&nbsp;: Google a déplacé ce bouton deux fois ces dernières années, beaucoup d'articles sont périmés.</p>
+        </details>
+        <details>
+          <summary>Search Console refuse de valider ma propriété.</summary>
+          <p>Trois causes dans la quasi-totalité des cas&nbsp;: la modification DNS n'est pas encore propagée (attendez quelques heures), le code a été collé avec un espace ou un retour à la ligne en trop (recopiez-le d'un seul bloc), ou l'adresse saisie ne correspond pas exactement à celle du site (<code>www</code> oublié, <code>http</code> au lieu de <code>https</code>).</p>
+        </details>
+        <details>
+          <summary>Analytics affiche zéro visiteur depuis plusieurs jours.</summary>
+          <p>Vérifiez d'abord dans le rapport <em>Temps réel</em> en ouvrant votre site depuis un autre appareil. Si rien n'apparaît, le code n'est probablement pas installé, ou l'identifiant transmis n'est pas celui de cette propriété&nbsp;: renvoyez-nous le <code>G-…</code> pour comparaison. Autre cause fréquente et sans gravité&nbsp;: un bloqueur de publicité dans votre navigateur vous empêche de vous voir vous-même.</p>
+        </details>
+        <details>
+          <summary>Search Console indique des pages «&nbsp;non indexées&nbsp;». C'est grave&nbsp;?</summary>
+          <p>Rarement. Certaines pages n'ont pas vocation à apparaître dans Google (pages de redirection, doublons techniques, mentions légales). Envoyez-nous la capture d'écran&nbsp;: nous distinguons en un coup d'œil ce qui est normal de ce qui mérite une correction.</p>
+        </details>
+        <details>
+          <summary>Faut-il payer quelque chose&nbsp;?</summary>
+          <p>Non. Les deux outils sont gratuits et sans limite pour un site de cette taille. Si un écran vous propose Google&nbsp;Ads ou une offre payante, vous pouvez l'ignorer&nbsp;: c'est une proposition commerciale, pas une étape obligatoire.</p>
+        </details>
+        <details>
+          <summary>Que se passe-t-il si je change de prestataire, ou de site&nbsp;?</summary>
+          <p>Rien n'est perdu, à condition que les comptes aient été créés avec <strong>votre</strong> adresse Google, comme recommandé au début de ce guide. Vous retirez l'ancien accès, vous en accordez un nouveau, et l'historique reste le vôtre. C'est précisément pour cela que nous vous demandons de créer ces comptes vous-même plutôt que de le faire à votre place.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="doc">
+    <div class="sig">
+      <span class="name">Avalon Stratège</span>
+      <span class="sigmeta"><a href="https://www.avalon-stratege.com" target="_blank" rel="noopener">avalon-stratege.com</a> · avalonstratege@gmail.com · 06 58 96 89 59</span>
+    </div>
+    <p>Guide rédigé pour un site vitrine standard. Les libellés de menus correspondent aux interfaces Google&nbsp;Analytics et Google&nbsp;Search&nbsp;Console vérifiées en août&nbsp;2026. En cas de doute sur une étape, arrêtez-vous et envoyez-nous une capture d'écran plutôt que de valider dans l'incertitude.</p>
+    <p class="legal">© 2026 Avalon Stratège. Document remis à ses clients dans le cadre de ses prestations. Toute reproduction, diffusion ou réutilisation en dehors de ce cadre est soumise à autorisation écrite.</p>
+  </footer>
+
+</div>
+</body>
+</html>

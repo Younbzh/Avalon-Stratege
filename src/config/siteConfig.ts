@@ -31,7 +31,7 @@ export const siteConfig = {
     ctaSecondaire: 'Parler de mon projet',
     preuves: [
       { valeur: '48h', label: 'pour voir votre site' },
-      { valeur: '490 €', label: 'à partir de' },
+      { valeur: '890 €', label: 'à partir de' },
       { valeur: '0 €', label: 'avant d’avoir vu le résultat' },
     ],
   },
@@ -65,57 +65,62 @@ export const siteConfig = {
       'Vous payez une fois pour le site. L’entretien mensuel est facultatif, sans engagement, et vous pouvez l’arrêter quand vous voulez.',
     liste: [
       {
-        nom: 'Essentiel',
-        prix: '490',
+        nom: 'Visible',
+        prix: '890',
         unite: '€',
         mention: 'paiement unique',
-        pour: 'Pour exister proprement en ligne, sans être trouvé.',
+        pour: 'Pour recevoir des demandes de gens qui ne vous connaissent pas encore.',
         inclus: [
-          'Un site complet, sur une page fluide',
-          'Vos prestations, votre zone, vos coordonnées',
-          'Rapide et lisible sur téléphone',
-          'Vos photos intégrées',
-          'En ligne sous 5 jours',
-        ],
-        /* Dire ce que l'offre ne fait pas vaut mieux que le laisser découvrir :
-           le site entier explique qu'exister ne suffit pas, la grille doit le
-           confirmer plutôt que de proposer discrètement le contraire. */
-        limite: 'Sans référencement local : vous n’apparaîtrez pas sur « votre métier + votre commune ».',
-        recommande: false,
-      },
-      {
-        nom: 'Pro',
-        prix: '690',
-        unite: '€',
-        mention: 'paiement unique',
-        pour: 'Pour être trouvé et recevoir des demandes.',
-        inclus: [
-          'Tout l’Essentiel, plus :',
+          'Un site complet, rapide et lisible sur téléphone',
           'Référencement local sur « votre métier + vos communes »',
           'Votre fiche Google créée et reliée au site',
           'Galerie de vos chantiers ou réalisations',
           'Formulaire de demande de devis',
           'Les questions de vos clients traitées sur la page',
         ],
+        recommande: false,
+      },
+      {
+        nom: 'Territoire',
+        prix: '1 290',
+        unite: '€',
+        mention: 'paiement unique',
+        pour: 'Pour passer devant vos concurrents, commune par commune.',
+        inclus: [
+          'Tout le Visible, plus :',
+          '15 communes travaillées au lieu de 7',
+          'Une page par prestation, écrite pour être trouvée',
+          'Votre fiche Google complète : services, zone, horaires et photos',
+          'Un kit prêt à envoyer pour récolter vos premiers avis Google',
+          'Les textes rédigés à partir de votre métier, pas d’un modèle',
+        ],
         recommande: true,
       },
       {
         nom: 'Signature',
-        prix: '990',
+        prix: '1 890',
         unite: '€',
-        mention: 'paiement unique',
-        pour: 'Pour occuper le terrain, commune par commune.',
+        mention: 'paiement unique · 6 mois de suivi inclus',
+        pour: 'Pour occuper tout votre secteur, sans avoir à y penser.',
         inclus: [
-          'Tout le Pro, plus :',
-          '15 communes travaillées au lieu de 7',
-          'Une page par prestation, écrite pour être trouvée',
-          'Votre fiche Google créée, remplie et photographiée',
-          'La campagne de vos premiers avis clients',
-          'Les textes rédigés à partir de votre métier, pas d’un modèle',
+          'Tout le Territoire, plus :',
+          '25 communes travaillées au lieu de 15',
+          'Une page dédiée à chacune de vos 5 communes principales',
+          '6 mois d’entretien offerts, d’une valeur de 294 €',
+          'Votre bilan écrit à 3 mois : ce que le site vous apporte, et quoi améliorer',
         ],
         recommande: false,
       },
     ],
+
+    /* Le calcul qui justifie le prix, dit une fois sous la grille plutôt que
+       répété dans chaque carte. */
+    rentabilite: 'Un seul chantier décroché grâce au site, et il est remboursé.',
+
+    /* Les indépendants qui n'ont pas besoin d'être trouvés (portfolio, commande
+       sur recommandation) ont leur réponse, sans brouiller la comparaison. */
+    vitrine:
+      'Pas besoin d’être trouvé sur Google, parce que vos clients viennent déjà par le bouche-à-oreille ? Un site vitrine simple est possible à partir de 590 €.',
 
     /*
       Le déroulé du paiement est affiché sous les prix, et pas seulement dans la
@@ -140,13 +145,14 @@ export const siteConfig = {
       pour: 'Pour ne plus jamais y penser.',
       inclus: [
         'Hébergement et nom de domaine compris',
-        'Vos modifications faites par moi sous 48h : textes, photos, tarifs, horaires',
-        'Votre fiche Google tenue à jour',
+        'Vos changements faits par moi sous 48h, sur le site comme sur Google : tarifs, horaires, photos, textes',
         'Sauvegardes et mises à jour techniques',
-        'Chaque mois, un point clair : combien de visites, combien d’appels',
+        'Chaque mois, vos visites et vos appels dans votre boîte mail',
       ],
+      /* Le plafond est dit comme ce qu'il permet, et le devis au-delà comme une
+         protection : le client ne découvre jamais une facture après coup. */
       note:
-        'Facultatif. Sans entretien le site reste le vôtre : c’est vous qui gérez l’hébergement et les modifications.',
+        'Jusqu’à 30 minutes de changements par mois : de quoi tenir vos tarifs, vos horaires et vos photos toujours à jour. Pour un changement plus important, comme une nouvelle page, je vous fais un devis avant : jamais de surprise. Facultatif, et sans entretien le site reste le vôtre.',
     },
   },
 
@@ -169,7 +175,7 @@ export const siteConfig = {
       {
         titre: 'Vous décidez, on ajuste',
         texte:
-          'Si ça vous plaît, on lance : la moitié à la commande, la moitié le jour de la mise en ligne. Vous m’envoyez vos photos et vos corrections, et on reprend autant de fois qu’il faut.',
+          'Si ça vous plaît, on lance : la moitié à la commande, la moitié le jour de la mise en ligne. Vous m’envoyez vos photos et toutes vos remarques en une fois, puis on fait une dernière passe ensemble : deux séries de retouches, comprises dans le prix.',
       },
       {
         titre: 'Mise en ligne',
@@ -254,8 +260,8 @@ export const siteConfig = {
         r: 'Oui. Le nom de domaine est déposé à votre nom et le site est le vôtre. Si un jour vous arrêtez l’entretien ou changez de prestataire, vous repartez avec.',
       },
       {
-        q: 'Pourquoi 490 € quand d’autres demandent 3 000 € ?',
-        r: 'Parce que je ne repars pas de zéro à chaque fois. J’ai construit une base solide que j’adapte à votre métier et à votre commune. Vous payez le travail utile (les textes, le référencement, la mise en ligne) et pas des heures de développement que personne ne verra.',
+        q: 'Pourquoi 890 € quand d’autres demandent 3 000 € ?',
+        r: 'Parce que la partie technique, je ne la refais pas à chaque fois : elle est solide, rapide, et la même pour tous mes clients. Ce que vous payez, c’est ce qui est propre à vous : les textes écrits sur votre métier, le référencement sur vos communes, votre fiche Google. Et pour un artisan, un seul chantier décroché grâce au site suffit à le rembourser.',
       },
       {
         q: 'Et si le résultat ne me plaît pas ?',
@@ -263,7 +269,7 @@ export const siteConfig = {
       },
       {
         q: 'L’entretien à 49 €/mois est-il obligatoire ?',
-        r: 'Jamais. Il est utile si vous ne voulez gérer ni l’hébergement ni les modifications, et si vous voulez que votre fiche Google reste vivante. Vous pouvez le prendre plus tard, ou l’arrêter quand vous voulez : il n’y a aucun engagement.',
+        r: 'Jamais. Il est utile si vous ne voulez gérer ni l’hébergement ni les modifications, et si vous voulez que vos tarifs, vos horaires et vos photos restent à jour, sur le site comme sur Google. Vous pouvez le prendre plus tard, ou l’arrêter quand vous voulez : il n’y a aucun engagement.',
       },
       {
         q: 'Combien de temps avant d’être visible sur Google ?',

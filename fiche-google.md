@@ -82,11 +82,12 @@ Ajoute-les un par un dans l'onglet « Services ». Chacun devient un mot-clé ex
 
 | Service | Description courte |
 |---|---|
-| Création de site vitrine | Site complet pour artisan ou indépendant, livré en 5 jours. À partir de 490 €. |
+| Création de site internet | Site avec référencement local pour artisan ou indépendant. À partir de 890 €. |
+| Création de site vitrine | Site simple pour ceux dont les clients viennent par le bouche-à-oreille. À partir de 590 €. |
 | Référencement local | Optimisation sur « votre métier + votre commune » pour apparaître dans les recherches de proximité. |
 | Création de fiche Google Business | Création, paramétrage et liaison de votre fiche à votre site internet. |
 | Refonte de site internet | Remplacement d'un site ancien, lent ou illisible sur téléphone. |
-| Entretien de site internet | Hébergement, nom de domaine, modifications sous 48h. 49 €/mois sans engagement. |
+| Entretien de site internet | Hébergement, nom de domaine, modifications du site et de la fiche Google sous 48h. 49 €/mois sans engagement. |
 | Site pour artisan du bâtiment | Plombier, maçon, électricien, chauffagiste, menuisier. |
 
 ---
@@ -177,7 +178,7 @@ Deux minutes suffisent, voici le lien direct : [LIEN]
 Et si vous avez besoin d'une modification sur votre site, dites-le moi,
 je m'en occupe.
 
-Ludovic
+Youenn
 ```
 
 Le lien direct s'obtient dans la fiche : **Demander des avis → Copier le lien**.
@@ -199,7 +200,7 @@ Le lien direct s'obtient dans la fiche : **Demander des avis → Copier le lien*
 
 ## Et pour tes clients
 
-Cette procédure est exactement celle que tu factures dans l'offre Pro à 690 €.
+Cette procédure est exactement celle que tu factures dans l'offre Visible à 890 €.
 Une fois déroulée pour toi, tu l'appliques chez eux en vingt minutes — avec une différence
 de taille : eux ont une vraie adresse ou une vraie zone d'intervention, donc ils cochent
 « établissement visitable » ou déclarent leurs communes, celles qui sont déjà listées
