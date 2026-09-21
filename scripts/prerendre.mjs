@@ -93,8 +93,10 @@ Interlocuteur unique : Youenn. Pas d'agence, pas de sous-traitance.
 - Site Territoire : 1 290 € en paiement unique. 15 communes, une page par
   prestation, kit pour récolter les premiers avis clients.
 - Site Signature : 1 890 € en paiement unique. 25 communes, une page par
-  commune principale, 6 mois d'entretien offerts, bilan écrit à 3 mois.
+  commune principale, kit de communication offert, bilan écrit à 3 mois.
 - Site vitrine simple, sans référencement local : à partir de 590 €.
+- Kit de communication (carte de visite, flyer, visuels réseaux sociaux avec
+  QR code) : 250 €, offert avec Signature.
 - Entretien : 49 € par mois, sans engagement. Hébergement, modifications sous
   48 heures (jusqu'à 30 minutes par mois), statistiques mensuelles par e-mail.
 

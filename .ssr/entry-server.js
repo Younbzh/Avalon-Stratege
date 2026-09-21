@@ -83,13 +83,13 @@ const siteConfig = {
         nom: "Signature",
         prix: "1 890",
         unite: "€",
-        mention: "paiement unique · 6 mois de suivi inclus",
+        mention: "paiement unique",
         pour: "Pour occuper tout votre secteur, sans avoir à y penser.",
         inclus: [
           "Tout le Territoire, plus :",
           "25 communes travaillées au lieu de 15",
           "Une page dédiée à chacune de vos 5 communes principales",
-          "6 mois d’entretien offerts, d’une valeur de 294 €",
+          "Votre kit de communication offert, d’une valeur de 250 € : carte de visite, flyer et visuels réseaux sociaux",
           "Votre bilan écrit à 3 mois : ce que le site vous apporte, et quoi améliorer"
         ],
         recommande: false
@@ -101,6 +101,9 @@ const siteConfig = {
     /* Les indépendants qui n'ont pas besoin d'être trouvés (portfolio, commande
        sur recommandation) ont leur réponse, sans brouiller la comparaison. */
     vitrine: "Pas besoin d’être trouvé sur Google, parce que vos clients viennent déjà par le bouche-à-oreille ? Un site vitrine simple est possible à partir de 590 €.",
+    /* Le kit est vendu seul à ce prix : c'est ce qui rend honnête la valeur
+       annoncée quand il est offert avec Signature. */
+    kit: "Et pour vos chantiers, un kit de communication à vos couleurs : carte de visite, flyer et visuels réseaux sociaux, avec un QR code vers votre site. 250 €, offert avec Signature.",
     /*
       Le déroulé du paiement est affiché sous les prix, et pas seulement dans la
       FAQ : « c'est gratuit » et « la moitié à la commande » se contredisent tant
@@ -430,7 +433,7 @@ function Constat() {
   ] }) });
 }
 function Offres() {
-  const { liste, entretien, paiement, rentabilite, vitrine } = siteConfig.offres;
+  const { liste, entretien, paiement, rentabilite, vitrine, kit } = siteConfig.offres;
   return /* @__PURE__ */ jsxs("section", { id: "offres", className: "section relative overflow-hidden", children: [
     /* @__PURE__ */ jsx(
       "div",
@@ -482,8 +485,9 @@ function Offres() {
       ] }, o.nom)) }),
       /* @__PURE__ */ jsxs("div", { className: "rv mx-auto mt-12 max-w-2xl text-center", children: [
         /* @__PURE__ */ jsx("p", { style: { fontFamily: "var(--serif)" }, className: "text-2xl", children: rentabilite }),
-        /* @__PURE__ */ jsxs("p", { className: "mt-4 text-[15px]", style: { color: "var(--ivoire-doux)" }, children: [
-          vitrine,
+        /* @__PURE__ */ jsx("p", { className: "mt-4 text-[15px]", style: { color: "var(--ivoire-doux)" }, children: vitrine }),
+        /* @__PURE__ */ jsxs("p", { className: "mt-2 text-[15px]", style: { color: "var(--ivoire-doux)" }, children: [
+          kit,
           " ",
           /* @__PURE__ */ jsx("a", { href: "#contact", style: { color: "var(--or)" }, className: "underline underline-offset-4", children: "Parlons-en" })
         ] })

@@ -222,7 +222,7 @@ function Constat() {
 /* ------------------------------------------------------------------- offres */
 
 function Offres() {
-  const { liste, entretien, paiement, rentabilite, vitrine } = s.offres;
+  const { liste, entretien, paiement, rentabilite, vitrine, kit } = s.offres;
 
   return (
     <section id="offres" className="section relative overflow-hidden">
@@ -298,7 +298,10 @@ function Offres() {
             {rentabilite}
           </p>
           <p className="mt-4 text-[15px]" style={{ color: 'var(--ivoire-doux)' }}>
-            {vitrine}{' '}
+            {vitrine}
+          </p>
+          <p className="mt-2 text-[15px]" style={{ color: 'var(--ivoire-doux)' }}>
+            {kit}{' '}
             <a href="#contact" style={{ color: 'var(--or)' }} className="underline underline-offset-4">
               Parlons-en
             </a>

@@ -84,6 +84,7 @@ Ajoute-les un par un dans l'onglet « Services ». Chacun devient un mot-clé ex
 |---|---|
 | Création de site internet | Site avec référencement local pour artisan ou indépendant. À partir de 890 €. |
 | Création de site vitrine | Site simple pour ceux dont les clients viennent par le bouche-à-oreille. À partir de 590 €. |
+| Kit de communication | Carte de visite, flyer et visuels réseaux sociaux aux couleurs du site, avec QR code. 250 €. |
 | Référencement local | Optimisation sur « votre métier + votre commune » pour apparaître dans les recherches de proximité. |
 | Création de fiche Google Business | Création, paramétrage et liaison de votre fiche à votre site internet. |
 | Refonte de site internet | Remplacement d'un site ancien, lent ou illisible sur téléphone. |

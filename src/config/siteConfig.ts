@@ -100,13 +100,13 @@ export const siteConfig = {
         nom: 'Signature',
         prix: '1 890',
         unite: '€',
-        mention: 'paiement unique · 6 mois de suivi inclus',
+        mention: 'paiement unique',
         pour: 'Pour occuper tout votre secteur, sans avoir à y penser.',
         inclus: [
           'Tout le Territoire, plus :',
           '25 communes travaillées au lieu de 15',
           'Une page dédiée à chacune de vos 5 communes principales',
-          '6 mois d’entretien offerts, d’une valeur de 294 €',
+          'Votre kit de communication offert, d’une valeur de 250 € : carte de visite, flyer et visuels réseaux sociaux',
           'Votre bilan écrit à 3 mois : ce que le site vous apporte, et quoi améliorer',
         ],
         recommande: false,
@@ -121,6 +121,10 @@ export const siteConfig = {
        sur recommandation) ont leur réponse, sans brouiller la comparaison. */
     vitrine:
       'Pas besoin d’être trouvé sur Google, parce que vos clients viennent déjà par le bouche-à-oreille ? Un site vitrine simple est possible à partir de 590 €.',
+
+    /* Le kit est vendu seul à ce prix : c'est ce qui rend honnête la valeur
+       annoncée quand il est offert avec Signature. */
+    kit: 'Et pour vos chantiers, un kit de communication à vos couleurs : carte de visite, flyer et visuels réseaux sociaux, avec un QR code vers votre site. 250 €, offert avec Signature.',
 
     /*
       Le déroulé du paiement est affiché sous les prix, et pas seulement dans la
