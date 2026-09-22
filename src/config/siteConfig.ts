@@ -104,6 +104,7 @@ export const siteConfig = {
         pour: 'Pour occuper tout votre secteur, sans avoir à y penser.',
         inclus: [
           'Tout le Territoire, plus :',
+          'La finition Signature : une mise en page distinctive, et pas celle de tout le monde',
           '25 communes travaillées au lieu de 15',
           'Une page dédiée à chacune de vos 5 communes principales',
           'Votre kit de communication offert, d’une valeur de 250 € : carte de visite, flyer et visuels réseaux sociaux',
