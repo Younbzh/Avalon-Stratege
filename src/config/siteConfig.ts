@@ -65,7 +65,7 @@ export const siteConfig = {
       'Vous payez une fois pour le site. L’entretien mensuel est facultatif, sans engagement, et vous pouvez l’arrêter quand vous voulez.',
     liste: [
       {
-        nom: 'Visible',
+        nom: 'Locale',
         prix: '890',
         unite: '€',
         mention: 'paiement unique',
@@ -87,7 +87,8 @@ export const siteConfig = {
         mention: 'paiement unique',
         pour: 'Pour passer devant vos concurrents, commune par commune.',
         inclus: [
-          'Tout le Visible, plus :',
+          'Tout le Locale, plus :',
+          'La mise en page Signature : composition centrée, héros plein écran, et pas celle de tout le monde',
           '15 communes travaillées au lieu de 7',
           'Une page par prestation, écrite pour être trouvée',
           'Votre fiche Google complète : services, zone, horaires et photos',
@@ -104,7 +105,6 @@ export const siteConfig = {
         pour: 'Pour occuper tout votre secteur, sans avoir à y penser.',
         inclus: [
           'Tout le Territoire, plus :',
-          'La finition Signature : une mise en page distinctive, et pas celle de tout le monde',
           '25 communes travaillées au lieu de 15',
           'Une page dédiée à chacune de vos 5 communes principales',
           'Votre kit de communication offert, d’une valeur de 250 € : carte de visite, flyer et visuels réseaux sociaux',
