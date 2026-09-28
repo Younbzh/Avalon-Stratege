@@ -45,16 +45,20 @@ const siteConfig = {
   offres: {
     surtitre: "Ce que ça coûte",
     titre: "Un prix annoncé, aucune surprise.",
-    chapo: "Vous payez une fois pour le site. L’entretien mensuel est facultatif, sans engagement, et vous pouvez l’arrêter quand vous voulez.",
+    /* Dit d'entrée, parce que c'est contre-intuitif : ailleurs, l'offre d'entrée
+       est toujours la version fade. Ici le design est le même partout, et ce qui
+       se paie est le territoire couvert. */
+    chapo: "La mise en page est la même dans les trois formules : je ne vends pas un design au rabais. Ce qui change, c’est l’étendue du territoire travaillé. Vous payez une fois pour le site ; l’entretien mensuel est facultatif, sans engagement, et vous pouvez l’arrêter quand vous voulez.",
     liste: [
       {
-        nom: "Visible",
+        nom: "Locale",
         prix: "890",
         unite: "€",
         mention: "paiement unique",
         pour: "Pour recevoir des demandes de gens qui ne vous connaissent pas encore.",
         inclus: [
           "Un site complet, rapide et lisible sur téléphone",
+          "Votre vidéo d’accueil, montée à partir de vos photos de chantier",
           "Référencement local sur « votre métier + vos communes »",
           "Votre fiche Google créée et reliée au site",
           "Galerie de vos chantiers ou réalisations",
@@ -70,7 +74,7 @@ const siteConfig = {
         mention: "paiement unique",
         pour: "Pour passer devant vos concurrents, commune par commune.",
         inclus: [
-          "Tout le Visible, plus :",
+          "Tout le Locale, plus :",
           "15 communes travaillées au lieu de 7",
           "Une page par prestation, écrite pour être trouvée",
           "Votre fiche Google complète : services, zone, horaires et photos",
