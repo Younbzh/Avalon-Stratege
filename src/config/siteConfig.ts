@@ -29,6 +29,15 @@ export const siteConfig = {
       'Quand quelqu’un cherche votre métier dans votre commune, il tombe sur un concurrent ou sur vous. C’est le seul enjeu, et c’est le seul que je traite.',
     ctaPrincipal: 'Voir des sites en ligne',
     ctaSecondaire: 'Parler de mon projet',
+    /*
+      Quatre de mes sites qui défilent, filmés sur un téléphone.
+      Un site d'agence qui AFFIRME faire du bon travail vaut moins qu'un site
+      qui en montre quatre en seize secondes : le visiteur juge en regardant,
+      pas en lisant. Refaite en une commande quand le portfolio bouge :
+        node Prospection/pipeline/auditeur/capture-sites.mjs public/videos <url…>
+    */
+    video: '/videos/hero-v1.mp4',
+    videoAffiche: '/videos/hero-v1.jpg',
     preuves: [
       { valeur: '48h', label: 'pour voir votre site' },
       { valeur: '890 €', label: 'à partir de' },
@@ -51,9 +60,20 @@ export const siteConfig = {
           'Elle sert à ceux qui vous connaissent déjà. Elle ne remonte presque jamais dans une recherche Google, elle ne dit ni vos tarifs ni votre zone, et elle appartient à Facebook, pas à vous.',
       },
       {
-        titre: 'Un beau site qu’on ne trouve pas ne sert à rien',
+        titre: 'Une commune, une page',
         texte:
-          'C’est là que la plupart des sites d’artisans échouent. Le vôtre sera écrit pour être trouvé sur « votre métier + votre commune », et pour donner envie d’appeler une fois trouvé.',
+          'C’est là que la plupart des sites d’artisans échouent : ils citent dix communes dans une phrase du pied de page, et ne sortent sur aucune. Le vôtre aura une page entière par commune desservie, avec la distance depuis votre atelier et ce que vous y faites. C’est cette page-là que Google montre à quelqu’un qui cherche dans son bourg.',
+      },
+      /*
+        L'argument qui manquait au site alors qu'il est au cœur de chaque SMS
+        envoyé depuis septembre. Dit sans jargon : ni « LLM », ni « GEO », ni
+        « optimisation sémantique ». Le test est le même que celui du message,
+        et il est vérifiable en dix secondes par le lecteur.
+      */
+      {
+        titre: 'Et maintenant, on demande aussi à ChatGPT',
+        texte:
+          'De plus en plus de gens ne tapent plus sur Google : ils demandent « un couvreur fiable près de chez moi » à un assistant, et suivent la réponse. Faites le test pour votre métier : il vous cite ? Ces assistants ne lisent pas les sites comme un navigateur, et la plupart leur apparaissent vides. Les sites que je fais sont écrits pour être lus, cités et recommandés par eux.',
       },
     ],
   },
@@ -65,7 +85,7 @@ export const siteConfig = {
        est toujours la version fade. Ici le design est le même partout, et ce qui
        se paie est le territoire couvert. */
     chapo:
-      'La mise en page est la même dans les trois formules : je ne vends pas un design au rabais. Ce qui change, c’est l’étendue du territoire travaillé. Vous payez une fois pour le site ; l’entretien mensuel est facultatif, sans engagement, et vous pouvez l’arrêter quand vous voulez.',
+      'La mise en page est la même dans les trois formules : je ne vends pas un design au rabais. Ce qui change, c’est le nombre de communes travaillées — et une commune travaillée, c’est une page entière écrite pour elle, avec la distance depuis chez vous et ce qu’on y fait, pas son nom ajouté dans une liste. C’est ce qui vous fait sortir sur « votre métier + Plénée-Jugon » quand votre concurrent ne sort que sur sa propre commune. Vous payez une fois pour le site ; l’entretien mensuel est facultatif, sans engagement, et vous pouvez l’arrêter quand vous voulez.',
     liste: [
       {
         nom: 'Locale',
@@ -76,7 +96,7 @@ export const siteConfig = {
         inclus: [
           'Un site complet, rapide et lisible sur téléphone',
           'Votre vidéo d’accueil, montée à partir de vos photos de chantier',
-          'Référencement local sur « votre métier + vos communes »',
+          'Une vraie page pour chacune de vos 7 communes, pas une liste de noms',
           'Votre fiche Google créée et reliée au site',
           'Galerie de vos chantiers ou réalisations',
           'Formulaire de demande de devis',
@@ -196,7 +216,7 @@ export const siteConfig = {
   exemples: {
     surtitre: 'Des sites en service',
     titre: 'Regardez le travail, pas les promesses.',
-    chapo: 'Six sites réalisés et en ligne aujourd’hui. Cliquez sur l’un d’eux pour l’ouvrir.',
+    chapo: 'Sept sites réalisés et en ligne aujourd’hui. Cliquez sur l’un d’eux pour l’ouvrir.',
     liste: [
       {
         nom: 'Ô Gourmandiz d’Aurore',
@@ -212,19 +232,38 @@ export const siteConfig = {
         url: 'https://yann-berthelot-nutrition.com',
         image: '/realisations/yann-berthelot-v2.webp',
       },
+      /*
+        Deux sites du bâtiment, ajoutés en octobre 2026.
+
+        Les six exemples étaient de la pâtisserie, de la nutrition, du nettoyage,
+        du lavage auto, un comédien et des ongles : pas un seul artisan du
+        bâtiment, alors que c'est toute la prospection depuis septembre. Un
+        couvreur qui arrivait ici ne voyait aucun site qui ressemble au sien.
+
+        KL Menuiserie montre le cas type — pages par commune, prestations,
+        vidéo — et le Rugby Club Pontivyen montre qu'on sort du gabarit quand le
+        client n'est pas un artisan.
+      */
+      {
+        nom: 'KL Menuiserie',
+        metier: 'Menuisier charpentier',
+        lieu: 'Jugon-les-Lacs (22)',
+        url: 'https://kl-menuiserie.avalon-stratege.com',
+        image: '/realisations/kl-menuiserie.webp',
+      },
+      {
+        nom: 'Rugby Club Pontivyen',
+        metier: 'Club de rugby, créneaux et résultats en direct',
+        lieu: 'Pontivy (56)',
+        url: 'https://rugby-pontivy.avalon-stratege.com',
+        image: '/realisations/rugby-pontivy.webp',
+      },
       {
         nom: 'Bourdon Nettoyage',
         metier: 'Nettoyage professionnel',
         lieu: 'Crédin (56)',
         url: 'https://bourdon-nettoyage.vercel.app',
         image: '/realisations/bourdon-nettoyage-v2.webp',
-      },
-      {
-        nom: 'BRL Wash 56',
-        metier: 'Nettoyage automobile et mobilier à domicile',
-        lieu: 'Vannes (56)',
-        url: 'https://brl-wash-56.vercel.app',
-        image: '/realisations/brl-wash-56-v2.webp',
       },
       {
         nom: 'Gwenvaël Darsel',

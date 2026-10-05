@@ -147,7 +147,8 @@ function Hero() {
         style={{ bottom: '-16rem', left: '-12rem', width: '34rem', height: '34rem', background: 'rgba(120,140,217,0.10)' }}
       />
 
-      <div className="conteneur">
+      <div className="conteneur grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div>
         <span className="surtitre rv">{s.hero.accroche}</span>
 
         <h1 className="rv max-w-[16ch]">
@@ -185,6 +186,42 @@ function Hero() {
             </div>
           ))}
         </dl>
+      </div>
+
+      {/*
+        Quatre de mes sites qui défilent, dans un cadre de téléphone.
+
+        Montrer vaut mieux qu'affirmer : le visiteur juge en quatre secondes ce
+        qu'aucun paragraphe ne lui prouverait. Le cadre est un téléphone parce
+        que c'est là que ses clients à lui regarderont, et c'est là que les
+        sites de ses concurrents échouent.
+
+        Masquée sous 1024 px : sur un téléphone, elle pousserait le titre et les
+        boutons sous la ligne de flottaison pour montrer… un téléphone.
+      */}
+      <div className="rv hidden lg:block">
+        <div
+          className="relative mx-auto overflow-hidden"
+          style={{
+            width: '300px',
+            borderRadius: '2.2rem',
+            border: '10px solid #15161a',
+            boxShadow: '0 30px 80px rgba(0,0,0,.55)',
+          }}
+        >
+          <video
+            src={s.hero.video}
+            poster={s.hero.videoAffiche}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Quatre sites réalisés par Avalon Stratège, vus sur un téléphone"
+            style={{ display: 'block', width: '100%', height: 'auto' }}
+          />
+        </div>
+      </div>
       </div>
     </section>
   );
