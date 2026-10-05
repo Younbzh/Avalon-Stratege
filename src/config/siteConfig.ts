@@ -30,10 +30,17 @@ export const siteConfig = {
     ctaPrincipal: 'Voir des sites en ligne',
     ctaSecondaire: 'Parler de mon projet',
     /*
-      Quatre de mes sites qui défilent, filmés sur un téléphone.
+      Quatre sites qui défilent, filmés sur un téléphone.
+
       Un site d'agence qui AFFIRME faire du bon travail vaut moins qu'un site
       qui en montre quatre en seize secondes : le visiteur juge en regardant,
-      pas en lisant. Refaite en une commande quand le portfolio bouge :
+      pas en lisant.
+
+      Deux clients qui ont donné leur accord, et deux démonstrations de métier
+      faites pour ça. On ne filme jamais la maquette d'un prospect qui n'a rien
+      signé, même réussie : c'est son nom et son adresse qui défileraient.
+
+      Refaite en une commande quand le portfolio bouge :
         node Prospection/pipeline/auditeur/capture-sites.mjs public/videos <url…>
     */
     video: '/videos/hero-v1.mp4',
@@ -216,7 +223,12 @@ export const siteConfig = {
   exemples: {
     surtitre: 'Des sites en service',
     titre: 'Regardez le travail, pas les promesses.',
-    chapo: 'Sept sites réalisés et en ligne aujourd’hui. Cliquez sur l’un d’eux pour l’ouvrir.',
+    /* « En service » ne vaut que pour les sites de vrais clients. Les trois
+       démonstrations sont annoncées comme telles, dans leur libellé de métier
+       et ici : un visiteur ne doit pas croire qu'une entreprise inventée est
+       une référence. */
+    chapo:
+      'Six sites de clients, en ligne aujourd’hui, et trois démonstrations de métier faites pour être montrées. Cliquez sur l’un d’eux pour l’ouvrir.',
     liste: [
       {
         nom: 'Ô Gourmandiz d’Aurore',
@@ -233,30 +245,44 @@ export const siteConfig = {
         image: '/realisations/yann-berthelot-v2.webp',
       },
       /*
-        Deux sites du bâtiment, ajoutés en octobre 2026.
+        LES DÉMONSTRATIONS DE MÉTIER, ET POURQUOI ELLES REMPLACENT LES MAQUETTES.
 
-        Les six exemples étaient de la pâtisserie, de la nutrition, du nettoyage,
-        du lavage auto, un comédien et des ongles : pas un seul artisan du
-        bâtiment, alors que c'est toute la prospection depuis septembre. Un
-        couvreur qui arrivait ici ne voyait aucun site qui ressemble au sien.
+        Premier essai : KL Menuiserie et le Rugby Club Pontivyen, deux maquettes
+        vraies et abouties. Mauvaise idée, et c'est Youenn qui l'a vu —
+        publier le site d'une entreprise qui n'a rien signé, sous son nom et son
+        adresse, c'est lui imposer une vitrine qu'elle n'a pas demandée. Elle
+        peut s'y opposer, et elle aurait raison.
 
-        KL Menuiserie montre le cas type — pages par commune, prestations,
-        vidéo — et le Rugby Club Pontivyen montre qu'on sort du gabarit quand le
-        client n'est pas un artisan.
+        Ces trois-là sont des entreprises INVENTÉES, bâties pour être montrées :
+        Couverture, Plomberie et Menuiserie Exemple. Leur numéro est une plage
+        ARCEP réservée à la fiction, jamais attribuée à personne. Elles montrent
+        exactement la même mise en page, sans engager qui que ce soit.
+
+        Elles règlent aussi le vrai manque : des six exemples d'origine —
+        pâtisserie, nutrition, nettoyage, lavage auto, comédien, ongles — aucun
+        n'était du bâtiment, alors que c'est toute la prospection. Un couvreur
+        qui arrivait ici ne voyait rien qui ressemble à son métier.
       */
       {
-        nom: 'KL Menuiserie',
-        metier: 'Menuisier charpentier',
-        lieu: 'Jugon-les-Lacs (22)',
-        url: 'https://kl-menuiserie.avalon-stratege.com',
-        image: '/realisations/kl-menuiserie.webp',
+        nom: 'Couverture Exemple',
+        metier: 'Couvreur zingueur · démonstration',
+        lieu: 'Loudéac (22)',
+        url: 'https://demo-couvreur.avalon-stratege.com',
+        image: '/realisations/demo-couvreur.webp',
       },
       {
-        nom: 'Rugby Club Pontivyen',
-        metier: 'Club de rugby, créneaux et résultats en direct',
-        lieu: 'Pontivy (56)',
-        url: 'https://rugby-pontivy.avalon-stratege.com',
-        image: '/realisations/rugby-pontivy.webp',
+        nom: 'Plomberie Exemple',
+        metier: 'Plombier chauffagiste · démonstration',
+        lieu: 'Loudéac (22)',
+        url: 'https://demo-plombier.avalon-stratege.com',
+        image: '/realisations/demo-plombier.webp',
+      },
+      {
+        nom: 'Menuiserie Exemple',
+        metier: 'Menuisier agenceur · démonstration',
+        lieu: 'Loudéac (22)',
+        url: 'https://demo-menuisier.avalon-stratege.com',
+        image: '/realisations/demo-menuisier.webp',
       },
       {
         nom: 'Bourdon Nettoyage',
