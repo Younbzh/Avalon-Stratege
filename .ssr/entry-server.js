@@ -195,7 +195,7 @@ const siteConfig = {
        démonstrations sont annoncées comme telles, dans leur libellé de métier
        et ici : un visiteur ne doit pas croire qu'une entreprise inventée est
        une référence. */
-    chapo: "Six sites de clients, en ligne aujourd’hui, et trois démonstrations de métier faites pour être montrées. Cliquez sur l’un d’eux pour l’ouvrir.",
+    chapo: "Sept sites et trois démonstrations de métier faites pour être montrées. Cliquez sur l’un d’eux pour l’ouvrir.",
     liste: [
       {
         nom: "Ô Gourmandiz d’Aurore",
@@ -250,6 +250,21 @@ const siteConfig = {
         lieu: "Loudéac (22)",
         url: "https://demo-menuisier.avalon-stratege.com",
         image: "/realisations/demo-menuisier.webp"
+      },
+      /*
+              Le seul site d'un vrai client qui ne soit pas une entreprise : il montre
+              qu'on sort du gabarit artisan quand le client est une association —
+              palette, mise en page et vocabulaire changent entièrement.
+      
+              Youenn connaît le bureau et a choisi de le montrer. Pensez à le leur
+              dire : ce site reste une maquette qu'ils n'ont pas encore commandée.
+            */
+      {
+        nom: "Breizh Boxing Club",
+        metier: "Club de boxe, créneaux et inscriptions",
+        lieu: "Loudéac (22)",
+        url: "https://site-breizh-boxing-club-loudeac.vercel.app",
+        image: "/realisations/bbcl.webp"
       },
       {
         nom: "Bourdon Nettoyage",
