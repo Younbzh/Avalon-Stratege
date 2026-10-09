@@ -270,14 +270,65 @@ function Hero() {
   );
 }
 
+/**
+ * L'en-tête d'une section : sur-titre, titre, et le chapeau à sa droite.
+ *
+ * POURQUOI DEUX COLONNES. Mesuré le 09/10/2026 à 1440 px : les titres de
+ * section laissaient entre 483 et 620 px de vide à leur droite, et les
+ * sur-titres jusqu'à 1008. Rien n'était cassé — un titre bridé à dix-huit
+ * caractères de large est une mesure de lecture voulue, une ligne de 1200 px
+ * étant illisible. Mais un titre avec un demi-écran de vide à côté se lit comme
+ * une page inachevée, et c'est Youenn qui l'a relevé. Dans le héros le défaut
+ * ne se voit pas : le téléphone occupe exactement cet espace.
+ *
+ * Le chapeau passe donc à droite du titre, aligné sur la même ligne de base,
+ * séparé par le filet de la page. La largeur est occupée, chaque colonne garde
+ * une mesure courte, et le vide devient une colonne.
+ *
+ * Le filet est gris et non doré : l'or est déjà pris par le tiret du
+ * sur-titre, et deux accents dorés dans le même en-tête se disputeraient
+ * l'attention.
+ *
+ * SANS CHAPEAU, PAS DE DEUXIÈME COLONNE. Le constat et les questions n'en ont
+ * pas. On y élargit la mesure du titre au lieu d'inventer une phrase pour
+ * remplir : un titre d'affichage supporte trente caractères par ligne, la
+ * limite de soixante-cinq ne vaut que pour le texte courant.
+ */
+function EnTete({
+  surtitre,
+  titre,
+  chapo,
+  mesure = 'max-w-[18ch]',
+}: {
+  surtitre: string;
+  titre: string;
+  chapo?: string;
+  mesure?: string;
+}) {
+  return (
+    <div className="rv">
+      <span className="surtitre">{surtitre}</span>
+      {chapo ? (
+        <div className="grid gap-x-14 gap-y-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-baseline">
+          <h2 className={mesure}>{titre}</h2>
+          <p className="chapo mt-0 lg:border-l lg:pl-14" style={{ borderColor: 'var(--filet)' }}>
+            {chapo}
+          </p>
+        </div>
+      ) : (
+        <h2 className={mesure}>{titre}</h2>
+      )}
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------------ constat */
 
 function Constat() {
   return (
     <section id="constat" className="section">
       <div className="conteneur">
-        <span className="surtitre rv">{s.constat.surtitre}</span>
-        <h2 className="rv max-w-[20ch]">{s.constat.titre}</h2>
+        <EnTete surtitre={s.constat.surtitre} titre={s.constat.titre} mesure="max-w-[26ch]" />
 
         <div className="mt-12 md:mt-16 grid gap-px" style={{ background: 'var(--filet)' }}>
           {s.constat.points.map((p, i) => (
@@ -318,9 +369,7 @@ function Offres() {
         }}
       />
       <div className="conteneur">
-        <span className="surtitre rv">{s.offres.surtitre}</span>
-        <h2 className="rv max-w-[18ch]">{s.offres.titre}</h2>
-        <p className="chapo rv">{s.offres.chapo}</p>
+        <EnTete surtitre={s.offres.surtitre} titre={s.offres.titre} chapo={s.offres.chapo} />
 
         <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
           {liste.map((o) => (
@@ -455,9 +504,7 @@ function Methode() {
   return (
     <section id="methode" className="section" style={{ background: 'var(--encre-2)' }}>
       <div className="conteneur">
-        <span className="surtitre rv">{s.methode.surtitre}</span>
-        <h2 className="rv max-w-[16ch]">{s.methode.titre}</h2>
-        <p className="chapo rv">{s.methode.chapo}</p>
+        <EnTete surtitre={s.methode.surtitre} titre={s.methode.titre} chapo={s.methode.chapo} mesure="max-w-[16ch]" />
 
         <ol className="mt-12 md:mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {s.methode.etapes.map((e, i) => (
@@ -482,67 +529,211 @@ function Methode() {
 
 /* ----------------------------------------------------------------- exemples */
 
+/**
+ * Une réalisation : sa page entière, qui descend quand on l'approche.
+ *
+ * POURQUOI LA PAGE ENTIÈRE ET NON LE HAUT. Une capture du premier écran prouve
+ * que le premier écran est beau. Elle ne dit rien de la profondeur — et c'est
+ * précisément ce dont un artisan doute quand il entend « un site » : il imagine
+ * une page vitrine. Les neuf pages mesurées font de 2,8 à 7,8 fois leur
+ * largeur. Les montrer, c'est montrer l'objet vendu, pages par commune
+ * incluses.
+ *
+ * AU REPOS L'IMAGE EST EXACTEMENT CE QU'ELLE ÉTAIT. La capture haute cadrée en
+ * 16/10 et calée en haut donne la même vignette qu'avant : il n'y a donc pas
+ * deux fichiers à charger, pas d'échange d'image, rien qui scintille.
+ *
+ * LA TRANSLATION EST CALCULÉE PAR IMAGE, jamais écrite en dur. Les hauteurs
+ * vont de 3 563 à 9 968 px : une constante conviendrait à une page et
+ * couperait les huit autres. Elle se déduit des dimensions réelles au
+ * chargement.
+ *
+ * ET LA DURÉE SUIT LA DISTANCE, bornée à sept secondes. À vitesse constante,
+ * la plus longue des neuf demanderait près de treize secondes — personne ne
+ * tient un survol aussi longtemps. Les pages hautes défilent donc plus vite :
+ * le propos est de montrer qu'il y a de la matière, pas de la faire lire.
+ *
+ * LE SURVOL N'EXISTE PAS SUR TÉLÉPHONE, et c'est là que les prospects ouvrent
+ * le lien du SMS. Le défilement s'y déclenche donc à l'entrée dans l'écran, à
+ * 60 % de visibilité — seuil assez haut pour qu'une seule carte joue à la
+ * fois, sans quoi la page entière s'agiterait.
+ */
+function CarteRealisation({
+  e,
+  i,
+  actif,
+  enregistrer,
+}: {
+  e: { nom: string; metier: string; lieu: string; url: string; image: string };
+  i: number;
+  actif: boolean;
+  enregistrer: (i: number, n: HTMLElement | null) => void;
+}) {
+  const image = useRef<HTMLImageElement>(null);
+  const [geo, setGeo] = useState<{ decalage: string; duree: string } | null>(null);
+
+  /* Les captures pleine hauteur portent le suffixe `-plein`, produites par
+     scripts/captures-pleine-hauteur.mjs. */
+  const plein = e.image.replace('.webp', '-plein.webp');
+  const pleinPetit = e.image.replace('.webp', '-plein-700.webp');
+
+  const mesurer = (img: HTMLImageElement) => {
+    const l = img.naturalWidth;
+    const h = img.naturalHeight;
+    if (!l || !h) return;
+    /* La fenêtre fait 10/16 de la largeur. Reste (h − fenêtre) à parcourir,
+       exprimé en pourcentage de la hauteur de l'image pour que `translateY`
+       reste juste quelle que soit la largeur d'affichage. */
+    const fenetre = l * (10 / 16);
+    const course = Math.max(0, h - fenetre);
+    setGeo({
+      decalage: `-${((course / h) * 100).toFixed(2)}%`,
+      duree: `${Math.min(7, Math.max(3.5, (course / fenetre) * 1.05)).toFixed(1)}s`,
+    });
+  };
+
+  /*
+    `onLoad` NE SUFFIT PAS, ET C'EST LE CAS LE PLUS FRÉQUENT.
+
+    Une image déjà en cache est complète avant que React n'attache ses
+    gestionnaires : l'événement est passé, `onLoad` ne vient jamais, et la
+    géométrie reste nulle. La carte ne défile alors pas du tout — c'est-à-dire
+    pour tout visiteur qui revient. Mesuré le 09/10/2026 : `img.complete`
+    valait déjà vrai et la durée appliquée était celle du repli.
+  */
+  useEffect(() => {
+    const img = image.current;
+    if (img?.complete) mesurer(img);
+  }, []);
+
+  return (
+    <a
+      href={e.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`rv group block ${actif ? 'carte-active' : ''}`}
+    >
+      {/*
+        Les équerres sont posées EN DEHORS de la fenêtre, donc hors du
+        conteneur qui rogne : c'est pourquoi le cadre et la fenêtre sont deux
+        éléments et non un seul.
+      */}
+      <div className="relative" ref={(n) => enregistrer(i, n)}>
+        <span
+          className="cartel absolute -top-3 left-7 z-10 px-2.5 text-2xl leading-none"
+          style={{ fontFamily: 'var(--serif)', background: 'var(--encre)', fontVariantNumeric: 'tabular-nums' }}
+          aria-hidden="true"
+        >
+          {String(i + 1).padStart(2, '0')}
+        </span>
+
+        <div
+          className="overflow-hidden rounded-[2px]"
+          style={{ border: '1px solid var(--filet)', aspectRatio: '16 / 10' }}
+        >
+          <img
+            ref={image}
+            src={plein}
+            srcSet={`${pleinPetit} 700w, ${plein} 1100w`}
+            sizes="(min-width: 640px) 46vw, 92vw"
+            alt={`Le site de ${e.nom}, ${e.metier}, sur toute sa hauteur`}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            onLoad={(ev) => mesurer(ev.currentTarget)}
+            className={`revele block w-full ${actif ? 'joue' : ''}`}
+            style={
+              {
+                height: 'auto',
+                '--decalage': geo?.decalage ?? '0px',
+                '--duree': geo?.duree ?? '5s',
+              } as React.CSSProperties
+            }
+          />
+        </div>
+
+        <span aria-hidden="true" className="repere pointer-events-none absolute -left-2.5 -top-2.5 h-6 w-6 border-l border-t group-hover:-translate-x-1 group-hover:-translate-y-1" />
+        <span aria-hidden="true" className="repere pointer-events-none absolute -right-2.5 -top-2.5 h-6 w-6 border-r border-t group-hover:-translate-y-1 group-hover:translate-x-1" />
+        <span aria-hidden="true" className="repere pointer-events-none absolute -bottom-2.5 -left-2.5 h-6 w-6 border-b border-l group-hover:-translate-x-1 group-hover:translate-y-1" />
+        <span aria-hidden="true" className="repere pointer-events-none absolute -bottom-2.5 -right-2.5 h-6 w-6 border-b border-r group-hover:translate-x-1 group-hover:translate-y-1" />
+      </div>
+
+      <div className="mt-5 flex items-baseline justify-between gap-4">
+        <div>
+          <h3 className="text-xl transition-colors duration-300 group-hover:text-[var(--or)]">{e.nom}</h3>
+          <p className="mt-1 text-[15px]" style={{ color: 'var(--ivoire-doux)' }}>
+            {e.metier} · {e.lieu}
+          </p>
+        </div>
+        <span
+          className="inline-flex shrink-0 items-center gap-2 text-[14px] transition-all duration-300 group-hover:gap-3"
+          style={{ color: 'var(--or)' }}
+        >
+          Voir le site
+          <ArrowUpRight className="h-4 w-4" />
+        </span>
+      </div>
+    </a>
+  );
+}
+
 function Exemples() {
+  const cadres = useRef<(HTMLElement | null)[]>([]);
+  const [actif, setActif] = useState(-1);
+
+  const enregistrer = (i: number, n: HTMLElement | null) => {
+    cadres.current[i] = n;
+  };
+
+  /*
+    UNE SEULE CARTE DÉFILE À LA FOIS, ET C'EST LE PARENT QUI TRANCHE.
+
+    Chaque carte observant sa propre visibilité, deux voisines dépassaient
+    ensemble le seuil sur un écran de téléphone et défilaient de concert —
+    mesuré, Ô Gourmandiz et Yann Berthelot en même temps. Une page où tout
+    bouge ne montre plus rien.
+
+    Le parent garde donc l'observateur et désigne la carte dont le centre est
+    le plus proche de celui de l'écran. Sur ordinateur le survol suffit : rien
+    de tout ceci ne tourne.
+  */
+  useEffect(() => {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    const vus = new Map<HTMLElement, number>();
+    const choisir = () => {
+      const milieu = window.innerHeight / 2;
+      let gagnante = -1;
+      let plusProche = Infinity;
+      cadres.current.forEach((n, i) => {
+        if (!n || !(vus.get(n) ?? 0)) return;
+        const r = n.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - milieu);
+        if (d < plusProche) { plusProche = d; gagnante = i; }
+      });
+      setActif(gagnante);
+    };
+
+    const obs = new IntersectionObserver(
+      (entrees) => {
+        entrees.forEach((x) => vus.set(x.target as HTMLElement, x.isIntersecting ? x.intersectionRatio : 0));
+        choisir();
+      },
+      { threshold: [0, 0.4, 0.75, 1] },
+    );
+    cadres.current.forEach((n) => n && obs.observe(n));
+    window.addEventListener('scroll', choisir, { passive: true });
+    return () => { obs.disconnect(); window.removeEventListener('scroll', choisir); };
+  }, []);
+
   return (
     <section id="exemples" className="section">
       <div className="conteneur">
-        <span className="surtitre rv">{s.exemples.surtitre}</span>
-        <h2 className="rv max-w-[18ch]">{s.exemples.titre}</h2>
-        <p className="chapo rv">{s.exemples.chapo}</p>
+        <EnTete surtitre={s.exemples.surtitre} titre={s.exemples.titre} chapo={s.exemples.chapo} />
 
-        {/*
-          Une capture vaut mieux qu'un nom : un visiteur qui n'ouvrira jamais
-          quatre onglets juge le travail d'un coup d'œil. Les dimensions sont
-          déclarées pour que la page ne saute pas pendant le chargement, et les
-          trois dernières images sont différées.
-        */}
         <div className="mt-12 md:mt-16 grid gap-8 sm:grid-cols-2 sm:gap-10">
           {s.exemples.liste.map((e, i) => (
-            <a
-              key={e.url}
-              href={e.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rv group block"
-            >
-              <div
-                className="overflow-hidden rounded-[3px]"
-                style={{ border: '1px solid var(--filet)' }}
-              >
-                <img
-                  src={e.image}
-                  /* Le mobile n'affiche la vignette qu'à 340 pixels : lui envoyer
-                     les 1280 de l'écran large gaspillait les trois quarts du
-                     poids. Chaque largeur reçoit désormais la sienne. */
-                  srcSet={`${e.image.replace('.webp', '-640.webp')} 640w, ${e.image} 1280w`}
-                  sizes="(min-width: 640px) 46vw, 92vw"
-                  alt={`Page d’accueil du site de ${e.nom}, ${e.metier}`}
-                  width={1280}
-                  height={800}
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  decoding="async"
-                  className="block aspect-[16/10] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                />
-              </div>
-
-              <div className="mt-5 flex items-baseline justify-between gap-4">
-                <div>
-                  <h3 className="text-xl transition-colors duration-300 group-hover:text-[var(--or)]">
-                    {e.nom}
-                  </h3>
-                  <p className="mt-1 text-[15px]" style={{ color: 'var(--ivoire-doux)' }}>
-                    {e.metier} · {e.lieu}
-                  </p>
-                </div>
-                <span
-                  className="inline-flex shrink-0 items-center gap-2 text-[14px] transition-all duration-300 group-hover:gap-3"
-                  style={{ color: 'var(--or)' }}
-                >
-                  Voir le site
-                  <ArrowUpRight className="h-4 w-4" />
-                </span>
-              </div>
-            </a>
+            <CarteRealisation key={e.url} e={e} i={i} actif={actif === i} enregistrer={enregistrer} />
           ))}
         </div>
       </div>
@@ -611,8 +802,7 @@ function Questions() {
   return (
     <section id="questions" className="section" style={{ background: 'var(--encre-2)' }}>
       <div className="conteneur">
-        <span className="surtitre rv">{s.faq.surtitre}</span>
-        <h2 className="rv max-w-[18ch]">{s.faq.titre}</h2>
+        <EnTete surtitre={s.faq.surtitre} titre={s.faq.titre} mesure="max-w-[24ch]" />
 
         <div className="mt-10 md:mt-14 grid gap-px" style={{ background: 'var(--filet)' }}>
           {s.faq.questions.map((q, i) => {

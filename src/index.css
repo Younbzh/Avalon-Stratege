@@ -153,6 +153,43 @@
   }
   .lien-souligne:hover::after { @apply origin-left scale-x-100; }
 
+  /*
+    LA RÉVÉLATION D'UNE RÉALISATION.
+
+    La translation et sa durée sont propres à chaque capture — les neuf pages
+    vont de 2,8 à 7,8 fois leur largeur — donc elles arrivent par variables
+    CSS, posées en ligne par le composant après mesure de l'image.
+
+    Le déclenchement, lui, est ici et non en JavaScript : piloté par un état
+    React, le survol ne faisait rien du tout sur ordinateur, puisque seul
+    l'observateur d'intersection — réservé au tactile — mettait cet état à
+    jour. Le survol est une affaire de CSS ; le JavaScript ne garde que ce
+    qu'il est seul à savoir faire, désigner la carte active sur un écran
+    tactile.
+  */
+  .revele {
+    transform: translateY(0);
+    transition-property: transform;
+    transition-timing-function: linear;
+    transition-duration: var(--duree, 5s);
+  }
+  .revele.joue { transform: translateY(var(--decalage, 0)); }
+
+  @media (hover: hover) and (pointer: fine) {
+    .group:hover .revele { transform: translateY(var(--decalage, 0)); }
+  }
+
+  /* Les équerres et le cartel s'allument avec la carte, pas séparément. */
+  .repere { border-color: var(--or-sombre); transition: border-color .5s ease, transform .5s cubic-bezier(.2,.7,.3,1); }
+  .cartel { color: var(--or-sombre); transition: color .5s ease; }
+  .group:hover .repere, .carte-active .repere { border-color: var(--or); }
+  .group:hover .cartel, .carte-active .cartel { color: var(--or); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .revele, .repere, .cartel { transition: none; }
+    .revele.joue, .group:hover .revele { transform: translateY(0); }
+  }
+
   /* Halo diffus, posé derrière une section pour créer de la profondeur. */
   .halo {
     @apply pointer-events-none absolute rounded-full;

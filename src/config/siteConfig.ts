@@ -228,7 +228,11 @@ export const siteConfig = {
        et ici : un visiteur ne doit pas croire qu'une entreprise inventée est
        une référence. */
     chapo:
-      'Sept sites et trois démonstrations de métier faites pour être montrées. Cliquez sur l’un d’eux pour l’ouvrir.',
+      /* Le compte se lit dans la liste, pas de mémoire : « sept sites » datait
+         d'avant le retrait de BRL Wash 56 le 05/10/2026, et annonçait donc dix
+         vignettes pour neuf affichées. « Cliquez sur l'un d'eux » rattache la
+         phrase à ce qui est montré : elle doit être juste. */
+      'Six sites en service et trois démonstrations de métier faites pour être montrées. Cliquez sur l’un d’eux pour l’ouvrir.',
     liste: [
       {
         nom: 'Ô Gourmandiz d’Aurore',

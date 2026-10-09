@@ -195,7 +195,13 @@ const siteConfig = {
        démonstrations sont annoncées comme telles, dans leur libellé de métier
        et ici : un visiteur ne doit pas croire qu'une entreprise inventée est
        une référence. */
-    chapo: "Sept sites et trois démonstrations de métier faites pour être montrées. Cliquez sur l’un d’eux pour l’ouvrir.",
+    chapo: (
+      /* Le compte se lit dans la liste, pas de mémoire : « sept sites » datait
+         d'avant le retrait de BRL Wash 56 le 05/10/2026, et annonçait donc dix
+         vignettes pour neuf affichées. « Cliquez sur l'un d'eux » rattache la
+         phrase à ce qui est montré : elle doit être juste. */
+      "Six sites en service et trois démonstrations de métier faites pour être montrées. Cliquez sur l’un d’eux pour l’ouvrir."
+    ),
     liste: [
       {
         nom: "Ô Gourmandiz d’Aurore",
@@ -546,10 +552,23 @@ function Hero() {
     ] })
   ] });
 }
+function EnTete({
+  surtitre,
+  titre,
+  chapo,
+  mesure = "max-w-[18ch]"
+}) {
+  return /* @__PURE__ */ jsxs("div", { className: "rv", children: [
+    /* @__PURE__ */ jsx("span", { className: "surtitre", children: surtitre }),
+    chapo ? /* @__PURE__ */ jsxs("div", { className: "grid gap-x-14 gap-y-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-baseline", children: [
+      /* @__PURE__ */ jsx("h2", { className: mesure, children: titre }),
+      /* @__PURE__ */ jsx("p", { className: "chapo mt-0 lg:border-l lg:pl-14", style: { borderColor: "var(--filet)" }, children: chapo })
+    ] }) : /* @__PURE__ */ jsx("h2", { className: mesure, children: titre })
+  ] });
+}
 function Constat() {
   return /* @__PURE__ */ jsx("section", { id: "constat", className: "section", children: /* @__PURE__ */ jsxs("div", { className: "conteneur", children: [
-    /* @__PURE__ */ jsx("span", { className: "surtitre rv", children: siteConfig.constat.surtitre }),
-    /* @__PURE__ */ jsx("h2", { className: "rv max-w-[20ch]", children: siteConfig.constat.titre }),
+    /* @__PURE__ */ jsx(EnTete, { surtitre: siteConfig.constat.surtitre, titre: siteConfig.constat.titre, mesure: "max-w-[26ch]" }),
     /* @__PURE__ */ jsx("div", { className: "mt-12 md:mt-16 grid gap-px", style: { background: "var(--filet)" }, children: siteConfig.constat.points.map((p, i) => /* @__PURE__ */ jsxs(
       "article",
       {
@@ -583,9 +602,7 @@ function Offres() {
       }
     ),
     /* @__PURE__ */ jsxs("div", { className: "conteneur", children: [
-      /* @__PURE__ */ jsx("span", { className: "surtitre rv", children: siteConfig.offres.surtitre }),
-      /* @__PURE__ */ jsx("h2", { className: "rv max-w-[18ch]", children: siteConfig.offres.titre }),
-      /* @__PURE__ */ jsx("p", { className: "chapo rv", children: siteConfig.offres.chapo }),
+      /* @__PURE__ */ jsx(EnTete, { surtitre: siteConfig.offres.surtitre, titre: siteConfig.offres.titre, chapo: siteConfig.offres.chapo }),
       /* @__PURE__ */ jsx("div", { className: "mt-12 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3", children: liste.map((o) => /* @__PURE__ */ jsxs("article", { className: `carte rv flex flex-col ${o.recommande ? "carte-or" : ""}`, children: [
         o.recommande && /* @__PURE__ */ jsx(
           "span",
@@ -656,9 +673,7 @@ function Offres() {
 }
 function Methode() {
   return /* @__PURE__ */ jsx("section", { id: "methode", className: "section", style: { background: "var(--encre-2)" }, children: /* @__PURE__ */ jsxs("div", { className: "conteneur", children: [
-    /* @__PURE__ */ jsx("span", { className: "surtitre rv", children: siteConfig.methode.surtitre }),
-    /* @__PURE__ */ jsx("h2", { className: "rv max-w-[16ch]", children: siteConfig.methode.titre }),
-    /* @__PURE__ */ jsx("p", { className: "chapo rv", children: siteConfig.methode.chapo }),
+    /* @__PURE__ */ jsx(EnTete, { surtitre: siteConfig.methode.surtitre, titre: siteConfig.methode.titre, chapo: siteConfig.methode.chapo, mesure: "max-w-[16ch]" }),
     /* @__PURE__ */ jsx("ol", { className: "mt-12 md:mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4", children: siteConfig.methode.etapes.map((e, i) => /* @__PURE__ */ jsxs("li", { className: "carte rv", children: [
       /* @__PURE__ */ jsx(
         "span",
@@ -673,65 +688,147 @@ function Methode() {
     ] }, e.titre)) })
   ] }) });
 }
-function Exemples() {
-  return /* @__PURE__ */ jsx("section", { id: "exemples", className: "section", children: /* @__PURE__ */ jsxs("div", { className: "conteneur", children: [
-    /* @__PURE__ */ jsx("span", { className: "surtitre rv", children: siteConfig.exemples.surtitre }),
-    /* @__PURE__ */ jsx("h2", { className: "rv max-w-[18ch]", children: siteConfig.exemples.titre }),
-    /* @__PURE__ */ jsx("p", { className: "chapo rv", children: siteConfig.exemples.chapo }),
-    /* @__PURE__ */ jsx("div", { className: "mt-12 md:mt-16 grid gap-8 sm:grid-cols-2 sm:gap-10", children: siteConfig.exemples.liste.map((e, i) => /* @__PURE__ */ jsxs(
-      "a",
-      {
-        href: e.url,
-        target: "_blank",
-        rel: "noopener noreferrer",
-        className: "rv group block",
-        children: [
+function CarteRealisation({
+  e,
+  i,
+  actif,
+  enregistrer
+}) {
+  const image = useRef(null);
+  const [geo, setGeo] = useState(null);
+  const plein = e.image.replace(".webp", "-plein.webp");
+  const pleinPetit = e.image.replace(".webp", "-plein-700.webp");
+  const mesurer = (img) => {
+    const l = img.naturalWidth;
+    const h = img.naturalHeight;
+    if (!l || !h) return;
+    const fenetre = l * (10 / 16);
+    const course = Math.max(0, h - fenetre);
+    setGeo({
+      decalage: `-${(course / h * 100).toFixed(2)}%`,
+      duree: `${Math.min(7, Math.max(3.5, course / fenetre * 1.05)).toFixed(1)}s`
+    });
+  };
+  useEffect(() => {
+    const img = image.current;
+    if (img?.complete) mesurer(img);
+  }, []);
+  return /* @__PURE__ */ jsxs(
+    "a",
+    {
+      href: e.url,
+      target: "_blank",
+      rel: "noopener noreferrer",
+      className: `rv group block ${actif ? "carte-active" : ""}`,
+      children: [
+        /* @__PURE__ */ jsxs("div", { className: "relative", ref: (n) => enregistrer(i, n), children: [
+          /* @__PURE__ */ jsx(
+            "span",
+            {
+              className: "cartel absolute -top-3 left-7 z-10 px-2.5 text-2xl leading-none",
+              style: { fontFamily: "var(--serif)", background: "var(--encre)", fontVariantNumeric: "tabular-nums" },
+              "aria-hidden": "true",
+              children: String(i + 1).padStart(2, "0")
+            }
+          ),
           /* @__PURE__ */ jsx(
             "div",
             {
-              className: "overflow-hidden rounded-[3px]",
-              style: { border: "1px solid var(--filet)" },
+              className: "overflow-hidden rounded-[2px]",
+              style: { border: "1px solid var(--filet)", aspectRatio: "16 / 10" },
               children: /* @__PURE__ */ jsx(
                 "img",
                 {
-                  src: e.image,
-                  srcSet: `${e.image.replace(".webp", "-640.webp")} 640w, ${e.image} 1280w`,
+                  ref: image,
+                  src: plein,
+                  srcSet: `${pleinPetit} 700w, ${plein} 1100w`,
                   sizes: "(min-width: 640px) 46vw, 92vw",
-                  alt: `Page d’accueil du site de ${e.nom}, ${e.metier}`,
-                  width: 1280,
-                  height: 800,
+                  alt: `Le site de ${e.nom}, ${e.metier}, sur toute sa hauteur`,
                   loading: i === 0 ? "eager" : "lazy",
                   decoding: "async",
-                  className: "block aspect-[16/10] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  onLoad: (ev) => mesurer(ev.currentTarget),
+                  className: `revele block w-full ${actif ? "joue" : ""}`,
+                  style: {
+                    height: "auto",
+                    "--decalage": geo?.decalage ?? "0px",
+                    "--duree": geo?.duree ?? "5s"
+                  }
                 }
               )
             }
           ),
-          /* @__PURE__ */ jsxs("div", { className: "mt-5 flex items-baseline justify-between gap-4", children: [
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("h3", { className: "text-xl transition-colors duration-300 group-hover:text-[var(--or)]", children: e.nom }),
-              /* @__PURE__ */ jsxs("p", { className: "mt-1 text-[15px]", style: { color: "var(--ivoire-doux)" }, children: [
-                e.metier,
-                " · ",
-                e.lieu
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxs(
-              "span",
-              {
-                className: "inline-flex shrink-0 items-center gap-2 text-[14px] transition-all duration-300 group-hover:gap-3",
-                style: { color: "var(--or)" },
-                children: [
-                  "Voir le site",
-                  /* @__PURE__ */ jsx(ArrowUpRight, { className: "h-4 w-4" })
-                ]
-              }
-            )
-          ] })
-        ]
+          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "repere pointer-events-none absolute -left-2.5 -top-2.5 h-6 w-6 border-l border-t group-hover:-translate-x-1 group-hover:-translate-y-1" }),
+          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "repere pointer-events-none absolute -right-2.5 -top-2.5 h-6 w-6 border-r border-t group-hover:-translate-y-1 group-hover:translate-x-1" }),
+          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "repere pointer-events-none absolute -bottom-2.5 -left-2.5 h-6 w-6 border-b border-l group-hover:-translate-x-1 group-hover:translate-y-1" }),
+          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "repere pointer-events-none absolute -bottom-2.5 -right-2.5 h-6 w-6 border-b border-r group-hover:translate-x-1 group-hover:translate-y-1" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "mt-5 flex items-baseline justify-between gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("h3", { className: "text-xl transition-colors duration-300 group-hover:text-[var(--or)]", children: e.nom }),
+            /* @__PURE__ */ jsxs("p", { className: "mt-1 text-[15px]", style: { color: "var(--ivoire-doux)" }, children: [
+              e.metier,
+              " · ",
+              e.lieu
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs(
+            "span",
+            {
+              className: "inline-flex shrink-0 items-center gap-2 text-[14px] transition-all duration-300 group-hover:gap-3",
+              style: { color: "var(--or)" },
+              children: [
+                "Voir le site",
+                /* @__PURE__ */ jsx(ArrowUpRight, { className: "h-4 w-4" })
+              ]
+            }
+          )
+        ] })
+      ]
+    }
+  );
+}
+function Exemples() {
+  const cadres = useRef([]);
+  const [actif, setActif] = useState(-1);
+  const enregistrer = (i, n) => {
+    cadres.current[i] = n;
+  };
+  useEffect(() => {
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (!("IntersectionObserver" in window)) return;
+    const vus = /* @__PURE__ */ new Map();
+    const choisir = () => {
+      const milieu = window.innerHeight / 2;
+      let gagnante = -1;
+      let plusProche = Infinity;
+      cadres.current.forEach((n, i) => {
+        if (!n || !(vus.get(n) ?? 0)) return;
+        const r = n.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - milieu);
+        if (d < plusProche) {
+          plusProche = d;
+          gagnante = i;
+        }
+      });
+      setActif(gagnante);
+    };
+    const obs = new IntersectionObserver(
+      (entrees) => {
+        entrees.forEach((x) => vus.set(x.target, x.isIntersecting ? x.intersectionRatio : 0));
+        choisir();
       },
-      e.url
-    )) })
+      { threshold: [0, 0.4, 0.75, 1] }
+    );
+    cadres.current.forEach((n) => n && obs.observe(n));
+    window.addEventListener("scroll", choisir, { passive: true });
+    return () => {
+      obs.disconnect();
+      window.removeEventListener("scroll", choisir);
+    };
+  }, []);
+  return /* @__PURE__ */ jsx("section", { id: "exemples", className: "section", children: /* @__PURE__ */ jsxs("div", { className: "conteneur", children: [
+    /* @__PURE__ */ jsx(EnTete, { surtitre: siteConfig.exemples.surtitre, titre: siteConfig.exemples.titre, chapo: siteConfig.exemples.chapo }),
+    /* @__PURE__ */ jsx("div", { className: "mt-12 md:mt-16 grid gap-8 sm:grid-cols-2 sm:gap-10", children: siteConfig.exemples.liste.map((e, i) => /* @__PURE__ */ jsx(CarteRealisation, { e, i, actif: actif === i, enregistrer }, e.url)) })
   ] }) });
 }
 function APropos() {
@@ -768,8 +865,7 @@ function APropos() {
 function Questions() {
   const [ouvert, setOuvert] = useState(0);
   return /* @__PURE__ */ jsx("section", { id: "questions", className: "section", style: { background: "var(--encre-2)" }, children: /* @__PURE__ */ jsxs("div", { className: "conteneur", children: [
-    /* @__PURE__ */ jsx("span", { className: "surtitre rv", children: siteConfig.faq.surtitre }),
-    /* @__PURE__ */ jsx("h2", { className: "rv max-w-[18ch]", children: siteConfig.faq.titre }),
+    /* @__PURE__ */ jsx(EnTete, { surtitre: siteConfig.faq.surtitre, titre: siteConfig.faq.titre, mesure: "max-w-[24ch]" }),
     /* @__PURE__ */ jsx("div", { className: "mt-10 md:mt-14 grid gap-px", style: { background: "var(--filet)" }, children: siteConfig.faq.questions.map((q, i) => {
       const actif = ouvert === i;
       return /* @__PURE__ */ jsxs("div", { style: { background: "var(--encre-2)" }, children: [
