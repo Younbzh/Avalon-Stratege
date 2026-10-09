@@ -12,7 +12,7 @@ Création : **https://business.google.com/create**
 | **Nom de l'établissement** | `Avalon Stratège` |
 | **Catégorie principale** | `Concepteur de sites Web` |
 | **Catégories secondaires** | `Agence de marketing Internet` · `Service de référencement` |
-| **Téléphone** | `06 58 96 89 59` |
+| **Téléphone** | `06 21 61 36 69` |
 | **Site web** | `https://www.avalon-stratege.com` |
 
 ⚠️ **N'ajoute jamais de mots-clés dans le nom.** « Avalon Stratège création site web Bretagne » est un motif

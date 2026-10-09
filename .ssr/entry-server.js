@@ -6,7 +6,7 @@ const siteConfig = {
   marque: "Avalon Stratège",
   signature: "Sites internet pour artisans et indépendants, partout en France",
   coordonnees: {
-    telephone: "06 58 96 89 59",
+    telephone: "06 21 61 36 69",
     email: "avalonstratege@gmail.com",
     zone: "Partout en France · tout se fait à distance"
   },

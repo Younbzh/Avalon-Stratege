@@ -105,7 +105,7 @@ Le site est construit et montré avant tout paiement. Le client voit le résulta
 avant de décider.
 
 ## Contact
-Téléphone : 06 58 96 89 59
+Téléphone : 06 21 61 36 69
 Courriel : avalonstratege@gmail.com
 Site : ${SITE}
 `,
