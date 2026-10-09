@@ -1,6 +1,6 @@
 import { jsxs, Fragment, jsx } from "react/jsx-runtime";
 import { renderToString } from "react-dom/server";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { X, Menu, ArrowUpRight, Check, Plus, Phone, Mail, MapPin } from "lucide-react";
 const siteConfig = {
   marque: "Avalon Stratège",
@@ -455,6 +455,54 @@ function Navigation() {
     }
   );
 }
+function TelephoneQuiDefile() {
+  const cadre = useRef(null);
+  const [charger, setCharger] = useState(false);
+  useEffect(() => {
+    const n = cadre.current;
+    if (!n) return;
+    if (!("IntersectionObserver" in window)) {
+      setCharger(true);
+      return;
+    }
+    const obs = new IntersectionObserver(
+      (entrees) => entrees.forEach((e) => {
+        if (e.isIntersecting) {
+          setCharger(true);
+          obs.disconnect();
+        }
+      }),
+      { rootMargin: "200px" }
+    );
+    obs.observe(n);
+    return () => obs.disconnect();
+  }, []);
+  return /* @__PURE__ */ jsx("div", { className: "rv", ref: cadre, children: /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: "relative mx-auto w-[240px] overflow-hidden sm:w-[270px] lg:w-[300px]",
+      style: {
+        borderRadius: "2.2rem",
+        border: "10px solid #15161a",
+        boxShadow: "0 30px 80px rgba(0,0,0,.55)"
+      },
+      children: /* @__PURE__ */ jsx(
+        "video",
+        {
+          src: charger ? siteConfig.hero.video : void 0,
+          poster: siteConfig.hero.videoAffiche,
+          autoPlay: true,
+          muted: true,
+          loop: true,
+          playsInline: true,
+          preload: "none",
+          "aria-label": "Quatre sites réalisés par Avalon Stratège, vus sur un téléphone",
+          style: { display: "block", width: "100%", height: "auto", aspectRatio: "390 / 844" }
+        }
+      )
+    }
+  ) });
+}
 function Hero() {
   return /* @__PURE__ */ jsxs("section", { className: "relative overflow-hidden pb-24 pt-40 md:pb-32 md:pt-52", children: [
     /* @__PURE__ */ jsx(
@@ -472,17 +520,17 @@ function Hero() {
       }
     ),
     /* @__PURE__ */ jsxs("div", { className: "conteneur grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_320px]", children: [
-      /* @__PURE__ */ jsxs("div", { children: [
+      /* @__PURE__ */ jsxs("div", { className: "text-center lg:text-left", children: [
         /* @__PURE__ */ jsx("span", { className: "surtitre rv", children: siteConfig.hero.accroche }),
-        /* @__PURE__ */ jsxs("h1", { className: "rv max-w-[16ch]", children: [
+        /* @__PURE__ */ jsxs("h1", { className: "rv mx-auto max-w-[16ch] lg:mx-0", children: [
           siteConfig.hero.titre,
           " ",
           /* @__PURE__ */ jsx("em", { className: "not-italic", style: { color: "var(--or)" }, children: siteConfig.hero.titreAccent }),
           ".",
           /* @__PURE__ */ jsx("span", { className: "block", style: { color: "var(--ivoire-doux)" }, children: siteConfig.hero.titreFin })
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "chapo rv mt-9 text-xl", children: siteConfig.hero.chapo }),
-        /* @__PURE__ */ jsxs("div", { className: "rv mt-12 flex flex-wrap gap-4", children: [
+        /* @__PURE__ */ jsx("p", { className: "chapo rv mx-auto mt-9 text-xl lg:mx-0", children: siteConfig.hero.chapo }),
+        /* @__PURE__ */ jsxs("div", { className: "rv mt-12 flex flex-wrap justify-center gap-4 lg:justify-start", children: [
           /* @__PURE__ */ jsxs("a", { href: "#exemples", className: "bouton bouton-or", children: [
             siteConfig.hero.ctaPrincipal,
             /* @__PURE__ */ jsx(ArrowUpRight, { className: "h-4 w-4" })
@@ -494,32 +542,7 @@ function Hero() {
           /* @__PURE__ */ jsx("dd", { className: "mt-2 text-[14px]", style: { color: "var(--ivoire-doux)" }, children: p.label })
         ] }, p.label)) })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "rv hidden lg:block", children: /* @__PURE__ */ jsx(
-        "div",
-        {
-          className: "relative mx-auto overflow-hidden",
-          style: {
-            width: "300px",
-            borderRadius: "2.2rem",
-            border: "10px solid #15161a",
-            boxShadow: "0 30px 80px rgba(0,0,0,.55)"
-          },
-          children: /* @__PURE__ */ jsx(
-            "video",
-            {
-              src: siteConfig.hero.video,
-              poster: siteConfig.hero.videoAffiche,
-              autoPlay: true,
-              muted: true,
-              loop: true,
-              playsInline: true,
-              preload: "metadata",
-              "aria-label": "Quatre sites réalisés par Avalon Stratège, vus sur un téléphone",
-              style: { display: "block", width: "100%", height: "auto" }
-            }
-          )
-        }
-      ) })
+      /* @__PURE__ */ jsx(TelephoneQuiDefile, {})
     ] })
   ] });
 }

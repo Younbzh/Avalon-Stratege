@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Check, Mail, MapPin, Menu, Phone, Plus, X } from 'lucide-react';
 import { siteConfig as s } from './config/siteConfig';
 
@@ -133,6 +133,68 @@ function Navigation() {
   );
 }
 
+/**
+ * Le téléphone qui défile, dans son cadre.
+ *
+ * ELLE ÉTAIT MASQUÉE SOUS 1024 PX, et le raisonnement d'alors n'était pas
+ * faux : placée à côté du titre, elle poussait les boutons sous la ligne de
+ * flottaison pour montrer… un téléphone. Mais la conclusion était trop large.
+ * Ce n'est pas la vidéo qui gênait, c'est sa position. Sous les chiffres, elle
+ * ne coûte rien à ce qui est vu en premier, et c'est l'argument le plus fort
+ * de la page : le visiteur juge en quatre secondes ce qu'aucun paragraphe ne
+ * lui prouverait.
+ *
+ * LE FICHIER PÈSE 3,4 Mo, et la page vend la rapidité sur téléphone. Le livrer
+ * au chargement sur une 4G de chantier serait se contredire soi-même. D'où
+ * `preload="none"` et une source posée seulement quand le cadre approche de
+ * l'écran : au départ il n'y a que l'affiche, 46 Ko. Celui qui ne descend
+ * jamais jusque-là ne télécharge jamais la vidéo.
+ *
+ * La marge de 200 px laisse le temps aux premières images d'arriver avant que
+ * le cadre soit vraiment visible.
+ */
+function TelephoneQuiDefile() {
+  const cadre = useRef<HTMLDivElement>(null);
+  const [charger, setCharger] = useState(false);
+
+  useEffect(() => {
+    const n = cadre.current;
+    if (!n) return;
+    if (!('IntersectionObserver' in window)) { setCharger(true); return; }
+    const obs = new IntersectionObserver(
+      (entrees) => entrees.forEach((e) => { if (e.isIntersecting) { setCharger(true); obs.disconnect(); } }),
+      { rootMargin: '200px' },
+    );
+    obs.observe(n);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div className="rv" ref={cadre}>
+      <div
+        className="relative mx-auto w-[240px] overflow-hidden sm:w-[270px] lg:w-[300px]"
+        style={{
+          borderRadius: '2.2rem',
+          border: '10px solid #15161a',
+          boxShadow: '0 30px 80px rgba(0,0,0,.55)',
+        }}
+      >
+        <video
+          src={charger ? s.hero.video : undefined}
+          poster={s.hero.videoAffiche}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-label="Quatre sites réalisés par Avalon Stratège, vus sur un téléphone"
+          style={{ display: 'block', width: '100%', height: 'auto', aspectRatio: '390 / 844' }}
+        />
+      </div>
+    </div>
+  );
+}
+
 /* -------------------------------------------------------------------- héros */
 
 function Hero() {
@@ -147,11 +209,25 @@ function Hero() {
         style={{ bottom: '-16rem', left: '-12rem', width: '34rem', height: '34rem', background: 'rgba(120,140,217,0.10)' }}
       />
 
+      {/*
+        CENTRÉ SUR TÉLÉPHONE, ALIGNÉ À GAUCHE À PARTIR DE 1024 PX.
+
+        Sur deux colonnes, le texte à gauche et le téléphone à droite tiennent
+        ensemble : l'alignement à gauche donne l'arête verticale qui structure
+        le bloc. Une fois les colonnes empilées, cette arête ne sépare plus
+        rien et le texte paraît poussé dans l'angle — ce qui se voit d'autant
+        plus que le titre est court et le drapeau très irrégulier.
+
+        `max-w-[16ch]` et le `max-width: 62ch` du chapeau n'ont aucun effet
+        sous 390 px, mais ils reprennent la main dès que l'écran s'élargit :
+        d'où `mx-auto lg:mx-0`, qui recentre les boîtes sans toucher au
+        desktop.
+      */}
       <div className="conteneur grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_320px]">
-      <div>
+      <div className="text-center lg:text-left">
         <span className="surtitre rv">{s.hero.accroche}</span>
 
-        <h1 className="rv max-w-[16ch]">
+        <h1 className="rv mx-auto max-w-[16ch] lg:mx-0">
           {s.hero.titre}{' '}
           <em className="not-italic" style={{ color: 'var(--or)' }}>
             {s.hero.titreAccent}
@@ -162,9 +238,9 @@ function Hero() {
           </span>
         </h1>
 
-        <p className="chapo rv mt-9 text-xl">{s.hero.chapo}</p>
+        <p className="chapo rv mx-auto mt-9 text-xl lg:mx-0">{s.hero.chapo}</p>
 
-        <div className="rv mt-12 flex flex-wrap gap-4">
+        <div className="rv mt-12 flex flex-wrap justify-center gap-4 lg:justify-start">
           <a href="#exemples" className="bouton bouton-or">
             {s.hero.ctaPrincipal}
             <ArrowUpRight className="h-4 w-4" />
@@ -188,40 +264,7 @@ function Hero() {
         </dl>
       </div>
 
-      {/*
-        Quatre de mes sites qui défilent, dans un cadre de téléphone.
-
-        Montrer vaut mieux qu'affirmer : le visiteur juge en quatre secondes ce
-        qu'aucun paragraphe ne lui prouverait. Le cadre est un téléphone parce
-        que c'est là que ses clients à lui regarderont, et c'est là que les
-        sites de ses concurrents échouent.
-
-        Masquée sous 1024 px : sur un téléphone, elle pousserait le titre et les
-        boutons sous la ligne de flottaison pour montrer… un téléphone.
-      */}
-      <div className="rv hidden lg:block">
-        <div
-          className="relative mx-auto overflow-hidden"
-          style={{
-            width: '300px',
-            borderRadius: '2.2rem',
-            border: '10px solid #15161a',
-            boxShadow: '0 30px 80px rgba(0,0,0,.55)',
-          }}
-        >
-          <video
-            src={s.hero.video}
-            poster={s.hero.videoAffiche}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label="Quatre sites réalisés par Avalon Stratège, vus sur un téléphone"
-            style={{ display: 'block', width: '100%', height: 'auto' }}
-          />
-        </div>
-      </div>
+      <TelephoneQuiDefile />
       </div>
     </section>
   );
