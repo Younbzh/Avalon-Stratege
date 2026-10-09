@@ -756,11 +756,7 @@ function CarteRealisation({
                 }
               )
             }
-          ),
-          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "repere pointer-events-none absolute -left-2.5 -top-2.5 h-6 w-6 border-l border-t group-hover:-translate-x-1 group-hover:-translate-y-1" }),
-          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "repere pointer-events-none absolute -right-2.5 -top-2.5 h-6 w-6 border-r border-t group-hover:-translate-y-1 group-hover:translate-x-1" }),
-          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "repere pointer-events-none absolute -bottom-2.5 -left-2.5 h-6 w-6 border-b border-l group-hover:-translate-x-1 group-hover:translate-y-1" }),
-          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "repere pointer-events-none absolute -bottom-2.5 -right-2.5 h-6 w-6 border-b border-r group-hover:translate-x-1 group-hover:translate-y-1" })
+          )
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "mt-5 flex items-baseline justify-between gap-4", children: [
           /* @__PURE__ */ jsxs("div", { children: [

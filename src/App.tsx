@@ -614,9 +614,11 @@ function CarteRealisation({
       className={`rv group block ${actif ? 'carte-active' : ''}`}
     >
       {/*
-        Les équerres sont posées EN DEHORS de la fenêtre, donc hors du
-        conteneur qui rogne : c'est pourquoi le cadre et la fenêtre sont deux
-        éléments et non un seul.
+        Les équerres de cadrage ont été retirées : quatre repères sur chacune
+        des neuf cartes chargeaient le visuel sans rien ajouter à la
+        démonstration. Il reste le cartel, qui dit la série, et c'est assez.
+        Le cadre et la fenêtre restent deux éléments, le cartel débordant sur
+        l'angle alors que la fenêtre rogne son contenu.
       */}
       <div className="relative" ref={(n) => enregistrer(i, n)}>
         <span
@@ -651,10 +653,6 @@ function CarteRealisation({
           />
         </div>
 
-        <span aria-hidden="true" className="repere pointer-events-none absolute -left-2.5 -top-2.5 h-6 w-6 border-l border-t group-hover:-translate-x-1 group-hover:-translate-y-1" />
-        <span aria-hidden="true" className="repere pointer-events-none absolute -right-2.5 -top-2.5 h-6 w-6 border-r border-t group-hover:-translate-y-1 group-hover:translate-x-1" />
-        <span aria-hidden="true" className="repere pointer-events-none absolute -bottom-2.5 -left-2.5 h-6 w-6 border-b border-l group-hover:-translate-x-1 group-hover:translate-y-1" />
-        <span aria-hidden="true" className="repere pointer-events-none absolute -bottom-2.5 -right-2.5 h-6 w-6 border-b border-r group-hover:translate-x-1 group-hover:translate-y-1" />
       </div>
 
       <div className="mt-5 flex items-baseline justify-between gap-4">
